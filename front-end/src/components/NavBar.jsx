@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 export default function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     return (
-        <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 z-50">
+        <div className="px-4 dark:bg-[#111828] py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 z-50">
             <div className="relative grid items-center grid-cols-2 lg:grid-cols-3 z-50">
-                <ul className=" items-center hidden space-x-8 lg:flex">
+                <ul className="  items-center hidden space-x-8 lg:flex">
                     <li>
                         <Link
                             to={"/"}
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             Home
                         </Link>
@@ -23,7 +23,7 @@ export default function NavBar() {
                             to={"/single-event"}
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             Single Event Page
                         </Link>
@@ -33,7 +33,7 @@ export default function NavBar() {
                             to={"/checkout"}
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             checkout
                         </Link>
@@ -44,7 +44,7 @@ export default function NavBar() {
                             to={"/register"}
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             register
                         </Link>
@@ -55,7 +55,7 @@ export default function NavBar() {
                             to={"/profile"}
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             profile
                         </Link>
@@ -88,7 +88,7 @@ export default function NavBar() {
                         <rect x="14" y="1" width="7" height="6" />
                         <rect x="14" y="11" width="7" height="12" />
                     </svg>
-                    <span class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                    <span class="ml-2 text-xl font-bold  tracking-wide dark:text-white text-gray-800 uppercase">
                         Ticket-in
                     </span>
                 </a>

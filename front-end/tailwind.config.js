@@ -6,7 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: { navy: "#150050", grape: "#3F0071", candy: "#FB2576" },
+      colors: {
+        navy: "#150050",
+        grape: "#3F0071",
+        candy: "#FB2576",
+        duaa: "#111828",
+      },
       spacing: { "5%": "5%", "10px": "10px", "70px": "70px" },
       backgroundImage: { pp: "url('../public/ppg.jpg')" },
       // boxShadow: {
@@ -14,5 +19,5 @@ module.exports = {
       // },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [require("flowbite/plugin"), require("@tailwindcss/line-clamp")],
 };
