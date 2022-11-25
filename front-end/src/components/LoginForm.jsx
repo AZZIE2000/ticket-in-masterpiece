@@ -5,12 +5,12 @@ export default function LoginForm({ children }) {
     return (
         <>
             <div className='dark:bg-duaa/80  bg-white'>
-                <div className="grid grid-cols-6 gap-4">
+                <div className="grid grid-cols-6 gap-4 ">
 
                     <div className="col-span-6">
                         <label className="mb-1 flex gap-x-1 text-sm text-black dark:text-white" >
-                            Email
-                            <small className='text-red-600 '>{errors?.email}{errors?.user}</small>
+                            Email<small className='text-red-600 '>{errors?.email}{errors?.user}</small>
+
                         </label>
                         <input
                             className="w-full rounded-lg border-gray-200 text-black  p-2.5 text-sm shadow-sm"

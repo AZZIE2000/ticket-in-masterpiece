@@ -16,18 +16,20 @@ class AuthController extends Controller
         // $request->validated($request->all());
         $validator = Validator::make($request->all(), [
 
-            'email' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255', 'email'],
             'password' => ['required', 'min:8']
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 401, 'errors' => $validator->messages()]);
         }
-        if (!Auth::attempt($request->only(['email', 'password']))) {
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            // if (!Auth::attempt($request->only(['email', 'password']))) {
             // return $this->error('', 'user do not exist!', 401);
             return response()->json(['status' => 402, 'errors' => 'user do not exist!']);
         }
-        $user = User::where('email', $request->email)->first();
-        return $this->success([
+        return response()->json([
+            'status' => 200,
             'user' => $user,
             'token' => $user->createToken('API Token Of ' . $user->name)->plainTextToken
         ]);
@@ -59,7 +61,9 @@ class AuthController extends Controller
     }
     public function logout()
     {
+        // Auth::guard('web')->logout();
         Auth::user()->currentAccessToken()->delete();
+        // Auth::user()->tokens()->where('id', Auth::user()->currentAccessToken()->id)->delete();
         return response()->json([
             'status' => 200,
             'message' => "see ya bish"
@@ -67,9 +71,10 @@ class AuthController extends Controller
     }
     public function user()
     {
-        return $this->success([
+        return response()->json([
+            'status' => 200,
             'user' => Auth::user(),
-            'message' => "hi" . Auth::user()->name,
+
         ]);
     }
     public function googleLogin(Request $request)

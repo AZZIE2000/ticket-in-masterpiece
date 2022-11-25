@@ -4,8 +4,6 @@ import FooterMain from "./components/FooterMain";
 import { Route, Routes } from "react-router-dom";
 import SingleEvent1 from "./pages/SingleEvent1";
 import Checkout from "./pages/Checkout";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import { useState } from "react";
 import axios from "axios";
 import Profile from "./pages/Profile";
@@ -41,8 +39,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/single-event" element={<SingleEvent1 />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route path="/register" element={<Register />} />
-              {/* <Route path="/login" element={<Login />} /> */}
+
               <Route path="/profile" element={<Profile />} />
             </Routes>
             <FooterMain />

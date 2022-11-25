@@ -10,7 +10,8 @@ export const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
     const [cookies, setCookie, removeCookie] = useCookies(['Token']);
-
+    const navigate = useNavigate()
+    const [show, setShow] = useState(false);
     // the user
     const [user, setUser] = useState({})
     // the user token
@@ -54,8 +55,10 @@ export function AuthProvider({ children }) {
             axios.post("/api/googleLogin", data).then((res) => {
                 if (res.status === 200) {
                     const token = res.data.token;
+                    setToken(token)
                     setCookie("Token", token, { path: "/" });
                     setUser(res.data.user);
+                    setShow(false)
                 } else {
                     console.log(res);
                 }
@@ -73,9 +76,11 @@ export function AuthProvider({ children }) {
             axios.post("/api/facebookLogin", data).then((res) => {
                 if (res.status === 200) {
                     const token = res.data.token;
+                    setToken(token)
                     setCookie("Token", token, { path: "/" });
                     setUser(res.data.user);
                     console.log(user);
+                    setShow(false)
                 } else {
                     console.log(res);
                 }
@@ -95,6 +100,7 @@ export function AuthProvider({ children }) {
             axios.get("/sanctum/csrf-cookie").then((response) => {
                 axios.post("/api/login", data).then((res) => {
                     if (res.data.status === 401) {
+                        console.log(res.data.errors);
                         setErrors(res.data.errors)
                     }
                     else if (res.data.status === 402) {
@@ -105,6 +111,7 @@ export function AuthProvider({ children }) {
                         setToken(token)
                         setCookie("Token", token, { path: "/" })
                         setUser(res.data.user)
+                        setShow(false)
                     } else {
                         console.log(res)
                     }
@@ -134,6 +141,7 @@ export function AuthProvider({ children }) {
                         setCookie("Token", token, { path: "/" })
                         setToken(token)
                         setUser(res.data.user)
+                        setShow(false)
                     } else {
                         console.log(res)
                     }
@@ -143,24 +151,60 @@ export function AuthProvider({ children }) {
     }
     // logout fun to the database
     const logout = () => {
+
         axios.get("/api/logout", {
             headers: {
                 Authorization: ` Bearer ${token}`,
             },
         })
             .then((res) => {
-                removeCookie("Token");
-                setUser({});
+                if (res.data.status === 200) {
+                    removeCookie("Token");
+                    setUser({});
+                    setToken("")
+                    navigate('/', { replace: true })
+                    setShow(true)
+                    console.log(res);
+
+                }
+                console.log(res);
                 // navigate("/login");
             })
             .catch((err) => {
                 console.log(err);
             });
+
     }
+
+    // Get logged in user data
+    useEffect(() => {
+        if (cookies.Token) {
+            setToken(cookies.Token);
+
+            axios
+                .get("/api/user", {
+                    headers: {
+                        Authorization: `Bearer ${cookies.Token}`,
+                    },
+                })
+                .then((res) => {
+                    if (res.data.status === 200) {
+                        console.log("the user");
+                        console.log(res.data.user);
+                        setUser(res.data.user);
+                    } else {
+                        console.log(res);
+                    }
+                });
+        } else {
+            return;
+        }
+    }, []);
+    useEffect(() => { console.log(token) }, [token])
 
     return (
         <>
-            <AuthContext.Provider value={{ token, setErrors, googleLoginFun, setUser, user, FacebookLoginFun, emailInput, passwordInput, loginFun, errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun }}>
+            <AuthContext.Provider value={{ logout, show, setShow, token, setErrors, googleLoginFun, setUser, user, FacebookLoginFun, emailInput, passwordInput, loginFun, errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun }}>
                 {children}
             </AuthContext.Provider>
         </>

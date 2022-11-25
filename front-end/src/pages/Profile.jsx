@@ -1,10 +1,23 @@
 import { Card, Label, Tabs, TextInput } from 'flowbite-react'
 import React from 'react'
-import ProfileCard from '../components/ProfileCard'
+
 import { MdDashboard } from "react-icons/md";
 import { HiAdjustments, HiUserCircle, HiClipboardList } from "react-icons/hi";
 import Ticket from '../components/Ticket';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 export default function Profile() {
+    const navigate = useNavigate()
+    const { logout, token, setShow } = useContext(AuthContext)
+    useEffect(() => {
+        if (token === "") {
+            navigate('/', { replace: true })
+            setShow(true)
+
+        }
+    }, [])
     return (
         <>
             <div className='bg-navy h-64' >
@@ -25,28 +38,34 @@ export default function Profile() {
                         >
                             <div className='container mx-auto  w-3/4'>
 
-                                <form action="">
 
-                                    <div class=" grid grid-cols-2 gap-2">
-                                        <div className='relative'>
 
-                                            <input type="text" id="fname" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
-                                            <label for="fname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
-                                        </div>
+                                <div class=" grid grid-cols-2 gap-2">
+                                    <div className='relative'>
 
-                                        <div className='relative'>
-                                            <input type="text" id="lname" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
-                                            <label for="lname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
-                                        </div>
-                                    </div>
-                                    <div className='relative mt-2'>
-                                        <input value={"azzam.faraj0@gmail.com"} disabled type="text" id="lname" class="block  px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
-                                        <label for="lname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        <input type="text" id="fname" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
+                                        <label for="fname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
                                     </div>
 
-                                </form>
+                                    <div className='relative'>
+                                        <input type="text" id="lname" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
+                                        <label for="lname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
+                                    </div>
+                                </div>
+                                <div className='relative mt-2'>
+                                    <input value={"azzam.faraj0@gmail.com"} disabled type="text" id="lname" class="block  px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-candy peer" placeholder=" " />
+                                    <label for="lname" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-candy peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                </div>
 
 
+
+                                <button
+                                    className="flex float-right items-center mt-2  h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-navy  hover:bg-candy dark:bg-candy  dark:hover:bg-navy focus:shadow-outline focus:outline-none"
+                                    title="Sign up"
+                                    onClick={logout}
+                                >
+                                    Logout
+                                </button>
                             </div>
 
 

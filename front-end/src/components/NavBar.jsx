@@ -8,9 +8,9 @@ import { AuthContext } from '../context/AuthContext';
 
 import RegisterationModal from './RegisterationModal';
 export default function NavBar() {
-    const { user } = useContext(AuthContext)
+    const { user, token, show, setShow } = useContext(AuthContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [show, setShow] = useState(false);
+
     return (
         <>
             <div className="px-4 dark:bg-[#111828] py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 z-50">
@@ -47,28 +47,8 @@ export default function NavBar() {
                             </Link>
 
                         </li>
-                        <li>
-                            <Link
-                                to={"/register"}
-                                aria-label="Our product"
-                                title="Our product"
-                                className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            >
-                                register
-                            </Link>
 
-                        </li>
-                        <li>
-                            <Link
-                                to={"/profile"}
-                                aria-label="Our product"
-                                title="Our product"
-                                className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            >
-                                profile
-                            </Link>
 
-                        </li>
                         <li>
                             <Flowbite>
                                 <DarkThemeToggle />
@@ -103,14 +83,30 @@ export default function NavBar() {
                     <ul className=" items-center hidden ml-auto space-x-8 lg:flex">
 
                         <li>
+                            {
+                                token !== "" ?
+                                    <>
+                                        <Link
+                                            to={"/profile"}
+                                            aria-label="Our product"
+                                            title="Our product"
+                                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                        >
+                                            profile
+                                        </Link>
+                                    </>
+                                    : <>
+                                        <button
+                                            className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-candy hover:bg-blue focus:shadow-outline focus:outline-none"
+                                            title="Sign up"
+                                            onClick={() => setShow(true)}
+                                        >
+                                            Login
+                                        </button>
+                                    </>
+                            }
 
-                            <button
-                                className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-candy hover:bg-blue focus:shadow-outline focus:outline-none"
-                                title="Sign up"
-                                onClick={() => setShow(true)}
-                            >
-                                Login
-                            </button>
+
                         </li>
                         <li> </li>
 
@@ -235,6 +231,14 @@ export default function NavBar() {
                                                 >
                                                     Sign up
                                                 </a>
+                                                <Link
+                                                    to={"/profile"}
+                                                    aria-label="Our product"
+                                                    title="Our product"
+                                                    className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                >
+                                                    profile
+                                                </Link>
                                             </li>
                                         </ul>
                                     </nav>

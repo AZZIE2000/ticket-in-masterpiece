@@ -12,33 +12,34 @@ export default function RegisterationModal({ show, setShow }) {
     return (
         <>
             <Modal
+                className='backdrop-blur-sm dark:bg-gray-600'
                 show={show}
                 onClose={() => setShow(!show)}
             >
-                <Modal.Header>
-                    Terms of Service
+                <Modal.Header className='dark:bg-duaa'>
+                    {Form ? "Login" : "Sign Up"}
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className='dark:bg-duaa'>
                     {
                         Form ?
                             <>
-                                <RegisterForm >
+                                <LoginForm >
                                     <SocialMediaLogin />
-                                </RegisterForm>
+                                </LoginForm>
 
                             </>
                             :
                             <>
 
-                                <LoginForm >
+                                <RegisterForm >
                                     <SocialMediaLogin />
-                                </LoginForm>
+                                </RegisterForm>
                             </>
                     }
                 </Modal.Body>
-                <Modal.Footer>
-                    <div className='dark:bg-duaa/80  w-full text-center flex justify-center  bg-white'>
-                        <p className='text-center'> {Form ? "Already have an account ?" : "Don't have an account ?"}  <button onClick={() => { setForm(!Form); setErrors({ name: "", email: "", password: [""] }) }} className='text-navy dark:text-white' >{Form ? "Login" : "Sign up"}</button> </p>
+                <Modal.Footer className='dark:bg-duaa'>
+                    <div className='dark:bg-duaa  w-full text-center flex justify-center  bg-white'>
+                        <p className='text-center'> {!Form ? "Already have an account ?" : "Don't have an account ?"}  <button onClick={() => { setForm(!Form); setErrors({ name: "", email: "", password: [""] }) }} className='text-navy dark:text-white' >{!Form ? "Login" : "Sign up"}</button> </p>
                     </div>
                 </Modal.Footer>
             </Modal>

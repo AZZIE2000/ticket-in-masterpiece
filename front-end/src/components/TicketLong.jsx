@@ -4,11 +4,11 @@ import 'aos/dist/aos.css';
 
 export default function TicketLong({ i, image }) {
     useEffect(() => {
-        AOS.init();
+        AOS.init({ once: true });
+
     }, [])
 
-    // console.log("hi");
-    // console.log(image + i);
+
     return (
         <article
             data-aos-duration="1000"
