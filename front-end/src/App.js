@@ -7,9 +7,15 @@ import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useState } from "react";
-import Game from "./Game";
+import axios from "axios";
 import Profile from "./pages/Profile";
-
+import { AuthProvider } from "./context/AuthContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { CookiesProvider } from "react-cookie";
+axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
+axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
+axios.defaults.withCredentials = true;
 function App() {
   const [num, setNum] = useState(0);
 
@@ -26,27 +32,23 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/single-event" element={<SingleEvent1 />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-      <FooterMain />
+      <CookiesProvider>
+        <GoogleOAuthProvider clientId="766290884424-if3sip56qtto151e6623p5s1vi6ui6n7.apps.googleusercontent.com">
+          <AuthProvider>
+            <NavBar />
 
-      {/* <h1 className="text-center mb-10 text-4xl">{num}</h1>
-      <div className="container mx-auto w-full flex justify-center">
-        <button onClick={() => remove()} className="bg-candy px-5 py-3 rounded">
-          Remove
-        </button>
-        <button onClick={() => add()} className="bg-candy px-5 py-3 rounded">
-          Add
-        </button>
-      </div> */}
-      {/* <Game /> */}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/single-event" element={<SingleEvent1 />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/register" element={<Register />} />
+              {/* <Route path="/login" element={<Login />} /> */}
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+            <FooterMain />
+          </AuthProvider>
+        </GoogleOAuthProvider>
+      </CookiesProvider>
     </>
   );
 }

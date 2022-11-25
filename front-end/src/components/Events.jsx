@@ -22,11 +22,11 @@ export default function Events() {
             aria-label="Tabs with icons"
             style="underline"
 
-            className={"mx-auto  mt-5"}
+            className={"mx-auto overflow-hidden  mt-5"}
         >
             <Tabs.Item
                 active={true}
-                className={"bg-candy dark:border-candy"}
+                className={"bg-candy overflow-hidden dark:border-candy"}
                 title="Open Aria"
 
             >

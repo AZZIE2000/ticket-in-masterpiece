@@ -7,7 +7,7 @@ export default function TicketLong({ i, image }) {
         AOS.init();
     }, [])
 
-    console.log("hi");
+    // console.log("hi");
     // console.log(image + i);
     return (
         <article
@@ -57,12 +57,12 @@ export default function TicketLong({ i, image }) {
                 </div>
 
                 <div class="sm:flex sm:items-end sm:justify-end">
-                    <a
-                        href="#"
+                    <button
+
                         class="block bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"
                     >
                         Buy Now
-                    </a>
+                    </button>
                 </div>
             </div>
         </article>

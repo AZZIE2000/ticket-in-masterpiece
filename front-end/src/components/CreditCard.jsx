@@ -1,21 +1,10 @@
 import React, { useState } from 'react'
 
+
 export default function CreditCard() {
     const [card, setCard] = useState(true)
-
-    function flip() {
-        setCard(!card);
-        console.log(card);
-    }
-
-
-
     return (
         <>
-
-
-
-
 
             <section>
                 <h1 className="sr-only">Checkout</h1>
@@ -220,7 +209,6 @@ export default function CreditCard() {
                                             </div>
                                         </div>
                                     </fieldset>
-
                                     <div className="col-span-6">
                                         <button
                                             className="block w-full rounded-lg bg-black p-2.5 text-sm text-white"
