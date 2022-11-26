@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Ticket;
-use App\Models\Reserve;
+use App\Models\Type;
 use App\Models\TicketCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,8 +20,8 @@ class Concert extends Model
     {
         return $this->hasMany(TicketCategory::class);
     }
-    public function reserves()
+    public function type()
     {
-        return $this->hasMany(Reserve::class);
+        return $this->belongsTo(Type::class);
     }
 }

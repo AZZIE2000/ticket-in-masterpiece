@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('serial_num');
-            $table->foreignId('concert_id')->constrained()->onDelete('cascade');
             $table->foreignId('ticket_category_id')->constrained()->onDelete('cascade');
             $table->string('seat');
+            $table->boolean('scanned')->default(false);
+            $table->foreignId('concert_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            // user -> hasOne -> concert -> throw -> tickets
         });
     }
 

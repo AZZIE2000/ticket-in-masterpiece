@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Type;
-use App\Models\Concert;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
 
-class ConcertsController extends Controller
+class TicketsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,31 +14,7 @@ class ConcertsController extends Controller
      */
     public function index()
     {
-
-        // concert -> with categories and their sold tickets / total sold tickets for concert
-        $page = Type::withWhereHas('concerts.categories')->get();
-        // all concerts banners
-        $banners =  DB::table('concerts')
-            ->select('id', 'banner')
-            ->get();
-
-        return response()->json([
-            "status" => 200,
-            "concerts" => $page,
-            "banners" => $banners,
-        ]);
-    }
-
-    public function concertInfo($id)
-    {
-        // return "hi";
-        $concert = Concert::find($id)->first();
-        $concert->categories;
-        return response()->json([
-            "status" => 200,
-            "concert" => $concert,
-
-        ]);
+        return Ticket::all();
     }
 
     /**

@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string("description");
             $table->string("area");
             $table->float("price");
+            $table->float("seats");
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
+            $table->boolean("active")->default(true);
             $table->timestamps();
         });
     }

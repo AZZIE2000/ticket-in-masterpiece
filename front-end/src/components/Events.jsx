@@ -1,4 +1,4 @@
-import { Tabs } from 'flowbite-react'
+
 import React, { useEffect } from 'react'
 import { useRef } from 'react';
 import { useState } from 'react';
@@ -12,76 +12,84 @@ import image1 from "../images/1.png";
 import image2 from "../images/2.png";
 import image3 from "../images/3.png";
 import image4 from "../images/4.png";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { useContext } from 'react';
+import { WebContext } from '../context/WebContext';
 export default function Events() {
+    const { concerts, month } = useContext(WebContext)
 
-    const arr = [1, 2, 3, 4, 5]
-    const images = [image0, image1, image2, image3, image4]
+    useEffect(() => { console.log(concerts); }, [concerts])
     return (
 
-        <Tabs.Group
-            aria-label="Tabs with icons"
-            style="underline"
-
-            className={"mx-auto overflow-hidden  mt-5"}
-        >
-            <Tabs.Item
-                active={true}
-                className={"bg-candy overflow-hidden dark:border-candy"}
-                title="Open Aria"
-
-            >
-                {/* <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
-
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-
-                </div> */}
-                <div className='flex gap-y-9 w-full lg:w-3/4 container mx-auto flex-col'>
-                    {
-                        arr.map((e, i) => {
-
-                            return <TicketLong image={images[i]} i={i} />
-                        })
+        <Tabs className={'flex flex-col items-center '} >
+            <TabList>
+                {
+                    concerts?.map((type) => {
+                        return (<Tab key={type?.id}>{type?.title}</Tab>)
                     }
+                    )
+                }
+            </TabList>
+
+            {
+                concerts?.map((type) => {
+                    return (
 
 
-
-                </div>
-            </Tabs.Item>
-            <Tabs.Item
-
-                title="Concerts"
-
-            >
-                <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 '>
+                        <TabPanel>
+                            <div className='flex gap-y-9 w-full lg:w-3/4 mt-3 container mx-auto flex-col'>
+                                {type?.concerts.map((concert) => {
+                                    return (
 
 
-                    <EventCard />
+                                        <TicketLong concert={concert} />
+                                    )
+                                })}
 
+                            </div>
+                        </TabPanel>
 
-                </div>
-            </Tabs.Item>
-            <Tabs.Item
-                title="Events"
+                    )
+                })
 
-            >
-                <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
+            }
 
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-                    <EventCard />
-
-                </div>
-            </Tabs.Item>
-
-
-        </Tabs.Group>
+        </Tabs>
     )
 }
+{/* <div className='flex gap-y-9 w-full lg:w-3/4 container mx-auto flex-col'></div> */ }
+
+{/* <Tabs className={'flex justify-center'}>
+<TabList>
+    {
+        concerts?.map((type) => {
+            return (<Tab key={type?.id}>{type?.title}</Tab>)
+        }
+        )
+    }
+</TabList>
+{
+    concerts?.map((type) => {
+        return (
+
+
+            type?.concerts.map((concert) => {
+                return (
+
+                    <TabPanel>
+                        <div className='flex gap-y-9 w-full lg:w-3/4 container mx-auto flex-col'>
+
+                            <TicketLong concert={concert} />
+                        </div>
+                    </TabPanel>
+                )
+            })
+
+
+        )
+    })
+
+}
+
+</Tabs> */}

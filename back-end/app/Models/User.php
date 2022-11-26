@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Ticket;
+use App\Models\Concert;
 use App\Models\Payment;
 use App\Models\CustomerOrder;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,6 +23,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(CustomerOrder::class);
+    }
+    public function concertTickets()
+    {
+        return $this->hasOneThrough(Concert::class, Ticket::class);
     }
 
     /**

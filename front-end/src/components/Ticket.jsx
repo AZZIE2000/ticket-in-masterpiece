@@ -22,15 +22,11 @@ export default function Ticket() {
                                 Monday, 28 September 2020 18:30:23
                             </div>
                         </div>
-                        {/* <div class="text-left">
-                            <p class="pb-2 text-xs italic">Powered By</p>
-                            <img
-                                src="https://ad-venture.org.uk/wp-content/uploads/2017/05/logo-placeholder.png"
-                            />
-                        </div> */}
+
                     </div>
-                    <div class="relative flex flex-col w-3/4">
+                    <div class="relative object-scale-down flex flex-col h- w-3/4">
                         <img
+                            className='h-1/2'
                             src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder-1024x512.png"
                         />
                         {/* <div class="absolute p-1 bottom-24">

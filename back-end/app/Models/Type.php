@@ -6,11 +6,11 @@ use App\Models\Concert;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Reserve extends Model
+class Type extends Model
 {
     use HasFactory;
-    public function concert()
+    public function concerts()
     {
-        return $this->belongsTo(Concert::class);
+        return $this->hasMany(Concert::class);
     }
 }

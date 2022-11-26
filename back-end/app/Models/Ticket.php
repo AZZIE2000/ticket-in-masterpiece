@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concert;
 use App\Models\TicketOrder;
+use App\Models\CustomerOrder;
 use App\Models\TicketCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,5 +24,9 @@ class Ticket extends Model
     public function category()
     {
         return $this->belongsTo(TicketCategory::class);
+    }
+    public function orders()
+    {
+        return $this->belongsToMany(CustomerOrder::class);
     }
 }

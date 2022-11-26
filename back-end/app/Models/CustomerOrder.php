@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Ticket;
 use App\Models\Payment;
 use App\Models\TicketOrder;
 use Illuminate\Database\Eloquent\Model;
@@ -22,5 +23,9 @@ class CustomerOrder extends Model
     public function orderTickets()
     {
         return $this->hasMany(TicketOrder::class);
+    }
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class);
     }
 }

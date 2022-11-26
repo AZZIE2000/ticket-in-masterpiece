@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class TicketOrder extends Model
 {
     use HasFactory;
-    public function order()
-    {
-        return $this->belongsTo(CustomerOrder::class);
-    }
-    public function ticket()
-    {
-        return $this->belongsTo(Ticket::class);
-    }
+    // public function order()
+    // {
+    //     return $this->belongsTo(CustomerOrder::class);
+    // }
+    // public function ticket()
+    // {
+    //     return $this->belongsTo(Ticket::class);
+    // }
 }

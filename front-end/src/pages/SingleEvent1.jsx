@@ -17,11 +17,29 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import EventCard from '../components/EventCard';
 import image0 from "../images/0.png";
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { BsFillCalendarEventFill, BsFillClockFill, BsGeoFill } from 'react-icons/bs';
 
 // ---------------------------
+import { useContext } from 'react';
+import { WebContext } from '../context/WebContext';
 export default function SingleEvent1() {
+    const { month } = useContext(WebContext)
     // call how many tickets available and stop adding when their over
+    const { id } = useParams()
+    const [concert, setConcert] = useState()
+    useEffect(() => {
+        axios.get(`/api/concert/info/${id}`).then((res) => {
+            if (res.status === 200) {
+                setConcert(res.data.concert)
+                console.log(res.data.concert);
+
+            } else {
+                console.log(res)
+            }
+        });
+    }, []);
 
     return (
 
@@ -48,15 +66,17 @@ export default function SingleEvent1() {
                     modules={[EffectCoverflow, Pagination]}
                     className="mySwiper min-w-[150%] -z-20 sm:min-w-[100%] mx-auto  "
                 >
-                    <SwiperSlide  >
-                        <EventCard name={"vip"} />
-                    </SwiperSlide>
-                    <SwiperSlide  >
-                        <EventCard name={"General"} />
-                    </SwiperSlide>
-                    <SwiperSlide  >
-                        <EventCard name={"Golden Circle"} />
-                    </SwiperSlide>
+
+                    {
+                        concert?.categories.map((ticket) => {
+                            return (
+                                <SwiperSlide key={ticket?.id}  >
+                                    <EventCard ticket={ticket} />
+                                </SwiperSlide>
+                            )
+                        })
+                    }
+
 
 
                 </Swiper>
@@ -195,29 +215,30 @@ export default function SingleEvent1() {
                 <img className=' mx-auto w-3/4 object-scale-down -z-50' src={image0} />
                 <div className='-mt-16 z-50 p-3 rounded-md text-[9px] text-white sm:text-sm bg-black relative dark:bg-duaa w-3/5  mx-auto  ' >
                     <h5 className="text-2xl font-bold tracking-tight text-white dark:text-white">
-                        Concert Title
+                        {concert?.name}
                     </h5>
                     <p className="font-normal py-2 dark:text-gray-400">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam molestias,
                     </p>
                     <p className="font-normal text-white dark:text-gray-400 flex">
-                        <span className='px-1'>  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                        </svg>
-                        </span>
-                        Location: Amman - 7th circle
+                        <BsGeoFill />
+
+                        Location: {concert?.location}
 
                     </p>
                     <p className="font-normal text-white dark:text-gray-400 flex">
                         <span className='px-1'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
 
+                            <BsFillClockFill />
                         </span>
-                        18:00 GMT+2
+                        <span>{concert?.time.slice(0, 3) + "00"} GMT+2</span>
+                    </p>
+                    <p className="font-normal text-white dark:text-gray-400 flex">
+                        <span className='px-1'>
 
+                            <BsFillCalendarEventFill />
+                        </span>
+                        <span>{concert?.start_date.slice(8, 10)} {month(concert?.start_date.slice(5, 7))}</span>
                     </p>
                     <ul className='list-disc'>
                         <li>asdasda</li>

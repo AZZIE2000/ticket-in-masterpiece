@@ -2,15 +2,15 @@ import { Button } from 'flowbite-react'
 import React from 'react'
 
 
-export default function EventCard({ name }) {
+export default function EventCard({ ticket }) {
     return (
 
         <>
 
-            <div className={`flex flex-col  shadow-md justify-between my-5 hover:shadow-lg dark:shadow-gray-700/25 hover:dark:shadow-gray-700/25 max-w-sm dark:bg-gray-800 rounded m-auto  border-t-4 border-t-navy dark:border-t-candy`}>
+            <div key={ticket?.id} className={`flex flex-col  shadow-md justify-between my-5 hover:shadow-lg dark:shadow-gray-700/25 hover:dark:shadow-gray-700/25 max-w-sm dark:bg-gray-800 rounded m-auto  border-t-4 border-t-navy dark:border-t-candy`}>
 
                 <div className="  ">
-                    <p className='p-5 text-center'>{name}<small> </small></p>
+                    <p className='p-5 text-center'>{ticket?.class}<small> </small></p>
 
                 </div>
 
@@ -23,11 +23,11 @@ export default function EventCard({ name }) {
 
                         <p className="text-sm text-center">Price</p>
 
-                        <h3 className="font-mono text-center">50 JD</h3>
+                        <h3 className="font-mono text-center">{ticket?.price} JD</h3>
                     </div>
                     <div>
                         <ul className=''>
-                            <li className='list-item'>asdasd</li>
+                            <li className='list-item'>{ticket?.description}</li>
                         </ul>
                     </div>
 

@@ -16,10 +16,14 @@ return new class extends Migration
         Schema::create('concerts', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->date("date");
+            $table->date("start_date");
+            $table->date("end_date");
             $table->string("location");
             $table->time("time");
             $table->integer("seats");
+            $table->boolean("active")->default(true);
+            $table->string("banner");
+            $table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
