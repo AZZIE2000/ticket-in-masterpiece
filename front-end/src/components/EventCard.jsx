@@ -1,8 +1,10 @@
 import { Button } from 'flowbite-react'
 import React from 'react'
-
+import { useContext } from 'react';
+import { CheckoutContext } from '../context/CheckoutContext';
 
 export default function EventCard({ ticket }) {
+    const { cart, setCart } = useContext(CheckoutContext)
     return (
 
         <>
@@ -32,7 +34,7 @@ export default function EventCard({ ticket }) {
                     </div>
 
                     <div className='flex justify-center w-full  '>
-                        <button className='p-2 dark:bg-candy dark:hover:bg-navy bg-navy hover:bg-candy text-white font-bold text-lg rounded-full w-full m-3'>+</button>
+                        <button onClick={() => setCart([...cart, ticket?.id])} className='p-2 dark:bg-candy dark:hover:bg-navy bg-navy hover:bg-candy text-white font-bold text-lg rounded-full w-full m-3'>+</button>
                     </div>
                 </div>
             </div>

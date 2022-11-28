@@ -35,7 +35,7 @@ class ConcertsController extends Controller
     public function concertInfo($id)
     {
         // return "hi";
-        $concert = Concert::find($id)->first();
+        $concert = Concert::where('id', $id)->first();
         $concert->categories;
         return response()->json([
             "status" => 200,

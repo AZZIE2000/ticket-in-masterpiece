@@ -23,12 +23,15 @@ import { BsFillCalendarEventFill, BsFillClockFill, BsFillGeoAltFill, BsCircleFil
 
 // ---------------------------
 import { useContext } from 'react';
+import { CheckoutContext } from '../context/CheckoutContext';
 import { WebContext } from '../context/WebContext';
 export default function SingleEvent1() {
     const { month } = useContext(WebContext)
+    const { cart, setCart } = useContext(CheckoutContext)
     // call how many tickets available and stop adding when their over
     const { id } = useParams()
     const [concert, setConcert] = useState()
+    const [table, setTable] = useState([])
     useEffect(() => {
         axios.get(`/api/concert/info/${id}`).then((res) => {
             if (res.status === 200) {
@@ -40,6 +43,27 @@ export default function SingleEvent1() {
             }
         });
     }, []);
+    useEffect(() => {
+        console.log(cart);
+        const uniq = cart => [...new Set(cart)];
+        uniq(cart)
+        setTable(uniq(cart))
+
+    }, [cart])
+    useEffect(() => {
+
+        console.log(table);
+    }, [table])
+    const amount = (id) => cart.filter(x => x == id).length
+    const total = (id) => {
+        return concert?.categories.map((ticket) => {
+            if (ticket.id === id) {
+                // return "yes"
+                return ((cart.filter(x => x == id).length) * (ticket.price))
+            }
+
+        })
+    }
 
     return (
 
@@ -98,7 +122,7 @@ export default function SingleEvent1() {
                                 <th
                                     className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
                                 >
-                                    Amount
+                                    Quantity
                                 </th>
                                 <th
                                     className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
@@ -114,72 +138,56 @@ export default function SingleEvent1() {
                         </thead>
 
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                            <tr>
-                                <td
-                                    className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
-                                >
-                                    Vip
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    2
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    150 JD
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    50 JD
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
-                                >
-                                    Vip
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    2
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    150 JD
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    50 JD
-                                </td>
-                            </tr>
-                            <tr>
-                                <td
-                                    className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
-                                >
-                                    Vip
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    2
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    150 JD
-                                </td>
-                                <td
-                                    className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
-                                >
-                                    50 JD
-                                </td>
-                            </tr>
+
+
+                            {
+                                table?.map((Tticket) => {
+                                    console.log("table id :  " + Tticket);
+                                    return concert?.categories.map((catTicket) => {
+                                        console.log("lol " + catTicket.id);
+                                        if (Tticket === catTicket.id) {
+                                            console.log("yes");
+                                            return (
+
+                                                <tr>
+                                                    <td
+                                                        className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
+                                                    >
+                                                        {catTicket.class}
+                                                    </td>
+                                                    <td
+                                                        className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        {
+
+
+
+                                                            amount(catTicket.id)
+
+                                                        }
+
+
+                                                    </td>
+                                                    <td
+                                                        className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        {total(catTicket.id)} JD
+                                                    </td>
+                                                    <td
+                                                        className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
+                                                    >
+                                                        {catTicket.price} JD
+                                                    </td>
+                                                </tr>
+
+                                            )
+                                        }
+                                    })
+                                })
+                            }
+
+
+
 
 
                         </tbody>
@@ -212,8 +220,8 @@ export default function SingleEvent1() {
 
 
             <div>
-                <img className=' mx-auto w-3/4 object-scale-down -z-50' src={image0} />
-                <div className='-mt-16 z-50 p-3 rounded-md text-[9px] text-black dark:text-white sm:text-sm bg-slate-100 dark:shadow-white/50 shadow-md relative dark:bg-slate-800 w-3/5  mx-auto  ' >
+                <img className=' mx-auto w-3/4 object-scale-down -z-50' src={concert?.banner} />
+                <div className='-mt-16 z-50 p-3 rounded-md text-[9px] text-black dark:text-white sm:text-sm bg-slate-100 dark:shadow-white/20 shadow-md relative dark:bg-slate-800 w-3/5  mx-auto  ' >
                     <h5 className="text-2xl font-bold tracking-tight ">
                         {concert?.name}
                     </h5>

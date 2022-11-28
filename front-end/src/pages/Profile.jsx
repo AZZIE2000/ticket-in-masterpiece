@@ -2,7 +2,7 @@ import { Accordion, Card, Label, Tabs, TextInput } from 'flowbite-react'
 import React from 'react'
 
 import { MdDashboard } from "react-icons/md";
-import { HiAdjustments, HiUserCircle, HiClipboardList } from "react-icons/hi";
+import { HiUserCircle, HiClipboardList } from "react-icons/hi";
 import Ticket from '../components/Ticket';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
