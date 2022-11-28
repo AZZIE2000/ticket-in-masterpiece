@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Concert;
 use App\Models\CustomerOrder;
+use App\Models\Payment;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +14,18 @@ use function PHPSTORM_META\map;
 
 class UsersController extends Controller
 {
-
+    //  QR9JFQN8MJQ - B9
 
     public function userPayments()
     {
         // fix : add concert col to the bill
         // just the payments history
+        // $payment = Auth::user()->payments;
+        $payment =  Payment::withWhereHas('concert')->where('user_id', Auth::user()->id)->get();
+
         return response()->json([
             'status' => 200,
-            'user' => Auth::user()->payments,
+            'payments' => $payment,
         ]);
     }
     public function ticketsWConcerts()

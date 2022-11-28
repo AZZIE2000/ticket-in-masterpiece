@@ -15,7 +15,6 @@ class AuthController extends Controller
     {
         // $request->validated($request->all());
         $validator = Validator::make($request->all(), [
-
             'email' => ['required', 'string', 'max:255', 'email'],
             'password' => ['required', 'min:8']
         ]);
@@ -118,5 +117,21 @@ class AuthController extends Controller
                 'token' => $user->createToken('API Token of ' . $user->name)->plainTextToken
             ]);
         }
+    }
+    public function updateData(Request $request)
+    {
+
+        User::where('id', Auth::user()->id)->update($request->all());
+        $user = Auth::user();
+
+        // $user =  User::where('id', Auth::user()->id)->first();
+        // $user->update($request->all());
+
+
+        return response()->json([
+            'status' => 200,
+            'user' => $user,
+
+        ]);
     }
 }

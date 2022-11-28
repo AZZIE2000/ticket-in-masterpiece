@@ -26,16 +26,7 @@ export default function NavBar() {
                                 Home
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                to={"/single-event"}
-                                aria-label="Our product"
-                                title="Our product"
-                                className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            >
-                                Single Event Page
-                            </Link>
-                        </li>
+
                         <li>
                             <Link
                                 to={"/checkout"}

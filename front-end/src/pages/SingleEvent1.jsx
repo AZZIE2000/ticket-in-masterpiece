@@ -19,7 +19,7 @@ import EventCard from '../components/EventCard';
 import image0 from "../images/0.png";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { BsFillCalendarEventFill, BsFillClockFill, BsGeoFill } from 'react-icons/bs';
+import { BsFillCalendarEventFill, BsFillClockFill, BsFillGeoAltFill, BsCircleFill } from 'react-icons/bs';
 
 // ---------------------------
 import { useContext } from 'react';
@@ -81,7 +81,7 @@ export default function SingleEvent1() {
 
                 </Swiper>
             </div>
-            <div className="md:flex px-5 mt-10    container block justify-end">
+            <div className="md:flex px-5 mt-10    container block justify-center">
                 <div
                     className="overflow-hidden container  md:w-1/2 w-full   overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700"
                 >
@@ -213,38 +213,59 @@ export default function SingleEvent1() {
 
             <div>
                 <img className=' mx-auto w-3/4 object-scale-down -z-50' src={image0} />
-                <div className='-mt-16 z-50 p-3 rounded-md text-[9px] text-white sm:text-sm bg-black relative dark:bg-duaa w-3/5  mx-auto  ' >
-                    <h5 className="text-2xl font-bold tracking-tight text-white dark:text-white">
+                <div className='-mt-16 z-50 p-3 rounded-md text-[9px] text-black dark:text-white sm:text-sm bg-slate-100 dark:shadow-white/50 shadow-md relative dark:bg-slate-800 w-3/5  mx-auto  ' >
+                    <h5 className="text-2xl font-bold tracking-tight ">
                         {concert?.name}
                     </h5>
-                    <p className="font-normal py-2 dark:text-gray-400">
+                    <p className="font-normal py-3 dark:text-gray-400">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam molestias,
                     </p>
-                    <p className="font-normal text-white dark:text-gray-400 flex">
-                        <BsGeoFill />
+                    <p className="font-normal pt-1 flex">
+                        <span className='flex gap-x-3 items-center'>
+                            <span className='px-1'>
 
-                        Location: {concert?.location}
+                                <BsFillGeoAltFill />
+                            </span>
 
-                    </p>
-                    <p className="font-normal text-white dark:text-gray-400 flex">
-                        <span className='px-1'>
-
-                            <BsFillClockFill />
+                            Location: {concert?.location}
                         </span>
-                        <span>{concert?.time.slice(0, 3) + "00"} GMT+2</span>
-                    </p>
-                    <p className="font-normal text-white dark:text-gray-400 flex">
-                        <span className='px-1'>
 
-                            <BsFillCalendarEventFill />
-                        </span>
-                        <span>{concert?.start_date.slice(8, 10)} {month(concert?.start_date.slice(5, 7))}</span>
                     </p>
-                    <ul className='list-disc'>
-                        <li>asdasda</li>
-                        <li>asdasda</li>
-                        <li>asdasda</li>
-                    </ul>
+                    <p className="font-normal pt-1 flex">
+                        <span className='flex gap-x-3 items-center'>
+                            <span className='px-1'>
+
+                                <BsFillClockFill />
+                            </span>
+                            <span>{concert?.time.slice(0, 3) + "00"} GMT+2</span>
+                        </span>
+                    </p>
+                    <p className="font-normal pt-1 flex">
+                        <span className='flex gap-x-3 items-center'>
+                            <span className='px-1'>
+                                <BsFillCalendarEventFill />
+                            </span>
+                            <span>{concert?.start_date.slice(8, 10)} {month(concert?.start_date.slice(5, 7))}</span>
+                        </span>
+                    </p>
+                    <p className="font-normal py-3  flex">
+                        <span className='flex gap-x-3 flex-col '>
+
+                            <span className='px-1 flex items-center gap-x-4'>
+                                <BsCircleFill className='h-2' />
+                                <span>Note one</span>
+                            </span>
+                            <span className='px-1 flex items-center gap-x-4'>
+                                <BsCircleFill className='h-2' />
+                                <span>Note two</span>
+                            </span>
+                            <span className='px-1 flex items-center gap-x-4'>
+                                <BsCircleFill className='h-2' />
+                                <span>Note three</span>
+                            </span>
+                        </span>
+                    </p>
+
                 </div>
             </div>
 

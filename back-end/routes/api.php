@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     // Endpoint for getting user
     Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/user/update', [AuthController::class, 'updateData']);
     Route::get('/payments/history', [UsersController::class, 'userPayments']);
     Route::get('/ticketswconcerts', [UsersController::class, 'ticketsWConcerts']);
 });

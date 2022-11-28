@@ -16,6 +16,8 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState({})
     // the user token
     const [token, setToken] = useState("")
+    // the user payments history
+    const [payments, setPayments] = useState()
     // the errors from the inputs 
     const [errors, setErrors] = useState({
         email: "",
@@ -79,7 +81,7 @@ export function AuthProvider({ children }) {
                     setToken(token)
                     setCookie("Token", token, { path: "/" });
                     setUser(res.data.user);
-                    console.log(user);
+                    // console.log(user);
                     setShow(false)
                 } else {
                     console.log(res);
@@ -164,10 +166,10 @@ export function AuthProvider({ children }) {
                     setToken("")
                     navigate('/', { replace: true })
                     setShow(true)
-                    console.log(res);
+                    // console.log(res);
 
                 }
-                console.log(res);
+                // console.log(res);
                 // navigate("/login");
             })
             .catch((err) => {
@@ -189,8 +191,8 @@ export function AuthProvider({ children }) {
                 })
                 .then((res) => {
                     if (res.data.status === 200) {
-                        console.log("the user");
-                        console.log(res.data.user);
+                        // console.log("the user");
+                        // console.log(res.data.user);
                         setUser(res.data.user);
                     } else {
                         console.log(res);
@@ -201,10 +203,33 @@ export function AuthProvider({ children }) {
         }
     }, []);
     useEffect(() => { console.log(token) }, [token])
+    // payments in profile section
+    useEffect(() => {
+
+        // setToken(cookies.Token);
+
+        axios
+            .get("/api/payments/history", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                if (res.data.status === 200) {
+                    console.log("payment data :");
+                    console.log(res.data.payments);
+                    setPayments(res.data.payments);
+                } else {
+                    console.log(res);
+                }
+            });
+
+    }, [token]);
+    // payments in profile section
 
     return (
         <>
-            <AuthContext.Provider value={{ logout, show, setShow, token, setErrors, googleLoginFun, setUser, user, FacebookLoginFun, emailInput, passwordInput, loginFun, errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun }}>
+            <AuthContext.Provider value={{ payments, logout, show, setShow, token, setErrors, googleLoginFun, setUser, user, FacebookLoginFun, emailInput, passwordInput, loginFun, errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun }}>
                 {children}
             </AuthContext.Provider>
         </>

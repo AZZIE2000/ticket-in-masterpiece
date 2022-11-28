@@ -20,6 +20,10 @@ class Concert extends Model
     {
         return $this->hasMany(TicketCategory::class);
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
     public function type()
     {
         return $this->belongsTo(Type::class);

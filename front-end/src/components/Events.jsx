@@ -16,46 +16,59 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { useContext } from 'react';
 import { WebContext } from '../context/WebContext';
+import LoadingCard from './LoadingCard';
 export default function Events() {
     const { concerts, month } = useContext(WebContext)
 
-    useEffect(() => { console.log(concerts); }, [concerts])
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true)
+        if (concerts && concerts.length > 0) {
+            setLoading(false)
+
+        }
+    }, [concerts])
     return (
-
-        <Tabs className={'flex flex-col items-center '} >
-            <TabList>
-                {
-                    concerts?.map((type) => {
-                        return (<Tab key={type?.id}>{type?.title}</Tab>)
-                    }
-                    )
-                }
-            </TabList>
-
+        <>
             {
-                concerts?.map((type) => {
-                    return (
+                loading ? <LoadingCard /> :
+
+                    <Tabs className={'flex flex-col items-center '} >
+                        <TabList>
+                            {
+                                concerts?.map((type) => {
+                                    return (<Tab key={type?.id}>{type?.title}</Tab>)
+                                }
+                                )
+                            }
+                        </TabList>
+
+                        {
+                            concerts?.map((type) => {
+                                return (
 
 
-                        <TabPanel>
-                            <div className='flex gap-y-9 w-full lg:w-3/4 mt-3 container mx-auto flex-col'>
-                                {type?.concerts.map((concert) => {
-                                    return (
+                                    <TabPanel>
+                                        <div className='flex gap-y-9 w-full lg:w-3/4 mt-3 container mx-auto flex-col'>
+                                            {type?.concerts.map((concert) => {
+                                                return (
 
 
-                                        <TicketLong concert={concert} />
-                                    )
-                                })}
+                                                    <TicketLong concert={concert} />
+                                                )
+                                            })}
 
-                            </div>
-                        </TabPanel>
+                                        </div>
+                                    </TabPanel>
 
-                    )
-                })
+                                )
+                            })
 
+                        }
+
+                    </Tabs>
             }
-
-        </Tabs>
+        </>
     )
 }
 {/* <div className='flex gap-y-9 w-full lg:w-3/4 container mx-auto flex-col'></div> */ }
