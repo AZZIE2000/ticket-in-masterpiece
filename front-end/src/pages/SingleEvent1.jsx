@@ -3,14 +3,15 @@ import { Button, Card, TextInput } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import DesignOne from '../components/SingleEvent/areas/DesignOne'
 import TicketPriceCard from '../components/TicketPriceCard';
-import AOS from 'aos';
+
 import 'aos/dist/aos.css';
 // ---------------------------
 // import required modules
 import { EffectCoverflow, Pagination } from "swiper";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -36,7 +37,7 @@ export default function SingleEvent1() {
         axios.get(`/api/concert/info/${id}`).then((res) => {
             if (res.status === 200) {
                 setConcert(res.data.concert)
-                console.log(res.data.concert);
+
 
             } else {
                 console.log(res)
@@ -44,15 +45,15 @@ export default function SingleEvent1() {
         });
     }, []);
     useEffect(() => {
-        console.log(cart);
+
         const uniq = cart => [...new Set(cart)];
         uniq(cart)
         setTable(uniq(cart))
 
     }, [cart])
     useEffect(() => {
-
         console.log(table);
+
     }, [table])
     const amount = (id) => cart.filter(x => x == id).length
     const total = (id) => {
@@ -64,6 +65,28 @@ export default function SingleEvent1() {
 
         })
     }
+
+    const totalPrice = () => {
+        let total = 0;
+        cart.map((ticket) => {
+            concert?.categories.map((item) => {
+
+                if (ticket === item.id) {
+                    total = total + item.price
+
+                }
+
+            })
+
+        })
+
+        return total;
+
+    }
+    useEffect(() => {
+        AOS.init({ once: true });
+
+    }, [])
 
     return (
 
@@ -106,114 +129,122 @@ export default function SingleEvent1() {
                 </Swiper>
             </div>
             <div className="md:flex px-5 mt-10    container block justify-center">
-                <div
-                    className="overflow-hidden container  md:w-1/2 w-full   overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700"
-                >
-                    <table
-                        className="min-w-full   divide-y divide-gray-200 text-[12px] md:text-sm dark:divide-gray-700"
-                    >
-                        <thead className="bg-gray-100 dark:bg-gray-800">
-                            <tr>
-                                <th
-                                    className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900 dark:text-white"
-                                >
-                                    Ticket
-                                </th>
-                                <th
-                                    className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
-                                >
-                                    Quantity
-                                </th>
-                                <th
-                                    className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
-                                >
-                                    Total
-                                </th>
-                                <th
-                                    className="whitespace-nowrap px-2 py-2 text-left font-medium text-gray-900 dark:text-white"
-                                >
-                                    Price
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-
-
-                            {
-                                table?.map((Tticket) => {
-                                    console.log("table id :  " + Tticket);
-                                    return concert?.categories.map((catTicket) => {
-                                        console.log("lol " + catTicket.id);
-                                        if (Tticket === catTicket.id) {
-                                            console.log("yes");
-                                            return (
-
-                                                <tr>
-                                                    <td
-                                                        className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
-                                                    >
-                                                        {catTicket.class}
-                                                    </td>
-                                                    <td
-                                                        className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        {
-
-
-
-                                                            amount(catTicket.id)
-
-                                                        }
-
-
-                                                    </td>
-                                                    <td
-                                                        className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        {total(catTicket.id)} JD
-                                                    </td>
-                                                    <td
-                                                        className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
-                                                    >
-                                                        {catTicket.price} JD
-                                                    </td>
-                                                </tr>
-
-                                            )
-                                        }
-                                    })
-                                })
-                            }
-
-
-
-
-
-                        </tbody>
-                        <tfoot className='bg-gray-100 dark:bg-gray-800'>
-                            <tr>
-                                <td colSpan={"2"} className='whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200'>
-                                    Total
-                                </td>
-                                <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
-                                    150 JD
-                                </td>
-
-                                <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
-                                    <div class="sm:flex sm:items-end sm:justify-end">
-                                        <a
-                                            href="#"
-                                            class="block bg-navy px-1 py-2 sm:py-3 sm:px-2 text-center text-[7px] sm:text-xs font-semibold uppercase text-white dark:bg-candy dark:hover:bg-navy transition rounded-md hover:bg-candy"
+                {
+                    cart?.length > 0 ?
+                        <div
+                            className="overflow-hidden container  md:w-1/2 w-full   overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700"
+                        >
+                            <table
+                                data-aos-duration="2000"
+                                data-aos={"fade-top"}
+                                className="min-w-full   divide-y divide-gray-200 text-[12px] md:text-sm dark:divide-gray-700"
+                            >
+                                <thead className="bg-gray-100 dark:bg-gray-800">
+                                    <tr>
+                                        <th
+                                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900 dark:text-white"
                                         >
-                                            Buy Now
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                                            Ticket
+                                        </th>
+                                        <th
+                                            className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Quantity
+                                        </th>
+                                        <th
+                                            className="whitespace-nowrap px-1 py-2 text-left font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Total
+                                        </th>
+                                        <th
+                                            className="whitespace-nowrap px-2 py-2 text-left font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Price
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+
+
+                                    {
+                                        table?.map((Tticket) => {
+
+                                            return concert?.categories.map((catTicket, i) => {
+
+                                                if (Tticket === catTicket.id) {
+
+                                                    return (
+
+                                                        <tr key={i}>
+                                                            <td
+                                                                className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
+                                                            >
+                                                                {catTicket.class}
+                                                            </td>
+                                                            <td
+                                                                className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
+                                                            >
+                                                                {
+
+
+
+                                                                    amount(catTicket.id)
+
+                                                                }
+
+
+                                                            </td>
+                                                            <td
+                                                                className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
+                                                            >
+                                                                {total(catTicket.id)} JD
+                                                            </td>
+                                                            <td
+                                                                className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
+                                                            >
+                                                                {catTicket.price} JD
+                                                            </td>
+                                                        </tr>
+
+                                                    )
+                                                }
+                                            })
+                                        })
+                                    }
+
+
+
+
+
+                                </tbody>
+                                <tfoot className='bg-gray-100 dark:bg-gray-800'>
+                                    <tr>
+                                        <td colSpan={"2"} className='whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200'>
+                                            Total
+                                        </td>
+                                        <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
+                                            {totalPrice()} JD
+                                        </td>
+
+                                        <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
+                                            <div class="sm:flex sm:items-end sm:justify-end">
+                                                <a
+                                                    href="#"
+                                                    class="block bg-navy px-1 py-2 sm:py-3 sm:px-2 text-center text-[7px] sm:text-xs font-semibold uppercase text-white dark:bg-candy dark:hover:bg-navy transition rounded-md hover:bg-candy"
+                                                >
+                                                    Buy Now
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        : null
+                }
+
             </div>
 
             <div className='h-[3px] bg-candy container w-3/4 mx-auto my-11' ></div>

@@ -5,6 +5,26 @@ import { CheckoutContext } from '../context/CheckoutContext';
 
 export default function EventCard({ ticket }) {
     const { cart, setCart } = useContext(CheckoutContext)
+    const min = 4
+    const max = 10
+
+    const addTicket = (ticket) => {
+        if (cart.length < max) {
+            if (cart.length >= min) {
+
+
+                setCart([...cart, ticket])
+            } else {
+
+                let arr = []
+                for (let index = 0; index < min; index++) {
+                    arr.push(ticket)
+                }
+
+                setCart([...cart, ...arr])
+            }
+        }
+    }
     return (
 
         <>
@@ -34,7 +54,7 @@ export default function EventCard({ ticket }) {
                     </div>
 
                     <div className='flex justify-center w-full  '>
-                        <button onClick={() => setCart([...cart, ticket?.id])} className='p-2 dark:bg-candy dark:hover:bg-navy bg-navy hover:bg-candy text-white font-bold text-lg rounded-full w-full m-3'>+</button>
+                        <button onClick={() => addTicket(ticket?.id)} className='p-2 dark:bg-candy dark:hover:bg-navy bg-navy hover:bg-candy text-white font-bold text-lg rounded-full w-full m-3'>+</button>
                     </div>
                 </div>
             </div>
