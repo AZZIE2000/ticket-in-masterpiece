@@ -19,6 +19,7 @@
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
+    "react-intl-tel-input": "^8.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-tabs": "^5.1.0",
@@ -36,6 +37,10 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
   },
   "browserslist": {
     "production": [

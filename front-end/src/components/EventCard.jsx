@@ -1,28 +1,54 @@
 import { Button } from 'flowbite-react'
 import React from 'react'
+import { useEffect } from 'react';
 import { useContext } from 'react';
 import { CheckoutContext } from '../context/CheckoutContext';
 
-export default function EventCard({ ticket }) {
-    const { cart, setCart } = useContext(CheckoutContext)
-    const min = 4
-    const max = 10
+export default function EventCard({ ticket, concertId, crrId }) {
+    const { cart, setCart, setConcertToBuy } = useContext(CheckoutContext)
+    const min = null
+    const max = null
+
+    useEffect(() => {
+        const conNum = JSON.parse(localStorage.getItem('for'))
+        if (conNum != crrId) {
+            localStorage.removeItem('tickets')
+            localStorage.removeItem('for')
+            setCart([])
+        } else {
+            const tickets = JSON.parse(localStorage.getItem('tickets'))
+            setCart(tickets)
+
+        }
+
+    }, [])
 
     const addTicket = (ticket) => {
-        if (cart.length < max) {
-            if (cart.length >= min) {
+        if (min && max && min !== 0 && max !== 0) {
 
-
-                setCart([...cart, ticket])
-            } else {
-
-                let arr = []
-                for (let index = 0; index < min; index++) {
-                    arr.push(ticket)
+            setConcertToBuy(concertId)
+            if (cart.length < max) {
+                if (cart.length >= min) {
+                    const tt = [...cart, ticket]
+                    setCart(tt)
+                    localStorage.setItem("tickets", JSON.stringify(tt))
+                    localStorage.setItem("for", concertId)
+                } else {
+                    let arr = []
+                    for (let index = 0; index < min; index++) {
+                        arr.push(ticket)
+                    }
+                    const tt = [...cart, ...arr]
+                    setCart(tt)
+                    localStorage.setItem("tickets", JSON.stringify(tt))
+                    localStorage.setItem("for", concertId)
                 }
-
-                setCart([...cart, ...arr])
             }
+        } else {
+            const tt = [...cart, ticket]
+            setCart(tt)
+            localStorage.setItem("tickets", JSON.stringify(tt))
+            localStorage.setItem("for", concertId)
         }
     }
     return (

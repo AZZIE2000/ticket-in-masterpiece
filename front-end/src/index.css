@@ -17,3 +17,13 @@ button[aria-selected="true"].dark {
   border-color: #150050;
   color: #150050;
 }
+.intl-tel-input .country-list .flag-box,
+.intl-tel-input .country-list .country-name {
+  color: black;
+}
+.intl-tel-input .flag-container .arrow.up:after {
+  color: black;
+}
+.intl-tel-input .flag-container .arrow.down:after {
+  color: black;
+}

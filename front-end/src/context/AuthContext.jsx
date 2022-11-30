@@ -1,17 +1,16 @@
 import { createContext, useState } from "react"
-import { GoogleLogin } from '@react-oauth/google';
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import axios from "axios"
+import { useCookies } from "react-cookie"
 import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { useRef } from "react"
 export const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
-    const [cookies, setCookie, removeCookie] = useCookies(['Token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['Token'])
     const navigate = useNavigate()
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false)
     // the user
     const [user, setUser] = useState({})
     // the user token
@@ -43,26 +42,26 @@ export function AuthProvider({ children }) {
     // social media login functions-------------------
     const googleLoginFun = (response) => {
         // to get the data from google res
-        const userObject = jwt_decode(response.credential);
+        const userObject = jwt_decode(response.credential)
         // destruct the data object
-        const { name, sub, picture, email } = userObject;
+        const { name, sub, picture, email } = userObject
         // assign to variable to send with the request
         const data = {
             name: name,
             email: email,
             google_id: sub,
-        };
+        }
         // the req to the end-point
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("/api/googleLogin", data).then((res) => {
                 if (res.status === 200) {
-                    const token = res.data.token;
+                    const token = res.data.token
                     setToken(token)
-                    setCookie("Token", token, { path: "/" });
-                    setUser(res.data.user);
+                    setCookie("Token", token, { path: "/" })
+                    setUser(res.data.user)
                     setShow(false)
                 } else {
-                    console.log(res);
+                    console.log(res)
                 }
             });
         });
@@ -73,23 +72,24 @@ export function AuthProvider({ children }) {
             name: response.name,
             email: response.email,
             facebook_id: response.id,
-        };
+        }
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("/api/facebookLogin", data).then((res) => {
                 if (res.status === 200) {
-                    const token = res.data.token;
+                    const token = res.data.token
                     setToken(token)
-                    setCookie("Token", token, { path: "/" });
-                    setUser(res.data.user);
-                    // console.log(user);
+                    setCookie("Token", token, { path: "/" })
+                    setUser(res.data.user)
                     setShow(false)
                 } else {
-                    console.log(res);
+                    console.log(res)
                 }
-            });
-        });
-    };
+            })
+        })
+    }
+
     // social media login functions-------------------
+
     // login fun to the database
     const loginFun = () => {
         const email = emailInput.current.value
@@ -102,7 +102,6 @@ export function AuthProvider({ children }) {
             axios.get("/sanctum/csrf-cookie").then((response) => {
                 axios.post("/api/login", data).then((res) => {
                     if (res.data.status === 401) {
-                        console.log(res.data.errors);
                         setErrors(res.data.errors)
                     }
                     else if (res.data.status === 402) {
@@ -117,8 +116,8 @@ export function AuthProvider({ children }) {
                     } else {
                         console.log(res)
                     }
-                });
-            });
+                })
+            })
         }
     }
     // register fun to the database
@@ -153,7 +152,6 @@ export function AuthProvider({ children }) {
     }
     // logout fun to the database
     const logout = () => {
-
         axios.get("/api/logout", {
             headers: {
                 Authorization: ` Bearer ${token}`,
@@ -161,19 +159,17 @@ export function AuthProvider({ children }) {
         })
             .then((res) => {
                 if (res.data.status === 200) {
-                    removeCookie("Token");
-                    setUser({});
+                    removeCookie("Token")
+                    setUser({})
                     setToken("")
                     navigate('/', { replace: true })
                     setShow(true)
-                    // console.log(res);
-
+                    localStorage.removeItem("for")
+                    localStorage.removeItem("tickets")
                 }
-                // console.log(res);
-                // navigate("/login");
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err)
             });
 
     }
@@ -181,8 +177,7 @@ export function AuthProvider({ children }) {
     // Get logged in user data
     useEffect(() => {
         if (cookies.Token) {
-            setToken(cookies.Token);
-
+            setToken(cookies.Token)
             axios
                 .get("/api/user", {
                     headers: {
@@ -191,17 +186,15 @@ export function AuthProvider({ children }) {
                 })
                 .then((res) => {
                     if (res.data.status === 200) {
-                        // console.log("the user");
-                        // console.log(res.data.user);
-                        setUser(res.data.user);
+                        setUser(res.data.user)
                     } else {
-                        console.log(res);
+                        console.log(res)
                     }
                 });
         } else {
-            return;
+            return
         }
-    }, []);
+    }, [])
     useEffect(() => { console.log(token) }, [token])
     // payments in profile section
     useEffect(() => {
@@ -216,15 +209,15 @@ export function AuthProvider({ children }) {
             })
             .then((res) => {
                 if (res.data.status === 200) {
-                    console.log("payment data :");
-                    console.log(res.data.payments);
-                    setPayments(res.data.payments);
+                    console.log("payment data :")
+                    console.log(res.data.payments)
+                    setPayments(res.data.payments)
                 } else {
-                    console.log(res);
+                    console.log(res)
                 }
-            });
+            })
 
-    }, [token]);
+    }, [token])
     // payments in profile section
 
     return (

@@ -17,17 +17,14 @@ export default function Profile() {
     const { setUser, payments, logout, token, setShow, user } = useContext(AuthContext)
 
     useEffect(() => {
-
         setTimeout(() => {
-
             if (cookies.Token === "" && token === "") {
                 navigate('/', { replace: true })
                 setShow(true)
-
             }
-        }, 1000);
-
+        }, 1000)
     }, [token])
+
     // Tickets per concert for user -------
     const [concerts, setConcerts] = useState()
     useEffect(() => {
@@ -44,12 +41,11 @@ export default function Profile() {
                     } else {
                         console.log(res);
                     }
-                });
-
+                })
         } else {
-            return;
+            return
         }
-    }, []);
+    }, [])
     const updateInfo = (e) => {
 
         if (cookies.Token) {
@@ -71,11 +67,9 @@ export default function Profile() {
                             })
                             .then((res) => {
                                 if (res.data.status === 200) {
-                                    // console.log("the user");
-                                    // console.log(res);
-                                    setUser(res.data.user);
+                                    setUser(res.data.user)
                                 } else {
-                                    console.log(res);
+                                    console.log(res)
                                 }
                             });
                     } else {
@@ -84,9 +78,9 @@ export default function Profile() {
                 })
             })
         } else {
-            return;
+            return
         }
-    };
+    }
 
     return (
         <>
@@ -148,7 +142,6 @@ export default function Profile() {
                                             placeholder={user?.email}
                                             value={user?.email}
                                             disabled
-
                                         />
                                     </div>
                                 </div>

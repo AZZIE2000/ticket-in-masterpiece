@@ -1,36 +1,54 @@
-import { Button, Card, TextInput } from 'flowbite-react';
+// React thingies
+import React, { useEffect, useState, useContext } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+// React thingies
 
-import React, { useEffect, useState } from 'react'
-import DesignOne from '../components/SingleEvent/areas/DesignOne'
-import TicketPriceCard from '../components/TicketPriceCard';
-
-import 'aos/dist/aos.css';
-// ---------------------------
-// import required modules
-import { EffectCoverflow, Pagination } from "swiper";
 // Import Swiper React components
+import { EffectCoverflow, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import EventCard from '../components/EventCard';
-import image0 from "../images/0.png";
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { BsFillCalendarEventFill, BsFillClockFill, BsFillGeoAltFill, BsCircleFill } from 'react-icons/bs';
+// Import Swiper React components
 
-// ---------------------------
-import { useContext } from 'react';
+// AOS
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+// AOS
+
+// Components & icons
+import EventCard from '../components/EventCard';
+import { BsFillCalendarEventFill, BsFillClockFill, BsFillGeoAltFill, BsCircleFill } from 'react-icons/bs';
+import { FaMinus, FaPlus } from 'react-icons/fa';
+// Components & icons
+
+// Context
 import { CheckoutContext } from '../context/CheckoutContext';
 import { WebContext } from '../context/WebContext';
+import { AuthContext } from '../context/AuthContext';
+import { useCookies } from 'react-cookie';
+// Context
+
 export default function SingleEvent1() {
-    const { month } = useContext(WebContext)
-    const { cart, setCart } = useContext(CheckoutContext)
-    // call how many tickets available and stop adding when their over
+    const [cookies, setCookie, removeCookie] = useCookies(['Token']);
+    const navigate = useNavigate()
     const { id } = useParams()
+
+    useEffect(() => {
+        AOS.init({ once: true });
+        // setCart([])
+    }, [])
+
+    const { setShow, token } = useContext(AuthContext)
+    useEffect(() => {
+
+        console.log("token");
+        console.log(token);
+    }, [token])
+    const { month } = useContext(WebContext)
+    const { cart, setCart, concertToBuy, setConcertToBuy } = useContext(CheckoutContext)
+    // call how many tickets available and stop adding when their over
     const [concert, setConcert] = useState()
     const [table, setTable] = useState([])
     useEffect(() => {
@@ -44,16 +62,17 @@ export default function SingleEvent1() {
             }
         });
     }, []);
-    useEffect(() => {
 
+    useEffect(() => {
+        // console.log(cart);
         const uniq = cart => [...new Set(cart)];
         uniq(cart)
         setTable(uniq(cart))
 
     }, [cart])
-    useEffect(() => {
-        console.log(table);
 
+    useEffect(() => {
+        // console.log(table);
     }, [table])
     const amount = (id) => cart.filter(x => x == id).length
     const total = (id) => {
@@ -70,36 +89,68 @@ export default function SingleEvent1() {
         let total = 0;
         cart.map((ticket) => {
             concert?.categories.map((item) => {
-
                 if (ticket === item.id) {
                     total = total + item.price
-
                 }
-
             })
-
         })
-
         return total;
+    }
+    const deleteTicket = (id) => {
+        var index = cart.indexOf(id);
+        if (index > -1) {
+            cart.splice(index, 1);
+            const newCart = [...cart]
+            setCart(newCart)
+            localStorage.setItem("tickets", JSON.stringify(newCart))
+            console.log("done");
+            console.log(newCart)
+        }
+
+        return cart;
 
     }
-    useEffect(() => {
-        AOS.init({ once: true });
+    const min = null
+    const max = null
+    const addTicket = (ticket) => {
+        if (min && max && min !== 0 && max !== 0) {
 
-    }, [])
+            setConcertToBuy(concert.id)
+            if (cart.length < max) {
+                if (cart.length >= min) {
+                    const tt = [...cart, ticket]
+                    setCart(tt)
+                    localStorage.setItem("tickets", JSON.stringify(tt))
+                    localStorage.setItem("for", concert.id)
+                } else {
+                    let arr = []
+                    for (let index = 0; index < min; index++) {
+                        arr.push(ticket)
+                    }
+                    const tt = [...cart, ...arr]
+                    setCart(tt)
+                    localStorage.setItem("tickets", JSON.stringify(tt))
+                    localStorage.setItem("for", concert.id)
+                }
+            }
+        } else {
+            const tt = [...cart, ticket]
+            setCart(tt)
+            localStorage.setItem("tickets", JSON.stringify(tt))
+            localStorage.setItem("for", concert.id)
+        }
+    }
+
 
     return (
 
         <>
-
             <div className=' flex justify-center mt-10 overflow-hidden mx-auto'>
-
-
                 <Swiper
                     effect={"coverflow"}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={3}
+                    slidesPerView={concert?.categories.length == 1 ? 1 : concert?.categories.length == 2 ? 2 : 3}
                     loop={true}
                     loopFillGroupWithBlank={true}
                     coverflowEffect={{
@@ -118,7 +169,7 @@ export default function SingleEvent1() {
                         concert?.categories.map((ticket) => {
                             return (
                                 <SwiperSlide key={ticket?.id}  >
-                                    <EventCard ticket={ticket} />
+                                    <EventCard crrId={id} ticket={ticket} concertId={concert?.id} />
                                 </SwiperSlide>
                             )
                         })
@@ -179,21 +230,18 @@ export default function SingleEvent1() {
                                                         <tr key={i}>
                                                             <td
                                                                 className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
+
                                                             >
                                                                 {catTicket.class}
                                                             </td>
                                                             <td
-                                                                className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
+                                                                className="whitespace-nowrap px-1 py-2 flex gap-x-2 text-gray-700 dark:text-gray-200"
                                                             >
+                                                                <button onClick={() => deleteTicket(catTicket.id)} className='text-white   border bg-navy hover:bg-candy dark:bg-candy dark:hover:bg-navy border-black dark:border-black rounded-full p-[2px]' ><FaMinus /></button>
                                                                 {
-
-
-
-                                                                    amount(catTicket.id)
-
+                                                                    <span>{amount(catTicket.id)}</span>
                                                                 }
-
-
+                                                                <button onClick={() => addTicket(catTicket.id)} className='text-navy dark:text-candy hover:text-candy dark:hover:text-white border border-black dark:border-white rounded-full p-[2px]' ><FaPlus /></button>
                                                             </td>
                                                             <td
                                                                 className="whitespace-nowrap px-1 py-2 text-gray-700 dark:text-gray-200"
@@ -201,9 +249,9 @@ export default function SingleEvent1() {
                                                                 {total(catTicket.id)} JD
                                                             </td>
                                                             <td
-                                                                className="whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200"
+                                                                className="whitespace-nowrap px-2 py-2 text-gray-700 flex justify-between dark:text-gray-200"
                                                             >
-                                                                {catTicket.price} JD
+                                                                <span>{catTicket.price} JD </span>
                                                             </td>
                                                         </tr>
 
@@ -229,12 +277,16 @@ export default function SingleEvent1() {
 
                                         <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
                                             <div class="sm:flex sm:items-end sm:justify-end">
-                                                <a
-                                                    href="#"
+                                                <button
+                                                    onClick={() => {
+                                                        !cookies.Token ? setShow(true) : navigate("/checkout")
+
+                                                    }}
+                                                    // to={"/checkout"}
                                                     class="block bg-navy px-1 py-2 sm:py-3 sm:px-2 text-center text-[7px] sm:text-xs font-semibold uppercase text-white dark:bg-candy dark:hover:bg-navy transition rounded-md hover:bg-candy"
                                                 >
                                                     Buy Now
-                                                </a>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
