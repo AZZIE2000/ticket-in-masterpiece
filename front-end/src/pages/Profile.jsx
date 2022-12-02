@@ -1,4 +1,4 @@
-import { Accordion, Card, Label, Tabs, TextInput } from 'flowbite-react'
+import { Accordion, Button, Card, Label, Modal, Tabs, TextInput } from 'flowbite-react'
 import React from 'react'
 
 import { MdDashboard } from "react-icons/md";
@@ -6,16 +6,18 @@ import { HiUserCircle, HiClipboardList } from "react-icons/hi";
 import Ticket from '../components/Ticket';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Cookies, useCookies } from 'react-cookie';
-import { useState } from 'react';
+import QRCode from "react-qr-code";
 export default function Profile() {
+    const [showM, setShowM] = useState(false)
+    const [mData, setMData] = useState({ serial_num: "hi" })
     const [cookies, setCookie, removeCookie] = useCookies(['Token']);
     const navigate = useNavigate()
-    const { setUser, payments, logout, token, setShow, user } = useContext(AuthContext)
-
+    const { setUser, setPayments, payments, logout, token, setShow, user } = useContext(AuthContext)
+    const [pData, setPData] = useState(payments);
     useEffect(() => {
         setTimeout(() => {
             if (cookies.Token === "" && token === "") {
@@ -38,8 +40,22 @@ export default function Profile() {
                 .then((res) => {
                     if (res.data.status === 200) {
                         setConcerts(res.data.tickets)
+
                     } else {
                         console.log(res);
+                    }
+                })
+            axios
+                .get("/api/payments/history", {
+                    headers: {
+                        Authorization: `Bearer ${cookies.Token}`,
+                    },
+                })
+                .then((res) => {
+                    if (res.data.status === 200) {
+                        setPData(res.data.payments)
+                    } else {
+                        console.log(res)
                     }
                 })
         } else {
@@ -81,6 +97,23 @@ export default function Profile() {
             return
         }
     }
+    const updateT = () => {
+        console.log("============================");
+        axios
+            .get("/api/ticketswconcerts", {
+                headers: {
+                    Authorization: `Bearer ${cookies.Token}`,
+                },
+            })
+            .then((res) => {
+                if (res.data.status === 200) {
+                    setConcerts(res.data.tickets)
+
+                } else {
+                    console.log(res);
+                }
+            })
+    }
 
     return (
         <>
@@ -95,6 +128,49 @@ export default function Profile() {
                         aria-label="Tabs with icons"
                         style="underline"
                     >
+                        {
+                            concerts?.length > 0 ?
+
+                                <Tabs.Item
+
+                                    title="Tickets"
+                                    // title="Profile"
+                                    icon={MdDashboard}
+                                >
+                                    <Accordion>
+                                        {concerts?.map((concert) => {
+                                            return (
+                                                <Accordion.Panel key={concert?.id} className="bg-candy " >
+                                                    <Accordion.Title>
+                                                        {concert?.name}
+                                                    </Accordion.Title>
+                                                    <Accordion.Content>
+                                                        <div className='w-full'>
+                                                            <button class="block mx-auto mb-3 bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"> Scan All tickets</button>
+                                                        </div>
+                                                        <div className='grid grid-cols-1 sm:grid-cols-2 flex-col gap-3'>
+
+                                                            {
+
+                                                                concert?.tickets.map((ticket) => {
+                                                                    return (
+
+                                                                        <Ticket ShowM={setShowM} show={showM} mData={setMData} user={user} concert={concert} ticket={ticket} />
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    </Accordion.Content>
+                                                </Accordion.Panel>
+                                            )
+                                        })
+                                        }
+                                    </Accordion>
+
+                                </Tabs.Item>
+
+                                : ""
+                        }
                         <Tabs.Item
                             title="Profile"
                             icon={HiUserCircle}
@@ -155,44 +231,10 @@ export default function Profile() {
                                 </button>
                             </div>
                         </Tabs.Item>
+
+
                         {
-                            concerts?.length > 0 ?
-                                <>
-                                    <Tabs.Item
-                                        active={true}
-                                        title="Tickets"
-                                        icon={MdDashboard}
-                                    >
-                                        <Accordion>
-                                            {concerts?.map((concert) => {
-                                                return (
-                                                    <Accordion.Panel key={concert?.id} className="bg-candy " >
-                                                        <Accordion.Title>
-                                                            {concert?.name}
-                                                        </Accordion.Title>
-                                                        <Accordion.Content>
-                                                            {
-
-                                                                concert?.tickets.map((ticket) => {
-                                                                    return (
-
-                                                                        <Ticket />
-                                                                    )
-                                                                })
-                                                            }
-                                                        </Accordion.Content>
-                                                    </Accordion.Panel>
-                                                )
-                                            })
-                                            }
-                                        </Accordion>
-
-                                    </Tabs.Item>
-                                </>
-                                : ""
-                        }
-                        {
-                            payments?.length > 0 ?
+                            pData?.length > 0 ?
                                 <Tabs.Item
                                     title="Payments"
                                     icon={HiClipboardList}
@@ -220,7 +262,7 @@ export default function Profile() {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    payments?.map((payment) => {
+                                                    pData?.map((payment) => {
                                                         return (
 
 
@@ -229,13 +271,13 @@ export default function Profile() {
                                                                     {payment?.concert.name}
                                                                 </th>
                                                                 <td className="py-4 px-6">
-                                                                    **** **** **** {payment?.card_num}
+                                                                    **** **** **** {JSON.parse(payment?.card_num).last4}
                                                                 </td>
                                                                 <td className="py-4 px-6">
-                                                                    {payment?.created_at}
+                                                                    {payment?.created_at.slice(0, 10)} {" - "}{payment?.created_at.slice(11, 19)}
                                                                 </td>
                                                                 <td className="py-4 px-6">
-                                                                    {payment?.total}
+                                                                    {payment?.total} {" "} JD
 
                                                                 </td>
                                                             </tr>
@@ -256,12 +298,7 @@ export default function Profile() {
                                 </Tabs.Item>
                                 : ""
                         }
-
-
-
-
                         <Tabs.Item
-
                             title="Support"
                         >
                             yea whatever
@@ -271,6 +308,56 @@ export default function Profile() {
                 </Card>
 
             </div>
+            <Modal
+                show={showM}
+                size="md"
+                // popup={true}
+                onClose={() => setShowM(false)}
+            >
+
+                <Modal.Body>
+                    <div className="text-center">
+
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            <QRCode
+                                size={256}
+                                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                value={mData?.serial_num}
+                                viewBox={`0 0 256 256`}
+                                title={"Scan"}
+                            />
+                        </h3>
+
+                        <p className='my-3'>Scan Now!</p>
+                        <div className="flex flex-col justify-center gap-4">
+                            <Button
+                                className='w-full'
+                                color="success"
+                                onClick={() => {
+                                    setShowM(false)
+                                    if (!mData.scanned) {
+
+                                        updateT()
+                                    }
+                                }}
+                            >
+                                Done
+                            </Button>
+                            <Button
+                                className='w-full'
+                                color="failure"
+                                onClick={() => {
+                                    setShowM(false)
+
+                                }}
+                            >
+                                Cancel
+                            </Button>
+
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

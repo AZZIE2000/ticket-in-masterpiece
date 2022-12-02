@@ -37,7 +37,7 @@ export default function SingleEvent1() {
 
     useEffect(() => {
         AOS.init({ once: true });
-        // setCart([])
+
     }, [])
 
     const { setShow, token } = useContext(AuthContext)

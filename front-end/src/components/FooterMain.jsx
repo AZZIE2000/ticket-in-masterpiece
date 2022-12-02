@@ -9,27 +9,7 @@ export default function FooterMain() {
                 <div
                     class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24"
                 >
-                    <div class="absolute top-4 right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8">
-                        <a
-                            class="inline-block rounded-full bg-navy p-2 text-white shadow transition hover:bg-candy dark:bg-candy dark:text-white dark:hover:bg-navy sm:p-3 lg:p-4"
-                            href="#MainContent"
-                        >
-                            <span class="sr-only">Back to top</span>
 
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </a>
-                    </div>
 
                     <div class="lg:flex lg:items-end lg:justify-between">
                         <div>
@@ -134,7 +114,7 @@ export default function FooterMain() {
                     <p
                         class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400 lg:text-right"
                     >
-                        Copyright &copy; 2022. All rights reserved.
+                        &copy;    Ticket-In.com  {new Date().getFullYear()}. All rights reserved.
                     </p>
                 </div>
             </footer>

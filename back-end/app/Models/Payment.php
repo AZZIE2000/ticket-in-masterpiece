@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Payment extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'concert_id',
+        'total',
+        'card_num',
+
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

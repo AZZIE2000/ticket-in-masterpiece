@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Concert;
-use App\Models\CustomerOrder;
-use App\Models\Payment;
 use App\Models\Ticket;
+use App\Models\Concert;
+use App\Models\Payment;
+use App\Models\TicketOrder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\CustomerOrder;
+use function PHPSTORM_META\map;
 use Illuminate\Support\Facades\DB;
 
-use function PHPSTORM_META\map;
+use App\Models\CustomerOrderTicket;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -73,6 +75,57 @@ class UsersController extends Controller
             // 'lala' => $qqq
         ]);
     }
+
+    public function buyTickets(Request $request)
+    {
+        // tickets
+        $allTickets = $request->cart;
+        $newCart = [];
+        for ($i = 0; $i < count($allTickets); $i++) {
+            $ticket =  Ticket::create([
+                'serial_num' => $request->serialNum . $i,
+                'ticket_category_id' => $allTickets[$i],
+                'seat' => "1",
+                'concert_id' => $request->concert,
+                'user_id' => Auth::user()->id,
+            ]);
+            array_push($newCart, $ticket->id);
+        }
+
+        // payments
+        // $cardInfo = json_decode($request->card, true);
+        $cardInfo = json_encode($request->card);
+        $payment = Payment::create([
+            'user_id' => Auth::user()->id,
+            'concert_id' => $request->concert,
+            'total' => $request->totalPrice,
+            'card_num' => $cardInfo,
+        ]);
+
+        // customer_orders
+        $order = CustomerOrder::create([
+            'user_id' => Auth::user()->id,
+            'payment_id' => $payment->id,
+            'total_price' => $request->totalPrice,
+            'discount' =>  0,
+        ]);
+
+        // customer_order_ticket
+        for ($i = 0; $i < count($newCart); $i++) {
+            $TOrders = CustomerOrderTicket::create([
+                'customer_order_id' => $order->id,
+                'ticket_id' => $newCart[$i],
+            ]);
+        }
+
+        if (count($newCart) === count($newCart) && $payment && $order && $TOrders) {
+
+            return response()->json([
+                'status' => 200,
+            ]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

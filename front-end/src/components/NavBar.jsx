@@ -19,25 +19,15 @@ export default function NavBar() {
                         <li>
                             <Link
                                 to={"/"}
-                                aria-label="Our product"
-                                title="Our product"
+                                aria-label="Home"
+                                title="Home"
                                 className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                             >
                                 Home
                             </Link>
                         </li>
 
-                        <li>
-                            <Link
-                                to={"/checkout"}
-                                aria-label="Our product"
-                                title="Our product"
-                                className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                            >
-                                checkout
-                            </Link>
 
-                        </li>
 
 
                         <li>
@@ -46,10 +36,10 @@ export default function NavBar() {
                             </Flowbite>
                         </li>
                     </ul>
-                    <a
-                        href="/"
-                        aria-label="Company"
-                        title="Company"
+                    <Link
+                        to="/"
+                        aria-label="Ticket in"
+                        title="Ticket in"
                         class="inline-flex items-center lg:mx-auto"
                     >
                         <svg
@@ -70,21 +60,30 @@ export default function NavBar() {
                         <span class="ml-2 text-xl font-bold  tracking-wide dark:text-white text-gray-800 uppercase">
                             {user?.name ? user.name : "Ticket-in"}
                         </span>
-                    </a>
+                    </Link>
                     <ul className=" items-center hidden ml-auto space-x-8 lg:flex">
 
-                        <li>
+                        <li className='flex gap-5'>
                             {
                                 token !== "" ?
+
                                     <>
                                         <Link
                                             to={"/profile"}
-                                            aria-label="Our product"
-                                            title="Our product"
+                                            aria-label="Profile"
+                                            title="Profile"
                                             className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                         >
                                             profile
                                         </Link>
+                                        {user?.role === "admin" ? <Link
+                                            to={"/profile"}
+                                            aria-label="Profile"
+                                            title="Profile"
+                                            className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                        >
+                                            Dashboard
+                                        </Link> : null}
                                     </>
                                     : <>
                                         <button
@@ -99,7 +98,7 @@ export default function NavBar() {
 
 
                         </li>
-                        <li> </li>
+
 
                     </ul>
                     <div className="ml-auto lg:hidden">
@@ -174,62 +173,35 @@ export default function NavBar() {
                                     <nav>
                                         <ul className="space-y-4">
                                             <li>
-                                                <a
-                                                    href="/"
-                                                    aria-label="Our product"
-                                                    title="Our product"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Product
-                                                </a>
+                                                <Flowbite>
+                                                    <DarkThemeToggle />
+                                                </Flowbite>
                                             </li>
                                             <li>
-                                                <a
-                                                    href="/"
-                                                    aria-label="Our product"
-                                                    title="Our product"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Features
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="/"
-                                                    aria-label="Product pricing"
-                                                    title="Product pricing"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Pricing
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="/"
-                                                    aria-label="Sign in"
-                                                    title="Sign in"
-                                                    className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    Sign in
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="/"
-                                                    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-candy hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                                                    aria-label="Sign up"
-                                                    title="Sign up"
-                                                >
-                                                    Sign up
-                                                </a>
-                                                <Link
-                                                    to={"/profile"}
-                                                    aria-label="Our product"
-                                                    title="Our product"
-                                                    className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                                >
-                                                    profile
-                                                </Link>
+                                                {
+                                                    token !== "" ?
+                                                        <>
+                                                            <Link
+                                                                to={"/profile"}
+                                                                aria-label="Profile"
+                                                                title="Profile"
+                                                                className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                            >
+                                                                profile
+                                                            </Link>
+                                                        </>
+                                                        : <>
+                                                            <button
+                                                                className="inline-flex items-center justify-center h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-candy hover:bg-blue focus:shadow-outline focus:outline-none"
+                                                                title="Register"
+                                                                onClick={() => setShow(true)}
+                                                            >
+                                                                Login
+                                                            </button>
+                                                        </>
+                                                }
+
+
                                             </li>
                                         </ul>
                                     </nav>

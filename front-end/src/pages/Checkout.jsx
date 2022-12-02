@@ -1,22 +1,42 @@
+import {
+    CardElement,
+    useStripe,
+    useElements
+} from '@stripe/react-stripe-js';
+import { Alert, Toast } from "flowbite-react";
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { json, unstable_HistoryRouter } from 'react-router-dom';
+import { json, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 
 
 // Context
 import { AuthContext } from '../context/AuthContext';
 import IntlTelInput from 'react-intl-tel-input';
 import 'react-intl-tel-input/dist/main.css';
+import { useCookies } from 'react-cookie';
+import { useRef } from 'react';
 
 // Context
 export default function Checkout() {
-
-    const { user } = useContext(AuthContext)
+    useEffect(() => {
+        AOS.init({ once: true });
+        // setCart([])
+    }, [])
+    const [cookies, setCookie, removeCookie] = useCookies(['Token'])
+    const { user, token } = useContext(AuthContext)
     const [card, setCard] = useState(true)
+    const navigate = useNavigate()
     const [table, setTable] = useState([])
     const cartItems = JSON.parse(localStorage.getItem("tickets"))
     const id = JSON.parse(localStorage.getItem("for"))
     const [checkoutConcert, setCheckoutConcert] = useState()
+
     useEffect(() => {
         console.log('cartItems');
         console.log(cartItems);
@@ -70,6 +90,83 @@ export default function Checkout() {
     const ticketCount = (id) => {
         return cartItems.filter(x => x == id).length
     }
+
+    // -----------------------
+    const stripe = useStripe();
+    const elements = useElements();
+    // const fName = user?.name.split(" ")[0]
+    // const lName = user?.name.split(" ")[1]
+    const [info, setInfo] = useState({
+        fName: "",
+        lName: "",
+        phone: ""
+    })
+    useEffect(() => {
+        if (user.name) {
+            setInfo({
+                fName: user?.name.split(" ")[0],
+                lName: user?.name.split(" ")[1],
+                phone: ""
+            })
+        }
+    }, [user])
+    const [err, setErr] = useState(false)
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (info.fName === "" || info.lName === "" || info.phone.length < 10) {
+            setErr(true)
+            console.log(err);
+            return
+        } else {
+            setErr(false)
+        }
+        if (elements == null) {
+            return;
+        }
+
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: elements.getElement(CardElement),
+
+        }).then((res) => {
+            if (res.paymentMethod) {
+
+
+                const card = {
+                    brand: res.paymentMethod.card.brand,
+                    country: res.paymentMethod.card.country,
+                    last4: res.paymentMethod.card.last4,
+                }
+
+                const data = {
+                    serialNum: res.paymentMethod.id,
+                    name: info.fName + " " + info.lName,
+                    phone: info.phone,
+                    cart: cartItems,
+                    totalPrice: totalPrice(),
+                    card: card,
+                    concert: id,
+                }
+
+                axios
+                    .post("/api/buy/tickets", data, {
+                        headers: {
+                            Authorization: `Bearer ${cookies.Token}`,
+                        },
+                    })
+                    .then((res) => {
+                        if (res.status) {
+                            navigate('/profile')
+
+                        }
+                    });
+            }
+        })
+    }
+
+    useEffect(() => { console.log(info) }, [info])
+    useEffect(() => { console.log(err) }, [err])
+
     return (
         <>
 
@@ -152,9 +249,24 @@ export default function Checkout() {
                     </div>
 
                     <div className="py-12 md:py-24 ">
-
                         <div className="mx-auto max-w-lg px-4 lg:px-8">
-                            <form className="grid grid-cols-6 gap-4">
+                            {
+                                err ? <Alert
+                                    color="failure"
+                                    className=' mb-3 '
+                                    data-aos-duration="2000"
+                                    data-aos={"fade-top"}
+                                // icon={HiInformationCircle}
+                                >
+                                    <span>
+                                        <span className="font-medium">
+                                            Info alert!
+                                        </span>
+                                        {' '}Please fill up all the fields and try again.
+                                    </span>
+                                </Alert> : null
+                            }
+                            <form onSubmit={handleSubmit} className="grid grid-cols-6 gap-4">
                                 <div className="col-span-3">
                                     <label className="mb-1 flex gap-x-1 text-sm text-black dark:text-white" >
                                         First Name<small className='text-red-600 '></small>
@@ -165,6 +277,12 @@ export default function Checkout() {
                                         type="text"
                                         name='fName'
                                         defaultValue={user?.name ? user?.name.split(" ")[0] : ""}
+                                        onChange={(e) => {
+                                            setInfo({ ...info, fName: e.target.value })
+                                        }}
+
+
+
                                     />
                                 </div>
                                 <div className="col-span-3">
@@ -176,6 +294,10 @@ export default function Checkout() {
                                         type="text"
                                         name='lName'
                                         defaultValue={user?.name ? user?.name.split(" ")[1] : ""}
+
+                                        onChange={(e) => {
+                                            setInfo({ ...info, lName: e.target.value })
+                                        }}
                                     />
                                 </div>
 
@@ -191,70 +313,33 @@ export default function Checkout() {
                                     />
                                 </div>
 
-                                <div className="col-span-6">
+                                <div className="col-span-6 ">
                                     <label className="mb-1 flex gap-x-1 text-sm text-black dark:text-white" >
                                         Phone Number<small className='text-red-600 '></small>
                                     </label>
-                                    <IntlTelInput
-                                        preferredCountries={['jo', 'sa']}
-                                        inputClassName={'w-fit border-white rounded bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white'}
-                                        fieldName={''}
-                                        defaultValue={user ? user?.phone : ""}
-                                        placeholder={"07 7808 1234"}
+
+                                    <PhoneInput
+                                        inputClass={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-black'}
+                                        country={'jo'}
+                                        defaultValue={user?.phone}
+                                        onChange={e => setInfo({ ...info, phone: e })}
+                                        defaultErrorMessage={"lol"}
                                     />
                                 </div>
 
-                                <fieldset className="col-span-6">
-                                    <legend className="mb-1 block text-sm text-gray-600">
+                                <div className="col-span-6 ">
+                                    <legend className="mb-1 block text-sm text-black  dark:text-white">
                                         Card Details
                                     </legend>
+                                    <CardElement className=' bg-white p-4 rounded' />
+                                </div>
 
-                                    <div className="-space-y-px rounded-lg bg-white shadow-sm">
-                                        <div>
-                                            <label className="sr-only" for="card-number">Card Number</label>
 
-                                            <input
-                                                className="relative w-full rounded-t-lg  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white p-2.5 text-sm placeholder-gray-400 focus:z-10"
-                                                type="text"
-                                                name="card-number"
-                                                id="card-number"
-                                                placeholder="Card number"
-                                            />
-                                        </div>
-
-                                        <div className="flex -space-x-px">
-                                            <div className="flex-1">
-                                                <label className="sr-only" for="card-expiration-date">
-                                                    Expiration Date
-                                                </label>
-
-                                                <input
-                                                    className="relative w-full rounded-bl-lg bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white p-2.5 text-sm placeholder-gray-400 focus:z-10"
-                                                    type="text"
-                                                    name="card-expiration-date"
-                                                    id="card-expiration-date"
-                                                    placeholder="MM / YY"
-                                                />
-                                            </div>
-
-                                            <div className="flex-1">
-                                                <label className="sr-only" for="card-cvc">CVC</label>
-
-                                                <input
-                                                    className="relative w-full rounded-br-lg bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white p-2.5 text-sm placeholder-gray-400 focus:z-10"
-                                                    type="text"
-                                                    name="card-cvc"
-                                                    id="card-cvc"
-                                                    placeholder="CVC"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
                                 <div className="col-span-6">
                                     <button
                                         className="block w-full rounded-lg bg-black dark:bg-navy/90 dark:text-white p-2.5 text-sm text-white"
                                         type="submit"
+                                        disabled={!stripe || !elements}
                                     >
                                         Pay Now
                                     </button>

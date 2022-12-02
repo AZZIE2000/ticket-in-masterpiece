@@ -12,6 +12,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Ticket extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'serial_num',
+        'ticket_category_id',
+        'seat',
+        'concert_id',
+        'user_id',
+        'scanned',
+    ];
 
     public function ticketOrders()
     {

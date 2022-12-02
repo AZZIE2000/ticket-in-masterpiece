@@ -21,9 +21,12 @@ button[aria-selected="true"].dark {
 .intl-tel-input .country-list .country-name {
   color: black;
 }
-.intl-tel-input .flag-container .arrow.up:after {
+.country-name {
   color: black;
 }
 .intl-tel-input .flag-container .arrow.down:after {
   color: black;
+}
+.InputContainer .InputElement {
+  color: white;
 }

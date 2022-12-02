@@ -1,142 +1,84 @@
-import React from 'react'
+import Aos from 'aos';
+import { Button, Modal } from 'flowbite-react'
+import React, { useEffect } from 'react'
+import { useState } from 'react'
 
-export default function Ticket() {
+export default function Ticket({ ticket, concert, user, ShowM, show, mData }) {
+    useEffect(() => {
+        Aos.init({ once: true });
+        // setCart([])
+    }, [])
+
     return (
         <>
-            <div class="px-4 py-2 text-gray-800">
-                <div class="hidden xl:flex flex-row justify-between shadow-md border rounded-md">
-                    <div
-                        class="flex flex-col items-center justify-between w-1/4 px-4 py-2 bg-white border-r-2 border-gray-500 border-dashed rounded-l-md"
+            <article
+                onClick={() => {
+                    if (!ticket.scanned) {
+                        ShowM(!show)
+                        mData(ticket)
+
+                    }
+                }}
+                data-aos-duration="1000"
+                data-aos="fade-up"
+                class="md:flex cursor-pointer shadow-md shadow-gray-900/10 bg-white transition hover:shadow-xl dark:bg-gray-800 dark:shadow-gray-800/25"
+            >
+                <div class="md:rotate-180 p-2 md:[writing-mode:_vertical-lr]">
+                    <time
+                        datetime="2022-10-10"
+                        class="flex  items-center justify-between gap-4 text-xs font-bold uppercase text-gray-900 dark:text-white"
                     >
-                        <div class="flex-col">
-                            <img
+                        <span className={ticket.scanned ? "text-red-600" : "text-green-700"}>{ticket.scanned ? 'Ticket' : 'Tap to'}</span>
+                        <span class="w-full border-b-[1px] md:border-b-0 border-gray-900/10 md:w-px md:flex-1 z-20 bg-black md:bg-gray-900/10 dark:bg-white/10"></span>
+                        <span className={ticket.scanned ? "text-red-600" : "text-green-700"} >{ticket.scanned ? 'Scanned' : 'Scan'}</span>
 
-                                src="https://store-images.s-microsoft.com/image/apps.33967.13510798887182917.246b0a3d-c3cc-46fc-9cea-021069d15c09.392bf5f5-ade4-4b36-aa63-bb15d5c3817a"
-                            />
-                            <p class="my-2 text-xs italic font-light text-gray-500">
-                                Scan here to check in!
-                            </p>
-                            <div class="text-xs mb-2 text-gray-600">
-                                <span class="text-gray-500">Valid until :</span>
-                                <br />
-                                Monday, 28 September 2020 18:30:23
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="relative object-scale-down flex flex-col h- w-3/4">
-                        <img
-                            className='h-1/2'
-                            src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder-1024x512.png"
-                        />
-                        {/* <div class="absolute p-1 bottom-24">
-                            <div
-                                class="flex flex-row px-4 py-2 text-xs font-bold text-red-800 bg-white rounded-md "
-                            >
-                                <span class="mr-2 font-normal text-gray-500">Organizer :</span>
-                                <p class="font-semibold text-red-800">Banua Coder</p>
-                            </div>
-                        </div> */}
-                        {/* <div class="absolute self-end mr-1 mt-1">
-                            <p
-                                class="px-4 py-2 text-xs font-bold text-red-800 bg-white rounded-md "
-                            >
-                                <span class="font-normal text-gray-500">Ticket Number :</span>
-                                12
-                            </p>
-                        </div> */}
-                        <div class="absolute bottom-0  flex flex-col w-full h-24">
-                            <div class="w-full h-full bg-white opacity-75 rounded-br-md"></div>
-                            <div class="absolute flex flex-row p-2 text-gray-800 opacity-100">
-                                <div class="flex flex-col">
-                                    <div class="flex flex-col">
-                                        <p class="mb-1 text-xs text-gray-500">Start Date :</p>
-                                        <p class="text-xs font-semibold text-red-800">
-                                            Monday, 28 September 2020 09:00
-                                        </p>
-                                    </div>
-                                    <div class="hidden md:flex flex-col mt-1">
-                                        <p class="mb-1 text-xs text-gray-500">End Date :</p>
-                                        <p class="text-xs font-semibold text-red-800">
-                                            Monday, 28 September 2020 19:00
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col ml-4">
-                                    <div class="hidden md:flex flex-col">
-                                        <p class="mb-1 text-xs text-gray-500">Type of event :</p>
-                                        <p class="text-xs font-semibold text-red-800">Seminar</p>
-                                    </div>
-                                    <div class="flex flex-col mt-1">
-                                        <p class="mb-1 text-xs text-gray-500">Location :</p>
-                                        <p class="text-xs font-semibold text-red-800">
-                                            Banua Coder Coworking Space, Palu Timur, Kota Palu, Sulawesi
-                                            Tengah
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="flex flex-col ml-4">
-                                    <div class="flex flex-col">
-                                        <p class="mb-1 text-xs text-gray-500">Ticket Owner :</p>
-                                        <p class="text-xs font-semibold text-red-800">
-                                            Fajrian Aidil Pratama
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </time>
                 </div>
-                <div class="xl:hidden flex flex-col bg-white border rounded-md shadow-md">
-                    <div class="py-2 px-4 flex-col flex text-center">
-                        <img class="mx-auto"
-                            src="https://store-images.s-microsoft.com/image/apps.33967.13510798887182917.246b0a3d-c3cc-46fc-9cea-021069d15c09.392bf5f5-ade4-4b36-aa63-bb15d5c3817a"
-                        />
-                        <p class="font-bold text-lg md:text-3xl">Scan here to check in!</p>
-                    </div>
-                    <hr class="border-dashed border-2 border-gray-400" />
+
+                <div class="  lg:basis-72  sm:block  basis-56">
                     <img
-                        src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder-1024x512.png"
+                        alt="Guitar"
+                        src={concert?.banner}
+                        class=" object-cover h-full"
                     />
-                    <div class="py-2 px-4 flex flex-col text-sm md:text-2xl">
-                        <p class="self-start font-bold text-gray-500">Mulai</p>
-                        <div class="flex text-sm justify-between my-2 md:text-xl">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <p class="font-bold text-red-800">Senin, 29 September 2020</p>
-                        </div>
-                        <div class="flex text-sm justify-between my-2 md:text-xl">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <p class="font-bold text-red-800">10:30</p>
-                        </div>
-                    </div>
-                    <div class="py-2 px-4 flex flex-col text-sm md:text-2xl">
-                        <p class="self-start font-bold text-gray-500">Selesai</p>
-                        <div class="flex text-sm md:text-xl justify-between my-2">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <p class="font-bold text-red-800">Senin, 29 September 2020</p>
-                        </div>
-                        <div class="flex text-sm md:text-xl justify-between my-2">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <p class="font-bold text-red-800">15:30</p>
-                        </div>
-                    </div>
-                    <div class="py-2 px-4 flex flex-col text-sm md:text-2xl">
-                        <p class="self-start font-bold text-gray-500">Lokasi</p>
-                        <div class="flex text-sm md:text-xl justify-between my-2">
-                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <p class="font-bold text-red-800">Banua Coder Coworking Space, Palu, Sulawesi Tengah, Indonesia</p>
-                        </div>
-                    </div>
-                    <hr class="border-gray-400" />
-                    {/* <div class="py-2 px-4 flex flex-col text-sm md:text-2xl">
-                        <p class="self-start font-bold text-gray-500">Powered By</p>
-                        <img
-                            class="mx-auto my-2"
-                            src="https://ad-venture.org.uk/wp-content/uploads/2017/05/logo-placeholder.png"
-                        />
-                    </div> */}
                 </div>
-            </div>
+
+
+                <div
+                    class="border-l  border-gray-900/10 p-4 dark:border-white/10 sm:!border-l-transparent sm:p-6"
+                >
+                    <a >
+                        <h3 class="font-bold uppercase text-gray-900 dark:text-white">
+                            {concert?.name}
+                        </h3>
+                    </a>
+                    <div className="flex gap-1 justify-between">
+                        <div className='flex  justify-between flex-col'>
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-gray-700 line-clamp-3 dark:text-gray-200"
+                            >
+                                Start date : {' '} {concert?.start_date}
+                            </p>
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-gray-700 line-clamp-3 dark:text-gray-200"
+                            >
+                                Ticket owner : {' '} {user?.name}
+                            </p>
+                            <p
+                                class="mt-2 text-sm leading-relaxed text-gray-700 line-clamp-3 dark:text-gray-200"
+                            >
+                                Directions :
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </article>
+
         </>
     )
 }

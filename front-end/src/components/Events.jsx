@@ -19,7 +19,6 @@ import { WebContext } from '../context/WebContext';
 import LoadingCard from './LoadingCard';
 export default function Events() {
     const { concerts, month } = useContext(WebContext)
-
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setLoading(true)
@@ -33,7 +32,7 @@ export default function Events() {
             {
                 loading ? <LoadingCard /> :
 
-                    <Tabs className={'flex flex-col items-center '} >
+                    <Tabs className={'flex flex-col items-center my-10'} >
                         <TabList>
                             {
                                 concerts?.map((type) => {
@@ -42,25 +41,19 @@ export default function Events() {
                                 )
                             }
                         </TabList>
-
                         {
                             concerts?.map((type) => {
                                 return (
-
-
                                     <TabPanel>
                                         <div className='flex gap-y-9 w-full lg:w-3/4 mt-3 container mx-auto flex-col'>
                                             {type?.concerts.map((concert) => {
                                                 return (
-
-
                                                     <TicketLong concert={concert} />
                                                 )
                                             })}
 
                                         </div>
                                     </TabPanel>
-
                                 )
                             })
 

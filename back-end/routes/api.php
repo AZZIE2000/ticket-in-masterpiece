@@ -38,4 +38,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/user/update', [AuthController::class, 'updateData']);
     Route::get('/payments/history', [UsersController::class, 'userPayments']);
     Route::get('/ticketswconcerts', [UsersController::class, 'ticketsWConcerts']);
+    Route::post('/buy/tickets', [UsersController::class, 'buyTickets']);
 });

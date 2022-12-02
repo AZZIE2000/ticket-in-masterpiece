@@ -197,27 +197,27 @@ export function AuthProvider({ children }) {
     }, [])
     useEffect(() => { console.log(token) }, [token])
     // payments in profile section
-    useEffect(() => {
+    // useEffect(() => {
 
-        // setToken(cookies.Token);
+    //     // setToken(cookies.Token);
 
-        axios
-            .get("/api/payments/history", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                if (res.data.status === 200) {
-                    console.log("payment data :")
-                    console.log(res.data.payments)
-                    setPayments(res.data.payments)
-                } else {
-                    console.log(res)
-                }
-            })
+    //     axios
+    //         .get("/api/payments/history", {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //         .then((res) => {
+    //             if (res.data.status === 200) {
+    //                 console.log("payment data :")
+    //                 console.log(res.data.payments)
+    //                 setPayments(res.data.payments)
+    //             } else {
+    //                 console.log(res)
+    //             }
+    //         })
 
-    }, [token])
+    // }, [])
     // payments in profile section
 
     return (
