@@ -16,6 +16,9 @@ import { WebProvider } from "./context/WebContext";
 import { CheckoutProvider } from "./context/CheckoutContext";
 import FooterMain from "./components/navs/FooterMain";
 import NavBar from "./components/navs/NavBar";
+import Dashboard from "./dashboard/pages/Dashboard";
+import UserEnd from "./pages/UserEnd";
+import Statistics from "./dashboard/pages/Statistics";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -45,25 +48,29 @@ function App() {
             <WebProvider>
               <AuthProvider>
                 <CheckoutProvider>
-                  <NavBar />
-
                   <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route
-                      path="/single-event/:id"
-                      element={<SingleEvent1 />}
-                    />
-                    <Route path="/checkout" element={<Checkout />} />
-
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/" element={<UserEnd />}>
+                      <Route path="/" element={<Home />} />
+                      <Route
+                        path="/single-event/:id"
+                        element={<SingleEvent1 />}
+                      />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/profile" element={<Profile />} />
+                    </Route>
+                    <Route path="/" element={<Dashboard />}>
+                      <Route path="/statistics" element={<Statistics />} />
+                    </Route>
                   </Routes>
-                  <FooterMain />
                 </CheckoutProvider>
               </AuthProvider>
             </WebProvider>
           </GoogleOAuthProvider>
         </CookiesProvider>
       </Elements>
+      {/* <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes> */}
     </>
   );
 }

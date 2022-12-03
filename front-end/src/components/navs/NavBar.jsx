@@ -78,7 +78,7 @@ export default function NavBar() {
                                             profile
                                         </Link>
                                         {user?.role === "admin" ? <Link
-                                            to={"/profile"}
+                                            to={"/dashboard"}
                                             aria-label="Profile"
                                             title="Profile"
                                             className="font-medium tracking-wide dark:text-white text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
