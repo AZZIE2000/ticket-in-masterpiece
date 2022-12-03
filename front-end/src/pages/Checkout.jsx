@@ -194,11 +194,11 @@ export default function Checkout() {
                                         {
                                             table?.map((ticket) => {
 
-                                                return checkoutConcert?.categories.map((item) => {
+                                                return checkoutConcert?.categories.map((item, i) => {
                                                     if (ticket === item.id) {
                                                         return (
                                                             <>
-                                                                <li className="flex items-center rounded-md justify-between shadow-md dark:shadow-slate-600 dark:shadow-md  p-2 py-4">
+                                                                <li key={i} className="flex items-center rounded-md justify-between shadow-md dark:shadow-slate-600 dark:shadow-md  p-2 py-4">
                                                                     <div className="flex items-start  ">
                                                                         <img
                                                                             alt="Trainer"
@@ -319,7 +319,7 @@ export default function Checkout() {
                                     </label>
 
                                     <PhoneInput
-                                        inputClass={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-black'}
+                                        inputclassName={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-black'}
                                         country={'jo'}
                                         defaultValue={user?.phone}
                                         onChange={e => setInfo({ ...info, phone: e })}

@@ -18,7 +18,7 @@ import 'aos/dist/aos.css';
 // AOS
 
 // Components & icons
-import EventCard from '../components/EventCard';
+
 import { BsFillCalendarEventFill, BsFillClockFill, BsFillGeoAltFill, BsCircleFill } from 'react-icons/bs';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 // Components & icons
@@ -28,6 +28,7 @@ import { CheckoutContext } from '../context/CheckoutContext';
 import { WebContext } from '../context/WebContext';
 import { AuthContext } from '../context/AuthContext';
 import { useCookies } from 'react-cookie';
+import EventCard from '../components/SingleEvent/EventCard';
 // Context
 
 export default function SingleEvent1() {
@@ -276,14 +277,14 @@ export default function SingleEvent1() {
                                         </td>
 
                                         <td className='whitespace-nowrap px-2 py-2 text-gray-700 dark:text-gray-200'>
-                                            <div class="sm:flex sm:items-end sm:justify-end">
+                                            <div className="sm:flex sm:items-end sm:justify-end">
                                                 <button
                                                     onClick={() => {
                                                         !cookies.Token ? setShow(true) : navigate("/checkout")
 
                                                     }}
                                                     // to={"/checkout"}
-                                                    class="block bg-navy px-1 py-2 sm:py-3 sm:px-2 text-center text-[7px] sm:text-xs font-semibold uppercase text-white dark:bg-candy dark:hover:bg-navy transition rounded-md hover:bg-candy"
+                                                    className="block bg-navy px-1 py-2 sm:py-3 sm:px-2 text-center text-[7px] sm:text-xs font-semibold uppercase text-white dark:bg-candy dark:hover:bg-navy transition rounded-md hover:bg-candy"
                                                 >
                                                     Buy Now
                                                 </button>
@@ -361,7 +362,7 @@ export default function SingleEvent1() {
             </div>
 
 
-            <iframe className='mx-auto my-8 w-full container' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3385.3809915639263!2d35.86588818694307!3d31.95055927314005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca11d730d0fd1%3A0x149981646f758d8a!2sPrs.%20Alia%20St.%2C%20Amman!5e0!3m2!1sen!2sjo!4v1667598780518!5m2!1sen!2sjo" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe className='mx-auto my-8 w-full container' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3385.3809915639263!2d35.86588818694307!3d31.95055927314005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca11d730d0fd1%3A0x149981646f758d8a!2sPrs.%20Alia%20St.%2C%20Amman!5e0!3m2!1sen!2sjo!4v1667598780518!5m2!1sen!2sjo" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </>
     )
 }

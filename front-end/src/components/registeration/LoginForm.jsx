@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+
 export default function LoginForm({ children }) {
     const { errors, loginFun, emailInput, passwordInput } = useContext(AuthContext)
     return (
@@ -36,15 +37,15 @@ export default function LoginForm({ children }) {
                     <div className="col-span-6 mx-auto">
                         <button
                             onClick={loginFun}
-                            class=" rounded-md bg-navy w-full px-[137px]  py-3 text-center text-[12px] sm:text-sm font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"
+                            className=" rounded-md bg-navy w-full px-[137px]  py-3 text-center text-[12px] sm:text-sm font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"
                         >
                             Login
                         </button>
                     </div>
-                    <div class="flex col-span-6 my-2 text-sm font-semibold items-center text-black dark:text-white">
-                        <div class="flex-grow border-t  h-px mr-3"></div>
+                    <div className="flex col-span-6 my-2 text-sm font-semibold items-center text-black dark:text-white">
+                        <div className="flex-grow border-t  h-px mr-3"></div>
                         OR
-                        <div class="flex-grow border-t h-px ml-3"></div>
+                        <div className="flex-grow border-t h-px ml-3"></div>
                     </div>
                     {children}
                 </div>

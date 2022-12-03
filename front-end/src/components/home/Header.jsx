@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { WebContext } from '../context/WebContext';
+import { WebContext } from '../../context/WebContext';
 export default function Header() {
     const { banners } = useContext(WebContext)
     const [loading, setLoading] = useState(true);

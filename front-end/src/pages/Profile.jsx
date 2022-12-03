@@ -1,9 +1,11 @@
 import { Accordion, Button, Card, Label, Modal, Tabs, TextInput } from 'flowbite-react'
 import React from 'react'
 
-import { MdDashboard } from "react-icons/md";
+import { BiSupport } from "react-icons/bi";
 import { HiUserCircle, HiClipboardList } from "react-icons/hi";
-import Ticket from '../components/Ticket';
+import { HiTicket } from "react-icons/hi2";
+import { MdPayment } from "react-icons/md";
+import Ticket from '../components/profile/Ticket';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
@@ -39,6 +41,7 @@ export default function Profile() {
                 })
                 .then((res) => {
                     if (res.data.status === 200) {
+                        console.log(res.data);
                         setConcerts(res.data.tickets)
 
                     } else {
@@ -125,7 +128,7 @@ export default function Profile() {
                 <Card className='container' >
 
                     <Tabs.Group
-                        aria-label="Tabs with icons"
+
                         style="underline"
                     >
                         {
@@ -135,7 +138,7 @@ export default function Profile() {
 
                                     title="Tickets"
                                     // title="Profile"
-                                    icon={MdDashboard}
+                                    icon={HiTicket}
                                 >
                                     <Accordion>
                                         {concerts?.map((concert) => {
@@ -146,16 +149,16 @@ export default function Profile() {
                                                     </Accordion.Title>
                                                     <Accordion.Content>
                                                         <div className='w-full'>
-                                                            <button class="block mx-auto mb-3 bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"> Scan All tickets</button>
+                                                            <button className="block mx-auto mb-3 bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"> Scan All tickets</button>
                                                         </div>
                                                         <div className='grid grid-cols-1 sm:grid-cols-2 flex-col gap-3'>
 
                                                             {
 
-                                                                concert?.tickets.map((ticket) => {
+                                                                concert?.tickets.map((ticket, i) => {
                                                                     return (
 
-                                                                        <Ticket ShowM={setShowM} show={showM} mData={setMData} user={user} concert={concert} ticket={ticket} />
+                                                                        <Ticket key={i} ShowM={setShowM} show={showM} mData={setMData} user={user} concert={concert} ticket={ticket} />
                                                                     )
                                                                 })
                                                             }
@@ -237,7 +240,7 @@ export default function Profile() {
                             pData?.length > 0 ?
                                 <Tabs.Item
                                     title="Payments"
-                                    icon={HiClipboardList}
+                                    icon={MdPayment}
 
                                 >
 
@@ -300,6 +303,7 @@ export default function Profile() {
                         }
                         <Tabs.Item
                             title="Support"
+                            icon={BiSupport}
                         >
                             yea whatever
                         </Tabs.Item>

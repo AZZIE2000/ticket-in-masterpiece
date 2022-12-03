@@ -1,8 +1,8 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import NavBar from "./components/NavBar";
+
 import Home from "./pages/Home";
-import FooterMain from "./components/FooterMain";
+
 import { Route, Routes } from "react-router-dom";
 import SingleEvent1 from "./pages/SingleEvent1";
 import Checkout from "./pages/Checkout";
@@ -14,6 +14,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CookiesProvider } from "react-cookie";
 import { WebProvider } from "./context/WebContext";
 import { CheckoutProvider } from "./context/CheckoutContext";
+import FooterMain from "./components/navs/FooterMain";
+import NavBar from "./components/navs/NavBar";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";

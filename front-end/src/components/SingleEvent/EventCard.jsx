@@ -2,7 +2,8 @@ import { Button } from 'flowbite-react'
 import React from 'react'
 import { useEffect } from 'react';
 import { useContext } from 'react';
-import { CheckoutContext } from '../context/CheckoutContext';
+import { CheckoutContext } from '../../context/CheckoutContext';
+
 
 export default function EventCard({ ticket, concertId, crrId }) {
     const { cart, setCart, setConcertToBuy } = useContext(CheckoutContext)

@@ -5,7 +5,7 @@ import SocialMediaLogin from './SocialMediaLogin';
 import { useState } from 'react';
 import RegisterForm from './RegisterForm';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 export default function RegisterationModal({ show, setShow }) {
     const { setErrors } = useContext(AuthContext)
     const [Form, setForm] = useState(true)

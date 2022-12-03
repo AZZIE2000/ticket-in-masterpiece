@@ -30,3 +30,6 @@ button[aria-selected="true"].dark {
 .InputContainer .InputElement {
   color: white;
 }
+li.react-tabs__tab:focus:after {
+  background-color: transparent;
+}

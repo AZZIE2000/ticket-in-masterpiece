@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
 
-import RegisterationModal from './RegisterationModal';
+
+import RegisterationModal from '../registeration/RegisterationModal';
+import { AuthContext } from '../../context/AuthContext';
 export default function NavBar() {
     const { user, token, show, setShow } = useContext(AuthContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function NavBar() {
                         to="/"
                         aria-label="Ticket in"
                         title="Ticket in"
-                        class="inline-flex items-center lg:mx-auto"
+                        className="inline-flex items-center lg:mx-auto"
                     >
                         <svg
                             className="w-8 text-deep-purple-accent-400"
@@ -57,7 +58,7 @@ export default function NavBar() {
                             <rect x="14" y="1" width="7" height="6" />
                             <rect x="14" y="11" width="7" height="12" />
                         </svg>
-                        <span class="ml-2 text-xl font-bold  tracking-wide dark:text-white text-gray-800 uppercase">
+                        <span className="ml-2 text-xl font-bold  tracking-wide dark:text-white text-gray-800 uppercase">
                             {user?.name ? user.name : "Ticket-in"}
                         </span>
                     </Link>
@@ -108,7 +109,7 @@ export default function NavBar() {
                             className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
                             onClick={() => setIsMenuOpen(true)}
                         >
-                            <svg class="w-5 text-gray-600" viewBox="0 0 24 24">
+                            <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
                                 <path
                                     fill="currentColor"
                                     d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"

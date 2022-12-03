@@ -2,7 +2,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import FacebookLogin from '@greatsumini/react-facebook-login';
 import { FaFacebook } from 'react-icons/fa';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 export default function SocialMediaLogin() {
     const { googleLoginFun, FacebookLoginFun } = useContext(AuthContext)
 

@@ -33,46 +33,15 @@ class UsersController extends Controller
     public function ticketsWConcerts()
     {
 
-        // $user_orders = Auth::user()->orders;
-        // $tickets = [];
-        // $orders = [];
-        // foreach ($user_orders as $order) {
-        //     $ticket = $order->tickets->first();
-        //     $item =  Concert::where('id', $ticket->concert_id)->first();
-        //     array_push($tickets, $ticket);
-        //     array_push($orders, $item);
-        // }
-        // $concerts =  array_unique($orders);
-        // $concerts =  array_values((array)$concerts);
-
-        // rsort($concerts);
-
-        // return response()->json([
-        //     'status' => 200,
-        //     'tickets' => $tickets,
-        //     'concerts' => $concerts,
-        // ]);
-        // ---------------------------------------------------
-        // return "hi";
-        // $concerts = Concert::whereRelation('tickets', 'user_id', Auth::user()->id)->get();
-        $concerts = Concert::withWhereHas('tickets', function ($query) {
+        $concerts = Concert::withWhereHas('tickets.category')->with(['tickets' => function ($query) {
             $query->where('user_id', Auth::user()->id);
-        })->get();
-        // $concerts->withWhereHas('tickets', function ($query) {
-        //     $query->where('user_id', Auth::user()->id);
-        // })->get();
-        // $concerts->whereRelation('tickets', 'user_id', Auth::user()->id)->first();
-        // foreach ($concerts as $concert) {
-        //     // $concert->tickets;
-        //     $concert->tickets->where('user_id',  Auth::user()->id)->get();
-        //     //     $concert->whereRelation('tickets', 'user_id', Auth::user()->id)->first();
-        // }
+        }])->get()->reverse()->values();
+
+
         return response()->json([
             'status' => 200,
             'tickets' => $concerts,
             'id' => Auth::user()->id,
-            // 'concerts' => $concerts,
-            // 'lala' => $qqq
         ]);
     }
 
