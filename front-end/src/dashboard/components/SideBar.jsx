@@ -1,90 +1,74 @@
-import { DarkThemeToggle, Flowbite, Sidebar } from 'flowbite-react'
-import React from 'react'
-import { useState } from 'react'
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from 'react-icons/hi'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+// import { DarkThemeToggle, Flowbite, Sidebar } from 'flowbite-react'
+// import React from 'react'
+// import { useState } from 'react'
+// import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from 'react-icons/hi'
+// import { AiOutlineMenu } from 'react-icons/ai'
+// import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+
+import { BsArrowLeftCircle } from 'react-icons/bs'
+import { AiFillPieChart } from 'react-icons/ai'
+import { SiFuturelearn } from 'react-icons/si'
+import { SiOpenaccess } from 'react-icons/si'
+import { CgProfile } from 'react-icons/cg'
 
 export default function SideBar({ show, setShow }) {
 
+    const [open, setOpen] = useState(false)
+    const location = useLocation()
 
+    const Menus = [
+        { title: 'Dashboard', path: '/dashboard', src: <AiFillPieChart /> },
+        { title: 'Course', path: '/course', src: <SiFuturelearn /> },
+        { title: 'Profile', path: '/profile', src: <CgProfile /> },
+        { title: 'Signin', path: '/login', src: <SiOpenaccess />, gap: 'true' },
+    ]
 
     return (
         <>
-            <Sidebar collapseBehavior='hide' style={{ position: 'fixed', top: 0, height: '100vh', overflow: 'hidden', zIndex: '100' }} collapsed={show} >
-                <Sidebar.Items className=' overflow-hidden  ' >
 
-                    <Sidebar.ItemGroup className='flex flex-col justify-between h-full  ' >
-                        <div>
-                            <button className='pl-2  ' onClick={() => setShow(!show)}><AiOutlineMenu size={25} /></button>
-                        </div>
-                        <>
+            <div
+                className={`${open ? 'w-60' : 'w-fit'
+                    } hidden  sm:block sticky top-0 h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
+            >
+                <BsArrowLeftCircle
+                    className={`${!open && 'rotate-180'
+                        } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
+                    onClick={() => setOpen(!open)}
+                />
+                <Link to='/'>
+                    <div className={`flex ${open && 'gap-x-4'} items-center`}>
+                        <img alt='' className='pl-2' />
+                        {open && (
+                            <span className='text-xl font-medium whitespace-nowrap dark:text-white'>
+                                Goal Quest
+                            </span>
+                        )}
+                    </div>
+                </Link>
 
-
-                            <div className='p-1 '>
-                                <Flowbite >
-                                    <DarkThemeToggle />
-                                </Flowbite>
-                            </div>
-
-
-
-
-
-                            <Sidebar.Item
-
-                                icon={HiChartPie}
+                <ul className='pt-6'>
+                    {Menus.map((menu, index) => (
+                        <Link to={menu.path} key={index}>
+                            <li
+                                className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
+                        ${menu.gap ? 'mt-9' : 'mt-2'} ${location.pathname === menu.path &&
+                                    'bg-gray-200 dark:bg-gray-700'
+                                    }`}
                             >
-
-                                <Link to={'/'}>Dashboard</Link>
-
-                            </Sidebar.Item>
-                            <Sidebar.Collapse
-                                icon={HiShoppingBag}
-                                label="E-commerce"
-
-                            >
-                                <Sidebar.Item href="#">
-                                    Products
-                                </Sidebar.Item>
-                            </Sidebar.Collapse>
-                            <Sidebar.Item
-                                href="#"
-                                icon={HiInbox}
-                            >
-                                Inbox
-                            </Sidebar.Item>
-                            <Sidebar.Item
-                                href="#"
-                                icon={HiUser}
-                            >
-                                Users
-                            </Sidebar.Item>
-                            <Sidebar.Item
-                                href="#"
-                                icon={HiShoppingBag}
-                            >
-                                Products
-                            </Sidebar.Item>
-                            <Sidebar.Item
-                                href="#"
-                                icon={HiArrowSmRight}
-                            >
-                                Sign In
-                            </Sidebar.Item>
-
-                            <Sidebar.Item
-                                href="#"
-                                icon={HiTable}
-                            >
-                                Sign Up
-                            </Sidebar.Item>
-                        </>
-
-                    </Sidebar.ItemGroup>
-                </Sidebar.Items>
-            </Sidebar>
-
+                                <span className='text-2xl'>{menu.src}</span>
+                                <span
+                                    className={`${!open && 'hidden'
+                                        } origin-left duration-300 hover:block`}
+                                >
+                                    {menu.title}
+                                </span>
+                            </li>
+                        </Link>
+                    ))}
+                </ul>
+            </div>
         </>
     )
 }

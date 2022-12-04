@@ -30,18 +30,16 @@ export default function Dashboard() {
     ]
 
     const handleOnSearch = (string, results) => {
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
         console.log(string, results)
     }
 
     const handleOnHover = (result) => {
-        // the item hovered
+
         console.log(result)
     }
 
     const handleOnSelect = (item) => {
-        // the item selected
+
         console.log(item)
     }
 
@@ -60,7 +58,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <div className='flex justify-between dark:bg-navy rounded-md  w-full  p-3 z-50' >
+            {/* <div className='flex justify-between dark:bg-navy rounded-md  w-full  p-3 z-50' >
                 <b>LOGO</b>
                 <div className='w-64 z-50' >
 
@@ -76,13 +74,13 @@ export default function Dashboard() {
                     />
                 </div>
                 <button className='pl-2  ' onClick={() => setShow(!show)}><AiOutlineMenu size={25} /></button>
-            </div>
-            <div className='grid  relative h-screen '>
+            </div> */}
+            <div className='flex'>
                 <SideBar show={show} setShow={setShow} />
-                <div className='flex-1'>
 
-                    <Outlet />
-                </div>
+
+                <Outlet />
+
             </div>
         </>
     )
