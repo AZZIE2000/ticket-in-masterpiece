@@ -121,7 +121,7 @@ export default function Profile() {
     return (
         <>
             <div className='bg-navy h-64' >
-                <p className='text-center text-5xl text-white pt-10'>Welcome {user?.name}</p>
+                <p className='text-center text-5xl capitalize text-white pt-10'>welcome {user?.name}</p>
                 <p className='text-center text-3xl text-white pt-10'>HERE YOU CAN MANAGE YOUR PROFILE</p>
             </div>
             <div className='flex -mt-10 mb-10 justify-center'>

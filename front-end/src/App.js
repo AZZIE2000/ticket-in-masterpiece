@@ -59,7 +59,10 @@ function App() {
                       <Route path="/profile" element={<Profile />} />
                     </Route>
                     <Route path="/" element={<Dashboard />}>
-                      <Route path="/statistics" element={<Statistics />} />
+                      <Route
+                        path="/dashboard/statistics"
+                        element={<Statistics />}
+                      />
                     </Route>
                   </Routes>
                 </CheckoutProvider>

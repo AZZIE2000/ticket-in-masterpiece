@@ -6,7 +6,7 @@
 // import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-
+import Select from 'react-select'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiFillPieChart } from 'react-icons/ai'
 import { SiFuturelearn } from 'react-icons/si'
@@ -17,9 +17,14 @@ export default function SideBar({ show, setShow }) {
 
     const [open, setOpen] = useState(false)
     const location = useLocation()
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+    ]
 
     const Menus = [
-        { title: 'Dashboard', path: '/dashboard', src: <AiFillPieChart /> },
+        { title: 'Dashboard', path: '/dashboard/statistics', src: <AiFillPieChart /> },
         { title: 'Course', path: '/course', src: <SiFuturelearn /> },
         { title: 'Profile', path: '/profile', src: <CgProfile /> },
         { title: 'Signin', path: '/login', src: <SiOpenaccess />, gap: 'true' },
@@ -30,23 +35,33 @@ export default function SideBar({ show, setShow }) {
 
             <div
                 className={`${open ? 'w-60' : 'w-fit'
-                    } hidden  sm:block sticky top-0 h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
+                    }   sm:block sticky top-0 h-screen duration-300 bg-gray-100 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
             >
                 <BsArrowLeftCircle
                     className={`${!open && 'rotate-180'
                         } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
                     onClick={() => setOpen(!open)}
                 />
-                <Link to='/'>
-                    <div className={`flex ${open && 'gap-x-4'} items-center`}>
-                        <img alt='' className='pl-2' />
-                        {open && (
-                            <span className='text-xl font-medium whitespace-nowrap dark:text-white'>
-                                Goal Quest
-                            </span>
-                        )}
-                    </div>
-                </Link>
+
+
+
+                {open && (
+                    <span className='text-xl capitalize font-medium whitespace-nowrap dark:text-white'>
+                        choose event
+                    </span>
+                )}
+
+
+                {
+                    open && <Select
+                        className="basic-single w-full mt-2 dark:text-black "
+                        defaultValue={options[0]}
+                        onChange={(value) => console.log(value)}
+                        isSearchable={true}
+                        name="color"
+                        options={options}
+                    />
+                }
 
                 <ul className='pt-6'>
                     {Menus.map((menu, index) => (

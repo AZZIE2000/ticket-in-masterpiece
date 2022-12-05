@@ -4,7 +4,7 @@
 
 /* @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700|Source+Sans+Pro:400,600,700&display=swap"); */
 .dark {
-  background-color: #111828;
+  /* background-color: #111828; */
   color: white;
 }
 /* button[aria-selected="true"]::after {
