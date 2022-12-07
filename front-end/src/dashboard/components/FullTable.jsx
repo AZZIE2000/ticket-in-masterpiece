@@ -17,175 +17,200 @@ export default function FullTable() {
     const [currentRecords, setCurrentRecords] = useState([])
     // const currentRecords = data?.slice(indexOfFirstRecord, indexOfLastRecord);
 
-
     useEffect(() => {
-        setData([
+        const array = [];
+        const possibleClasses = ["A", "B", "C", "D", "E"];
+        const possibleNames = ["Alice", "Bob", "Charlie", "Dave", "Eve"];
+        const possibleEmails = ["alice@example.com", "bob@example.com", "charlie@example.com", "dave@example.com", "eve@example.com"];
 
-            {
-                id: 1,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 2,
-                class: 'VasdIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 3,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 4,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 5,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 6,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 7,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 8,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 9,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 10,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 11,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 12,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 13,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 14,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 15,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 16,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-
-            {
-                id: 17,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 18,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 19,
-                class: 'VIP',
-                name: "azzam",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 20,
-                class: 'VIP',
-                name: "dana",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 21,
-                class: 'VIP',
-                name: "dado",
-                email: "azzam.faraj0@gmail.com",
-                price: 514,
-            },
-            {
-                id: 22,
-                class: 'General',
-                name: "dodo",
-                email: "heim@gmail.com",
-                price: 420,
-            },
-            {
-                id: 23,
-                class: 'golden',
-                name: "duaa",
-                email: "duaa@gmail.com",
-                price: 568,
-            },
-        ])
-
+        for (let i = 1; i <= 50; i++) {
+            const item = {
+                id: i,
+                class: possibleClasses[Math.floor(Math.random() * possibleClasses.length)],
+                name: possibleNames[Math.floor(Math.random() * possibleNames.length)],
+                email: possibleEmails[Math.floor(Math.random() * possibleEmails.length)],
+                price: Math.floor(Math.random() * 500)
+            };
+            array.push(item);
+        }
+        setData(array)
     }, [])
+
+    // useEffect(() => {
+    //     setData([
+
+    //         {
+    //             id: 1,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 342,
+    //         },
+    //         {
+    //             id: 2,
+    //             class: 'VasdIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 54,
+    //         },
+    //         {
+    //             id: 3,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 43,
+    //         },
+    //         {
+    //             id: 4,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 2,
+    //         },
+    //         {
+    //             id: 5,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 564,
+    //         },
+    //         {
+    //             id: 6,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 5124,
+    //         },
+    //         {
+    //             id: 7,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 51984,
+    //         },
+    //         {
+    //             id: 8,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 7,
+    //         },
+    //         {
+    //             id: 9,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 54,
+    //         },
+    //         {
+    //             id: 10,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 86,
+    //         },
+    //         {
+    //             id: 11,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 87,
+    //         },
+    //         {
+    //             id: 12,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 59,
+    //         },
+    //         {
+    //             id: 13,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 34,
+    //         },
+    //         {
+    //             id: 14,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 13,
+    //         },
+    //         {
+    //             id: 15,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 38,
+    //         },
+    //         {
+    //             id: 16,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 22,
+    //         },
+
+    //         {
+    //             id: 17,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 124,
+    //         },
+    //         {
+    //             id: 18,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 412,
+    //         },
+    //         {
+    //             id: 18,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 956,
+    //         },
+    //         {
+    //             id: 19,
+    //             class: 'VIP',
+    //             name: "azzam",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 96,
+    //         },
+    //         {
+    //             id: 20,
+    //             class: 'VIP',
+    //             name: "dana",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 514,
+    //         },
+    //         {
+    //             id: 21,
+    //             class: 'VIP',
+    //             name: "dado",
+    //             email: "azzam.faraj0@gmail.com",
+    //             price: 514,
+    //         },
+    //         {
+    //             id: 22,
+    //             class: 'General',
+    //             name: "dodo",
+    //             email: "heim@gmail.com",
+    //             price: 420,
+    //         },
+    //         {
+    //             id: 23,
+    //             class: 'golden',
+    //             name: "duaa",
+    //             email: "duaa@gmail.com",
+    //             price: 568,
+    //         },
+    //     ])
+
+    // }, [])
 
     useEffect(() => {
 
@@ -244,8 +269,8 @@ export default function FullTable() {
 
         ])
     }, [])
-    function sortByKey(array, key, decs) {
-        decs ? setData([...array].sort((a, b) => a[key] < b[key] ? 1 : -1)) : setData([...array].sort((a, b) => a[key] > b[key] ? 1 : -1))
+    function sortByKey(array, key, sort) {
+        sort ? setData([...array].sort((a, b) => a[key] < b[key] ? 1 : -1)) : setData([...array].sort((a, b) => a[key] > b[key] ? 1 : -1))
         setW(!w)
     }
 
@@ -304,7 +329,7 @@ export default function FullTable() {
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700 ">
                         {
                             currentRecords?.length > 0 ?
                                 currentRecords?.map((item, i) => {
@@ -357,19 +382,16 @@ export default function FullTable() {
                     <tfoot>
                         <tr  >
                             <td colSpan={columns?.length}>
-
                                 <div className='flex justify-around items-center    '>
                                     <div>
                                         {
                                             search === '' ?
-                                                <span>{indexOfFirstRecord + 1}-{indexOfLastRecord} of {currentRecords?.length}</span>
+                                                <span>{indexOfFirstRecord + 1}-{indexOfLastRecord} of {data?.length}</span>
                                                 :
                                                 <span>Results found: {currentRecords?.length}</span>
                                         }
                                     </div>
-
                                     <Pagination
-
                                         className={` ${(nPages == 1 || search !== '') && 'invisible'}  pb-2`}
                                         currentPage={currentPage}
                                         totalPages={nPages}
@@ -388,12 +410,8 @@ export default function FullTable() {
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </td>
-
-
                         </tr>
                     </tfoot>
                 </table>

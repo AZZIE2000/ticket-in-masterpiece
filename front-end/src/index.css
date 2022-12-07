@@ -33,3 +33,6 @@ button[aria-selected="true"].dark {
 li.react-tabs__tab:focus:after {
   background-color: transparent;
 }
+input#react-select-2-input:focus {
+  box-shadow: none;
+}

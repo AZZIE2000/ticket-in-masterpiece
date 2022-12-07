@@ -3,12 +3,31 @@ import React from 'react'
 export default function StatusCards() {
     return (
         <>
-
+            <div className="max-w-7xl w-full mx-auto flex flex-col justify-center py-6 px-4 sm:px-6 lg:px-8">
+                <p>The Website Now</p>
+                <div className="flex flex-wrap w-full  gap-5  mb-2 ">
+                    <div className="w-1/5 flex-grow">
+                        <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 border-l-4 shadow-lg border-candy">
+                            <div className="flex items-center">
+                                <div className="icon w-14 p-3.5 bg-purple-400 text-white rounded-full mr-3">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                    </svg>
+                                </div>
+                                <div className="flex flex-col justify-center">
+                                    <div className="text-lg">230k</div>
+                                    <div className="text-sm text-gray-400">Sales</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="max-w-7xl w-full mx-auto flex justify-center py-6 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-wrap w-full  gap-5  mb-2 ">
 
-                    <div className="w-1/5">
-                        <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 border-l-4 shadow-lg border-purple-400">
+                    <div className="w-1/5 flex-grow">
+                        <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 border-l-4 shadow-lg border-candy">
                             <div className="flex items-center">
                                 <div className="icon w-14 p-3.5 bg-purple-400 text-white rounded-full mr-3">
                                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,7 +42,7 @@ export default function StatusCards() {
                         </div>
                     </div>
 
-                    <div className="w-1/5">
+                    <div className="w-1/5 flex-grow">
                         <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 shadow-lg border-l-4 border-blue-400">
                             <div className="flex items-center">
                                 <div className="icon w-14 p-3.5 bg-blue-400 text-white rounded-full mr-3">
@@ -39,7 +58,7 @@ export default function StatusCards() {
                         </div>
                     </div>
 
-                    <div className="w-1/5">
+                    <div className="w-1/5 flex-grow">
                         <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 shadow-lg border-l-4 border-yellow-400">
                             <div className="flex items-center">
                                 <div className="icon w-14 p-3.5 bg-yellow-400 text-white rounded-full mr-3">
@@ -55,7 +74,7 @@ export default function StatusCards() {
                         </div>
                     </div>
 
-                    <div className="w-1/5">
+                    <div className="w-1/5 flex-grow">
                         <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 shadow-lg border-l-4 border-red-400">
                             <div className="flex items-center">
                                 <div className="icon w-14 p-3.5 bg-red-400 text-white rounded-full mr-3">
@@ -71,7 +90,7 @@ export default function StatusCards() {
                         </div>
                     </div>
 
-                    <div className="w-1/5">
+                    <div className="w-1/5 flex-grow">
                         <div className="widget w-full p-4 rounded-lg bg-white dark:bg-navy/80 shadow-lg border-l-4 border-green-400">
                             <div className="flex items-center">
                                 <div className="icon w-14 p-3.5 bg-green-400 text-white rounded-full mr-3">

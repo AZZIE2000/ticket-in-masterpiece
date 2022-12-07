@@ -10,12 +10,14 @@ import Select from 'react-select'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import { AiFillPieChart } from 'react-icons/ai'
 import { SiFuturelearn } from 'react-icons/si'
-import { SiOpenaccess } from 'react-icons/si'
-import { CgProfile } from 'react-icons/cg'
+import { TiEdit } from 'react-icons/ti'
+import { CgAddR, CgProfile } from 'react-icons/cg'
+import { HiTicket } from 'react-icons/hi'
+import { MdOutlineCategory } from 'react-icons/md'
 
-export default function SideBar({ show, setShow }) {
+export default function SideBar() {
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
     const location = useLocation()
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -25,9 +27,10 @@ export default function SideBar({ show, setShow }) {
 
     const Menus = [
         { title: 'Dashboard', path: '/dashboard/statistics', src: <AiFillPieChart /> },
-        { title: 'Course', path: '/course', src: <SiFuturelearn /> },
-        { title: 'Profile', path: '/profile', src: <CgProfile /> },
-        { title: 'Signin', path: '/login', src: <SiOpenaccess />, gap: 'true' },
+        { title: 'Ticket', path: '/edit/single/ticket', src: <HiTicket /> },
+        { title: 'Categories', path: '/manage/categories', src: <MdOutlineCategory /> },
+        { title: 'Edit Concert Info', path: '/edit/concert', src: <TiEdit /> },
+        { title: 'Add New Concert', path: '/add/concert', src: <CgAddR />, gap: 'true' },
     ]
 
     return (
@@ -68,7 +71,7 @@ export default function SideBar({ show, setShow }) {
                         <Link to={menu.path} key={index}>
                             <li
                                 className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700
-                        ${menu.gap ? 'mt-9' : 'mt-2'} ${location.pathname === menu.path &&
+                        ${menu.gap ? 'mt-9 ' : 'mt-2'} ${location.pathname === menu.path &&
                                     'bg-gray-200 dark:bg-gray-700'
                                     }`}
                             >

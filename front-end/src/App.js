@@ -19,6 +19,8 @@ import NavBar from "./components/navs/NavBar";
 import Dashboard from "./dashboard/pages/Dashboard";
 import UserEnd from "./pages/UserEnd";
 import Statistics from "./dashboard/pages/Statistics";
+import EditTicket from "./dashboard/pages/EditTicket";
+import ManageCategories from "./dashboard/pages/ManageCategories";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -62,6 +64,14 @@ function App() {
                       <Route
                         path="/dashboard/statistics"
                         element={<Statistics />}
+                      />
+                      <Route
+                        path="/edit/single/ticket"
+                        element={<EditTicket />}
+                      />
+                      <Route
+                        path="/manage/categories"
+                        element={<ManageCategories />}
                       />
                     </Route>
                   </Routes>
