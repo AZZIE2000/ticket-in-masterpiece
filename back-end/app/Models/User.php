@@ -28,6 +28,10 @@ class User extends Authenticatable
     {
         return $this->hasOneThrough(Concert::class, Ticket::class);
     }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 
     /**
      * The attributes that are mass assignable.

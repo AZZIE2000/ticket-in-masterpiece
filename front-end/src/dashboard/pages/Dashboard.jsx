@@ -15,10 +15,10 @@ export default function Dashboard() {
     return (
         <>
             <NavBar />
-            <div className='flex '>
+            <div className='flex  '>
                 <SideBar />
 
-                <div className='flex-1 justify-center'>
+                <div className='flex-1  justify-center '>
 
                     <Outlet />
                 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -20,6 +21,15 @@ use App\Http\Controllers\ConcertsController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// admin routes
+Route::get('/concerts/list', [AdminController::class, 'concertsList']);
+Route::post('/concert/info', [AdminController::class, 'concertInfo']);
+Route::post('/ticket/info', [AdminController::class, 'getTicket']);
+Route::post('/update/category', [AdminController::class, 'updateCategoryInfo']);
+Route::post('/update/ticket', [AdminController::class, 'updateTicketInfo']);
+Route::post('/add/category', [AdminController::class, 'addCategory']);
+
+// admin routes
 
 Route::post('/googleLogin', [AuthController::class, 'googleLogin']);
 Route::post('/facebookLogin', [AuthController::class, 'facebookLogin']);

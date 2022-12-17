@@ -10,6 +10,15 @@ use App\Models\Concert;
 class TicketCategory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'class',
+        'description',
+        'area',
+        'price',
+        'seats',
+        'concert_id',
+        'active',
+    ];
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

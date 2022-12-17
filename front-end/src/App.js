@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import SingleEvent1 from "./pages/SingleEvent1";
 import Checkout from "./pages/Checkout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
@@ -21,6 +21,8 @@ import UserEnd from "./pages/UserEnd";
 import Statistics from "./dashboard/pages/Statistics";
 import EditTicket from "./dashboard/pages/EditTicket";
 import ManageCategories from "./dashboard/pages/ManageCategories";
+import { AdminProvider } from "./context/AdminContext";
+import { useLocation } from "react-router-dom";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -41,45 +43,54 @@ function App() {
       setNum(num - 1);
     }
   }
-
+  const { pathname } = useLocation();
+  useEffect(() => {
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      // behavior: "instant", // Optional if you want to skip the scrolling animation
+    });
+  }, [pathname]);
   return (
     <>
       <Elements stripe={stripePromise}>
-        <CookiesProvider>
-          <GoogleOAuthProvider clientId="766290884424-if3sip56qtto151e6623p5s1vi6ui6n7.apps.googleusercontent.com">
-            <WebProvider>
-              <AuthProvider>
-                <CheckoutProvider>
-                  <Routes>
-                    <Route path="/" element={<UserEnd />}>
-                      <Route path="/" element={<Home />} />
-                      <Route
-                        path="/single-event/:id"
-                        element={<SingleEvent1 />}
-                      />
-                      <Route path="/checkout" element={<Checkout />} />
-                      <Route path="/profile" element={<Profile />} />
-                    </Route>
-                    <Route path="/" element={<Dashboard />}>
-                      <Route
-                        path="/dashboard/statistics"
-                        element={<Statistics />}
-                      />
-                      <Route
-                        path="/edit/single/ticket"
-                        element={<EditTicket />}
-                      />
-                      <Route
-                        path="/manage/categories"
-                        element={<ManageCategories />}
-                      />
-                    </Route>
-                  </Routes>
-                </CheckoutProvider>
-              </AuthProvider>
-            </WebProvider>
-          </GoogleOAuthProvider>
-        </CookiesProvider>
+        <AdminProvider>
+          <CookiesProvider>
+            <GoogleOAuthProvider clientId="766290884424-if3sip56qtto151e6623p5s1vi6ui6n7.apps.googleusercontent.com">
+              <WebProvider>
+                <AuthProvider>
+                  <CheckoutProvider>
+                    <Routes>
+                      <Route path="/" element={<UserEnd />}>
+                        <Route path="/" element={<Home />} />
+                        <Route
+                          path="/single-event/:id"
+                          element={<SingleEvent1 />}
+                        />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/profile" element={<Profile />} />
+                      </Route>
+                      <Route path="/" element={<Dashboard />}>
+                        <Route
+                          path="/dashboard/statistics"
+                          element={<Statistics />}
+                        />
+                        <Route
+                          path="/edit/single/ticket"
+                          element={<EditTicket />}
+                        />
+                        <Route
+                          path="/manage/categories"
+                          element={<ManageCategories />}
+                        />
+                      </Route>
+                    </Routes>
+                  </CheckoutProvider>
+                </AuthProvider>
+              </WebProvider>
+            </GoogleOAuthProvider>
+          </CookiesProvider>
+        </AdminProvider>
       </Elements>
       {/* <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
