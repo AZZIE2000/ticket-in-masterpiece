@@ -4,7 +4,7 @@
 // import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser } from 'react-icons/hi'
 // import { AiOutlineMenu } from 'react-icons/ai'
 // import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Select from 'react-select'
 import { BsArrowLeftCircle } from 'react-icons/bs'
@@ -14,17 +14,14 @@ import { TiEdit } from 'react-icons/ti'
 import { CgAddR, CgProfile } from 'react-icons/cg'
 import { HiTicket } from 'react-icons/hi'
 import { MdOutlineCategory } from 'react-icons/md'
+import { useContext } from 'react'
+import { AdminContext } from '../../context/AdminContext'
+import { BiSearchAlt } from 'react-icons/bi'
 
 export default function SideBar() {
-
+    const { setActiveConcert, options } = useContext(AdminContext)
     const [open, setOpen] = useState(true)
     const location = useLocation()
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-    ]
-
     const Menus = [
         { title: 'Dashboard', path: '/dashboard/statistics', src: <AiFillPieChart /> },
         { title: 'Ticket', path: '/edit/single/ticket', src: <HiTicket /> },
@@ -32,7 +29,6 @@ export default function SideBar() {
         { title: 'Edit Concert Info', path: '/edit/concert', src: <TiEdit /> },
         { title: 'Add New Concert', path: '/add/concert', src: <CgAddR />, gap: 'true' },
     ]
-
     return (
         <>
 
@@ -45,9 +41,6 @@ export default function SideBar() {
                         } absolute text-3xl bg-white fill-slate-800  rounded-full cursor-pointer top-9 -right-4 dark:fill-gray-400 dark:bg-gray-800`}
                     onClick={() => setOpen(!open)}
                 />
-
-
-
                 {open && (
                     <span className='text-xl capitalize font-medium whitespace-nowrap dark:text-white'>
                         choose event
@@ -57,16 +50,23 @@ export default function SideBar() {
 
                 {
                     open && <Select
-                        className="basic-single w-full mt-2 dark:text-black "
-                        defaultValue={options[0]}
-                        onChange={(value) => console.log(value)}
+                        className="basic-single w-full mt-2 dark:text-black dark:bg-black "
+                        placeholder="Events"
+
+                        onChange={(value) => setActiveConcert(value)}
                         isSearchable={true}
-                        name="color"
+
                         options={options}
                     />
                 }
 
-                <ul className='pt-6'>
+                <ul className='pt-4'>
+                    {
+                        open ? null
+                            : <li className='flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 mt-2'>
+                                <span className='text-2xl'><BiSearchAlt onClick={() => setOpen(!open)} /></span>
+                            </li>
+                    }
                     {Menus.map((menu, index) => (
                         <Link to={menu.path} key={index}>
                             <li

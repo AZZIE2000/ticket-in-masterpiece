@@ -1,12 +1,11 @@
-import { Dropdown, TextInput, Pagination, Progress, Spinner, Table, Tooltip } from 'flowbite-react';
+import { Dropdown, TextInput, Pagination, Progress, Spinner } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AdminContext } from '../../context/AdminContext';
 
-import { IoIosArrowDown } from 'react-icons/io';
+
 export default function FullTable() {
-    const { concertData, loadingT, setLoadingT, searchTicket, setSearchTicket } = useContext(AdminContext);
+    const { concertData, loadingT, setLoadingT } = useContext(AdminContext);
     const [data, setData] = useState();
     const [search, setSearch] = useState('');
     const [columns, setColumns] = useState();
@@ -19,7 +18,7 @@ export default function FullTable() {
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage < 0 ? 0 : indexOfLastRecord - recordsPerPage;
     const [currentRecords, setCurrentRecords] = useState([])
     // const currentRecords = data?.slice(indexOfFirstRecord, indexOfLastRecord);
-    const navigate = useNavigate()
+
     function transformDate(dateString) {
         const date = new Date(dateString);
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
@@ -290,10 +289,6 @@ export default function FullTable() {
         setW(!w)
     }
 
-    const lookForATicket = (e) => {
-        setSearchTicket(e)
-        navigate('/edit/single/ticket')
-    }
 
 
     return (
@@ -306,43 +301,54 @@ export default function FullTable() {
                 className='w-52 my-2'
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <>
+            <div
+                className="  rounded-lg border border-gray-200 dark:border-gray-700 shadow-xl overflow-x-auto"
+            >
 
                 <table
-
-                    className=" w-full divide-y divide-gray-200 text-sm dark:divide-gray-700  "
+                    className=" w-screen divide-y divide-gray-200 text-sm dark:divide-gray-700  "
                 >
                     <thead className="bg-gray-100 dark:bg-gray-800">
-
                         <tr>
-
                             {
                                 columns?.map((col, i) => {
                                     return (
                                         <th
                                             key={i}
-                                            className='!w-2 overflow-hidden'
+                                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900 dark:text-white"
                                         >
-                                            <span onClick={() => sortByKey(data, col.id, w)} className="flex items-center gap-2 cursor-pointer hover:text-white">
+                                            <div className="flex items-center gap-2">
                                                 {col.name}
-                                                <IoIosArrowDown size={12} />
-                                            </span>
+
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    className="h-4 w-4 text-gray-700 cursor-pointer dark:text-gray-200"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                    onClick={() => sortByKey(data, col.id, w)}
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </div>
                                         </th>
                                     )
                                 })
                             }
+
+
+
                         </tr>
-
-
-
-
                     </thead>
 
-                    <tbody className="divide-y">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700 ">
                         {
                             loadingT ?
-                                <tr className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white" colSpan={columns?.length}>
+                                <tr>
+                                    <td className='text-center' colSpan={columns?.length}>
                                         <Spinner className='my-5' aria-label="Center-aligned spinner example" />
                                     </td>
                                 </tr>
@@ -350,46 +356,43 @@ export default function FullTable() {
                                 currentRecords?.length > 0 ?
                                     currentRecords?.map((item, i) => {
                                         return (
-                                            <tr key={i} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                            <tr key={i} className="dark:bg-gray-900">
 
-
-                                                <td className="whitespace-nowrap overflow-hidden font-medium text-gray-900 dark:text-white" >
+                                                <td
+                                                    className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white"
+                                                >
                                                     {item.id}
                                                 </td>
-                                                <Tooltip content='Click To Edit'>
-                                                    <td
-                                                        onClick={() => lookForATicket(item.serial_num)}
-                                                        className="whitespace-nowrap font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-500 hover:dark:text-blue-500"
-                                                    >
-                                                        {item.serial_num}
-                                                    </td>
-                                                </Tooltip>
                                                 <td
-                                                    className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                                                    className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200"
+                                                >
+                                                    {item.serial_num}
+                                                </td>
+                                                <td
+                                                    className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200"
                                                 >
                                                     {item.user_name}
                                                 </td>
                                                 <td
-                                                    className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                                                    className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200"
                                                 >
                                                     {item.user_email}
                                                 </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
 
                                                     {item.ticket_class}
 
                                                 </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
 
                                                     {item.scanned}
 
                                                 </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
 
                                                     {item.updated_at}
 
                                                 </td>
-
 
                                             </tr>
                                         )
@@ -445,7 +448,7 @@ export default function FullTable() {
                     </tfoot>
                 </table>
 
-            </ >
+            </div >
         </>
     )
 }
