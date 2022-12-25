@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('serial_num');
             $table->foreignId('ticket_category_id')->constrained()->onDelete('cascade');
             $table->string('seat');
+            $table->string('note')->nullable();
             $table->boolean('scanned')->default(false);
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
             // user -> hasOne -> concert -> throw -> tickets
         });

@@ -15,7 +15,10 @@ module.exports = {
         bad: "#c62828",
       },
       spacing: { "5%": "5%", "10px": "10px", "70px": "70px" },
-      backgroundImage: { pp: "url('../public/ppg.jpg')" },
+      backgroundImage: {
+        darkLogo: "url('/public/dark_logo.png')",
+        lightLogo: "url('/public/Light_logo.png')",
+      },
       // boxShadow: {
       //   "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
       // },

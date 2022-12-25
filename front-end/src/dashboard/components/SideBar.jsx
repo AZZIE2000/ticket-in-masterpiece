@@ -13,7 +13,7 @@ import { SiFuturelearn } from 'react-icons/si'
 import { TiEdit } from 'react-icons/ti'
 import { CgAddR, CgProfile } from 'react-icons/cg'
 import { HiTicket } from 'react-icons/hi'
-import { MdOutlineCategory } from 'react-icons/md'
+import { MdOutlineCategory, MdQrCodeScanner } from 'react-icons/md'
 import { useContext } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 import { BiSearchAlt } from 'react-icons/bi'
@@ -28,6 +28,7 @@ export default function SideBar() {
         { title: 'Categories', path: '/manage/categories', src: <MdOutlineCategory /> },
         { title: 'Edit Concert Info', path: '/edit/concert', src: <TiEdit /> },
         { title: 'Add New Concert', path: '/add/concert', src: <CgAddR />, gap: 'true' },
+        { title: 'Scan Tickets', path: '/scan', src: <MdQrCodeScanner /> },
     ]
     return (
         <>

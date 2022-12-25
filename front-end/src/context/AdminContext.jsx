@@ -20,6 +20,11 @@ export function AdminProvider({ children }) {
                 console.log(transformedConcerts);
             }
         })
+
+        axios.get('/api/types/list').then(res => {
+            console.log(res);
+        })
+
     }, [])
     useEffect(() => {
         if (activeConcert) {
@@ -46,6 +51,8 @@ export function AdminProvider({ children }) {
             if (res.data.status === 200) {
                 setTicketInfo(res.data.ticket);
                 // console.log(res.data.ticket);
+            } else {
+                console.log(res);
             }
         })
     }
@@ -57,7 +64,7 @@ export function AdminProvider({ children }) {
 
     return (
         <>
-            <AdminContext.Provider value={{ concertsList, activeConcert, setActiveConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, ticketInfo }} >
+            <AdminContext.Provider value={{ concertsList, activeConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, ticketInfo, setConcertsList, setOptions, setActiveConcert }} >
                 {children}
             </AdminContext.Provider>
         </>

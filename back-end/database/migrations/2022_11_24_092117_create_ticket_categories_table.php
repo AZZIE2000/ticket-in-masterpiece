@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float("seats");
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
             $table->boolean("active")->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

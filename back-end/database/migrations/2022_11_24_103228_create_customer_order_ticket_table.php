@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customer_order_ticket', function (Blueprint $table) {
+        Schema::create('customer_order_tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_order_id')->constrained()->onDelete('cascade');
             $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

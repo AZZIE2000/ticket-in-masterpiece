@@ -310,7 +310,7 @@ export default function SingleEvent1() {
                         {concert?.name}
                     </h5>
                     <p className="font-normal py-3 dark:text-gray-400">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam molestias,
+                        {concert?.description}
                     </p>
                     <p className="font-normal pt-1 flex">
                         <span className='flex gap-x-3 items-center'>
@@ -342,19 +342,16 @@ export default function SingleEvent1() {
                     </p>
                     <p className="font-normal py-3  flex">
                         <span className='flex gap-x-3 flex-col '>
+                            {
+                                concert?.info.split("\n").map(rule => {
 
-                            <span className='px-1 flex items-center gap-x-4'>
-                                <BsCircleFill className='h-2' />
-                                <span>Note one</span>
-                            </span>
-                            <span className='px-1 flex items-center gap-x-4'>
-                                <BsCircleFill className='h-2' />
-                                <span>Note two</span>
-                            </span>
-                            <span className='px-1 flex items-center gap-x-4'>
-                                <BsCircleFill className='h-2' />
-                                <span>Note three</span>
-                            </span>
+                                    return <span className='px-1 flex items-center gap-x-4'>
+                                        <BsCircleFill className='h-2' />
+                                        <span>{rule}</span>
+                                    </span>
+                                })
+                            }
+
                         </span>
                     </p>
 
@@ -362,7 +359,7 @@ export default function SingleEvent1() {
             </div>
 
 
-            <iframe className='mx-auto my-8 w-full container' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3385.3809915639263!2d35.86588818694307!3d31.95055927314005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca11d730d0fd1%3A0x149981646f758d8a!2sPrs.%20Alia%20St.%2C%20Amman!5e0!3m2!1sen!2sjo!4v1667598780518!5m2!1sen!2sjo" width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <iframe className='mx-auto my-8 w-full h-80 container' src={concert?.map}></iframe>
         </>
     )
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->constrained()->onDelete('cascade');
             $table->float('total_price');
             $table->float('discount');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -19,11 +19,15 @@ return new class extends Migration
             $table->date("start_date");
             $table->date("end_date");
             $table->string("location");
+            $table->string("info");
+            $table->string("map");
             $table->time("time");
             $table->integer("seats");
             $table->boolean("active")->default(true);
             $table->string("banner");
+            $table->string("description");
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

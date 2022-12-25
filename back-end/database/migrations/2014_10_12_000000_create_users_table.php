@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('facebook_id')->nullable();
             $table->string('role')->default('user');
             $table->rememberToken();
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

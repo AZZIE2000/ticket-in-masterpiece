@@ -69,196 +69,17 @@ export default function FullTable() {
                 name: "Scanned",
                 id: 'scanned',
             },
-            {
-                name: "Scanned At",
-                id: 'updated_at',
-            },
+
 
         ])
     }, [])
 
-    // useEffect(() => {
-    //     setData([
 
-    //         {
-    //             id: 1,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 342,
-    //         },
-    //         {
-    //             id: 2,
-    //             class: 'VasdIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 54,
-    //         },
-    //         {
-    //             id: 3,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 43,
-    //         },
-    //         {
-    //             id: 4,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 2,
-    //         },
-    //         {
-    //             id: 5,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 564,
-    //         },
-    //         {
-    //             id: 6,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 5124,
-    //         },
-    //         {
-    //             id: 7,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 51984,
-    //         },
-    //         {
-    //             id: 8,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 7,
-    //         },
-    //         {
-    //             id: 9,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 54,
-    //         },
-    //         {
-    //             id: 10,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 86,
-    //         },
-    //         {
-    //             id: 11,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 87,
-    //         },
-    //         {
-    //             id: 12,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 59,
-    //         },
-    //         {
-    //             id: 13,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 34,
-    //         },
-    //         {
-    //             id: 14,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 13,
-    //         },
-    //         {
-    //             id: 15,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 38,
-    //         },
-    //         {
-    //             id: 16,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 22,
-    //         },
-
-    //         {
-    //             id: 17,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 124,
-    //         },
-    //         {
-    //             id: 18,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 412,
-    //         },
-    //         {
-    //             id: 18,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 956,
-    //         },
-    //         {
-    //             id: 19,
-    //             class: 'VIP',
-    //             name: "azzam",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 96,
-    //         },
-    //         {
-    //             id: 20,
-    //             class: 'VIP',
-    //             name: "dana",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 514,
-    //         },
-    //         {
-    //             id: 21,
-    //             class: 'VIP',
-    //             name: "dado",
-    //             email: "azzam.faraj0@gmail.com",
-    //             price: 514,
-    //         },
-    //         {
-    //             id: 22,
-    //             class: 'General',
-    //             name: "dodo",
-    //             email: "heim@gmail.com",
-    //             price: 420,
-    //         },
-    //         {
-    //             id: 23,
-    //             class: 'golden',
-    //             name: "duaa",
-    //             email: "duaa@gmail.com",
-    //             price: 568,
-    //         },
-    //     ])
-
-    // }, [])
 
     useEffect(() => {
-
         data?.length - ((currentPage - 1) * recordsPerPage) < recordsPerPage ? setIndexOfLastRecord(data?.length) : setIndexOfLastRecord(recordsPerPage * currentPage)
         const num = Math.ceil(data?.length / recordsPerPage);
         if (num) {
-
             num <= 1 ? setNPages(1) : setNPages(num)
         }
     }, [data, currentPage, recordsPerPage])
@@ -310,18 +131,19 @@ export default function FullTable() {
 
                 <table
 
-                    className=" w-full divide-y divide-gray-200 text-sm dark:divide-gray-700  "
+                    className=" text-[9px] md:text-[12px]  w-full overflow-scroll divide-y divide-gray-200 text-sm dark:divide-gray-700  "
                 >
-                    <thead className="bg-gray-100 dark:bg-gray-800">
+                    <thead className="bg-gray-100 dark:bg-gray-800  overflow-scroll">
 
-                        <tr>
+                        <tr className=''>
 
                             {
                                 columns?.map((col, i) => {
                                     return (
                                         <th
                                             key={i}
-                                            className='!w-2 overflow-hidden'
+                                            className="  overflow-hidden whitespace-nowrap px-2 py-2 text-left font-medium  text-gray-900 dark:text-white"
+
                                         >
                                             <span onClick={() => sortByKey(data, col.id, w)} className="flex items-center gap-2 cursor-pointer hover:text-white">
                                                 {col.name}
@@ -338,11 +160,11 @@ export default function FullTable() {
 
                     </thead>
 
-                    <tbody className="divide-y">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
                             loadingT ?
                                 <tr className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white" colSpan={columns?.length}>
+                                    <td className="text-center font-medium text-gray-900 dark:text-white" colSpan={columns?.length}>
                                         <Spinner className='my-5' aria-label="Center-aligned spinner example" />
                                     </td>
                                 </tr>
@@ -353,42 +175,52 @@ export default function FullTable() {
                                             <tr key={i} className="bg-white dark:border-gray-700 dark:bg-gray-800">
 
 
-                                                <td className="whitespace-nowrap overflow-hidden font-medium text-gray-900 dark:text-white" >
+                                                <td className="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white" >
                                                     {item.id}
                                                 </td>
                                                 <Tooltip content='Click To Edit'>
                                                     <td
                                                         onClick={() => lookForATicket(item.serial_num)}
-                                                        className="whitespace-nowrap font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-500 hover:dark:text-blue-500"
+                                                        className="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white cursor-pointer hover:text-blue-500 hover:dark:text-blue-500"
                                                     >
                                                         {item.serial_num}
                                                     </td>
                                                 </Tooltip>
                                                 <td
-                                                    className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                                                    className="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white"
                                                 >
                                                     {item.user_name}
                                                 </td>
                                                 <td
-                                                    className="whitespace-nowrap font-medium text-gray-900 dark:text-white"
+                                                    className="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white"
                                                 >
                                                     {item.user_email}
                                                 </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                <td className="whitespace-nowrap px-2 py-2 font-medium text-gray-900 dark:text-white">
 
                                                     {item.ticket_class}
 
                                                 </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                {
+                                                    item.scanned ?
+                                                        <Tooltip content={item.updated_at}>
 
-                                                    {item.scanned}
 
-                                                </td>
-                                                <td className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
 
-                                                    {item.updated_at}
+                                                            <td className="whitespace-nowrap  px-2 py-2 font-medium text-good dark:text-good">
 
-                                                </td>
+                                                                {item.scanned}
+
+                                                            </td>
+                                                        </Tooltip>
+                                                        :
+                                                        <td className="whitespace-nowrap  px-2 py-2 font-medium text-bad dark:text-bad">
+
+                                                            {item.scanned}
+
+                                                        </td>
+
+                                                }
 
 
                                             </tr>
@@ -427,11 +259,11 @@ export default function FullTable() {
                                         onPageChange={(e) => setCurrentPage(e)}
                                     />
                                     <div className={`flex gap-2 items-center ${search !== '' && 'invisible'}`}>
-                                        <label className="text-sm whitespace-nowrap text-white">Rows per page:</label>
-                                        <div className="mx-auto  w-full ">
-                                            <div className="my-1 scale-90">
-                                                <select onChange={(e) => setRecordsPerPage(parseInt(e.target.value))} className=" block  dark:bg-slate-700 rounded-md border border-gray-300 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                    <option defaultValue="10">10</option>
+                                        <label className=" whitespace-nowrap text-white">Rows per page:</label>
+                                        <div className="   ">
+                                            <div className="my-1 ">
+                                                <select onChange={(e) => setRecordsPerPage(parseInt(e.target.value))} className=" block text-[9px] md:text-[12px] md:px-7 md:py-2 px-2 py-1  dark:bg-slate-700 rounded-md border border-gray-300  focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 ">
+                                                    <option className='' defaultValue="10">10</option>
                                                     <option defaultValue="20">20</option>
                                                     <option defaultValue="30">30</option>
                                                     <option defaultValue="50">50</option>

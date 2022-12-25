@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
             $table->float('total');
             $table->string('card_num');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

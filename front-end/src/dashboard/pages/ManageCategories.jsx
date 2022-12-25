@@ -29,7 +29,7 @@ export default function ManageCategories() {
         seats: false,
     })
     const handleFormData = (n, v) => {
-        setAddForm({ ...addForm, [n]: v.trim() })
+        setAddForm({ ...addForm, [n]: v })
         if (n === 'price' || n === 'seats') {
             if (v.trim().replace(/ /g, "") !== "" && v.trim().replace(/ /g, "").length >= 2) {
                 setAddFormErrors({ ...addFormErrors, [n]: false })

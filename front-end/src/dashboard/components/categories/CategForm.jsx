@@ -24,7 +24,7 @@ export default function CategForm({ category, concert }) {
         console.log(id);
     }
     return (
-        <div className=' my-2 p-5 px-7 rounded-3xl  shadow-[inset_0_1px_10px_5px_rgba(0,0,0,0.1)]     '>
+        <div className=' my-2 p-5 px-7 rounded-3xl  shadow-[inset_0_1px_10px_5px_rgba(0,0,0,0.1)]'>
             <div key={category?.id} class="inline-flex py-3 mt-4 justify-center gap-x-3 items-center w-full">
                 <hr class=" w-64 h-1 bg-gray-200 rounded border-0 dark:bg-gray-700" />
                 <p className='text-black dark:text-white' >{category?.class}</p>

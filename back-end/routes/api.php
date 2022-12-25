@@ -28,6 +28,11 @@ Route::post('/ticket/info', [AdminController::class, 'getTicket']);
 Route::post('/update/category', [AdminController::class, 'updateCategoryInfo']);
 Route::post('/update/ticket', [AdminController::class, 'updateTicketInfo']);
 Route::post('/add/category', [AdminController::class, 'addCategory']);
+Route::post('/add/concert', [AdminController::class, 'addConcert']);
+Route::post('/edit/concert', [AdminController::class, 'editConcertInfo']);
+Route::post('/edit/concert/img', [AdminController::class, 'editConcertInfoImg']);
+Route::post('/types/list', [AdminController::class, 'typesList']);
+Route::post('/scan', [AdminController::class, 'scanTicket']);
 
 // admin routes
 

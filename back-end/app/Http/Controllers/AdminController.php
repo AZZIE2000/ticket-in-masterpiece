@@ -7,7 +7,9 @@ use App\Models\Concert;
 use App\Models\Payment;
 use App\Models\Ticket;
 use App\Models\TicketCategory;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class AdminController extends Controller
 {
@@ -55,14 +57,25 @@ class AdminController extends Controller
         $ticket = Ticket::where(function ($query) use ($request) {
             $query->where('serial_num', 'like', '%' . $request->serial . '%');
         })->first();
-        $ticket->user;
-        $ticket->category;
-        $ticket->concert->categories;
-        return response()->json([
-            'status' => 200,
-            'ticket' => $ticket,
+        if ($ticket) {
+            # code...
 
-        ]);
+
+            $ticket->user;
+            $ticket->category;
+            $ticket->concert->categories;
+            return response()->json([
+                'status' => 200,
+                'ticket' => $ticket,
+
+            ]);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'ticket' => "bruh",
+
+            ]);
+        }
     }
 
     public function updateCategoryInfo(Request $request)
@@ -109,5 +122,74 @@ class AdminController extends Controller
             'concert' => $concert,
 
         ]);
+    }
+    public function addConcert(Request $request)
+    {
+        $file = $request->file('banner');
+        $filename = uniqid() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('public/images'), $filename);
+        $url = URL::to('/') . '/public/images/' . $filename;
+
+        $concert = Concert::create([
+            "name" => $request->name,
+            "start_date" => $request->start_date,
+            "end_date" => $request->end_date,
+            "location" => $request->location,
+            "info" => $request->info,
+            "map" => $request->map,
+            "time" => $request->time,
+            "seats" => $request->seats,
+            "banner" => $url,
+            "type_id" => $request->type_id,
+            "description" => $request->description,
+
+
+        ]);
+        return $this->concertsList();
+    }
+    public function editConcertInfo(Request $request)
+    {
+        Concert::where('id', $request->id)->update([$request->key => $request->val]);
+        return response()->json([
+            'status' => 200,
+            'concert' => "shatoor",
+
+        ]);
+    }
+    public function editConcertInfoImg(Request $request)
+    {
+        $file = $request->file('banner');
+        $filename = uniqid() . "_" . $file->getClientOriginalName();
+        $file->move(public_path('public/images'), $filename);
+        $url = URL::to('/') . '/public/images/' . $filename;
+        Concert::where('id', $request->id)->update(['banner' => $url]);
+        return response()->json([
+            'status' => 200,
+            'concert' => "shatoor",
+
+        ]);
+    }
+    public function typesList()
+    {
+        $types = Type::all();
+        return response()->json([
+            'status' => 200,
+            'types' => $types,
+        ]);
+    }
+    public function scanTicket(Request $request)
+    {
+        $scan =   Ticket::where('serial_num', $request->id)->update(['scanned' => true]);
+        if ($scan) {
+            return response()->json([
+                'status' => 200,
+                'done' => "good",
+            ]);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'done' => "bad",
+            ]);
+        }
     }
 }
