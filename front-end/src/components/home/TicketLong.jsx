@@ -53,11 +53,7 @@ export default function TicketLong({ concert }) {
                     <p
                         className="mt-2 text-sm leading-relaxed text-gray-700 line-clamp-3 dark:text-gray-200"
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
-                        dolores, possimus pariatur animi temporibus nesciunt praesentium dolore
-                        sed nulla ipsum eveniet corporis quidem, mollitia itaque minus soluta,
-                        voluptates neque explicabo tempora nisi culpa eius atque dignissimos.
-                        Molestias explicabo corporis voluptatem?
+                        {concert?.description}
                     </p>
                 </div>
 

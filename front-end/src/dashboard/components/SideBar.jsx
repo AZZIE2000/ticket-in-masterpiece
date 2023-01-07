@@ -29,6 +29,7 @@ export default function SideBar() {
         { title: 'Edit Concert Info', path: '/edit/concert', src: <TiEdit /> },
         { title: 'Add New Concert', path: '/add/concert', src: <CgAddR />, gap: 'true' },
         { title: 'Scan Tickets', path: '/scan', src: <MdQrCodeScanner /> },
+        { title: 'POS', path: '/pos/tickets', src: <MdQrCodeScanner /> },
     ]
     return (
         <>

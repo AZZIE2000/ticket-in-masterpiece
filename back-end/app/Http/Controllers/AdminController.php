@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use App\Models\Type;
 use App\Models\User;
+use App\Mail\SendMail;
+use App\Models\Ticket;
 use App\Models\Concert;
 use App\Models\Payment;
-use App\Models\Ticket;
-use App\Models\TicketCategory;
-use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Models\TicketCategory;
+
 use Illuminate\Support\Facades\URL;
+
+use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
 {
@@ -45,6 +51,7 @@ class AdminController extends Controller
         return response()->json([
             'status' => 200,
             'concert' => $concert,
+            'seats' => $concert->seats,
             'tickets' => $tickets,
             'sales' => $totalSales,
             'customers' => $totalCustomers,
@@ -191,5 +198,27 @@ class AdminController extends Controller
                 'done' => "bad",
             ]);
         }
+    }
+    public function sendEmail()
+    {
+
+        $con =  Concert::find('1');
+        // Compress the image
+        $data["email"] = "azzam@gmail.com";
+        $data["title"] = "From Ticketin.com";
+        $data["body"] = "This is Demo";
+        $data["img"] = $con->banner;
+
+        $pdf = PDF::loadView('emails.ticketPdf', $data);
+
+        Mail::send('emails.email', $data, function ($message) use ($data, $pdf) {
+            $message->to($data["email"], $data["email"])
+                ->subject($data["title"])
+                ->attachData($pdf->output(), "text.pdf");
+        });
+        return response()->json([
+            'status' => 200,
+            'done' => "Asdas"
+        ]);
     }
 }

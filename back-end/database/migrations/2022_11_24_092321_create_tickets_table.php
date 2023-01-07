@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('seat');
             $table->string('note')->nullable();
             $table->boolean('scanned')->default(false);
+            $table->string("scanner")->nullable();
+            $table->string("sold_from")->nullable();
+            $table->boolean("invitation")->default(false)->nullable();
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->softDeletes();

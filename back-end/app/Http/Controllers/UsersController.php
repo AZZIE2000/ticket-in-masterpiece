@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 use App\Models\CustomerOrder;
 use function PHPSTORM_META\map;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Mail;
 use App\Models\CustomerOrderTicket;
 use Illuminate\Support\Facades\Auth;
+
+use PDF;
 
 class UsersController extends Controller
 {
@@ -44,12 +46,34 @@ class UsersController extends Controller
             'id' => Auth::user()->id,
         ]);
     }
+    // public function sendEmail()
+    // {
 
+    //     $con =  Concert::find('1');
+    //     // Compress the image
+    //     $data["email"] = "azzam@gmail.com";
+    //     $data["title"] = "From Ticketin.com";
+    //     $data["body"] = "This is Demo";
+    //     $data["img"] = $con->banner;
+
+    //     $pdf = PDF::loadView('emails.ticketPdf', $data);
+
+    //     Mail::send('emails.email', $data, function ($message) use ($data, $pdf) {
+    //         $message->to($data["email"], $data["email"])
+    //             ->subject($data["title"])
+    //             ->attachData($pdf->output(), "text.pdf");
+    //     });
+    //     return response()->json([
+    //         'status' => 200,
+    //         'done' => "Asdas"
+    //     ]);
+    // }
     public function buyTickets(Request $request)
     {
         // tickets
         $allTickets = $request->cart;
         $newCart = [];
+        $ticketss = [];
         for ($i = 0; $i < count($allTickets); $i++) {
             $ticket =  Ticket::create([
                 'serial_num' => $request->serialNum . $i,
@@ -59,7 +83,29 @@ class UsersController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
             array_push($newCart, $ticket->id);
+            array_push($ticketss, $ticket);
         }
+        $data["email"] = Auth::user()->email;
+        $data["title"] = "From Ticketin.com";
+        $data["body"] = "Thank you for your purchase";
+        $pdfs = [];
+        for ($i = 0; $i < count($ticketss); $i++) {
+            $data['serial_num'] = $ticketss[$i]->serial_num;
+            $data['class'] = $ticketss[$i]->category;
+            $data['note'] = $ticketss[$i]->note;
+            $pdf = PDF::loadView('emails.ticketPdf', $data);
+            array_push($pdfs, $pdf);
+        }
+
+
+        Mail::send('emails.email', $data, function ($message) use ($data, $pdfs) {
+            $message->to($data["email"], $data["email"])
+                ->subject($data["title"]);
+
+            foreach ($pdfs as $key => $pdf) {
+                $message->attachData($pdf->output(), 'Ticket' . $key++ . '.pdf');
+            }
+        });
 
         // payments
         // $cardInfo = json_decode($request->card, true);

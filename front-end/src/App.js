@@ -26,6 +26,8 @@ import { useLocation } from "react-router-dom";
 import EditConcert from "./dashboard/pages/EditConcert";
 import AddConcert from "./dashboard/pages/AddConcert";
 import ScanTickets from "./dashboard/pages/ScanTickets";
+import SellTickets from "./dashboard/pages/SellTickets";
+import Test from "./Test";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -89,6 +91,7 @@ function App() {
                         <Route path="/edit/concert" element={<EditConcert />} />
                         <Route path="/add/concert" element={<AddConcert />} />
                         <Route path="/scan" element={<ScanTickets />} />
+                        <Route path="/pos/tickets" element={<SellTickets />} />
                       </Route>
                     </Routes>
                   </CheckoutProvider>
@@ -98,6 +101,9 @@ function App() {
           </CookiesProvider>
         </AdminProvider>
       </Elements>
+      {/* <Routes>
+        <Route path="/" element={<Test />} />
+      </Routes> */}
       {/* <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes> */}
