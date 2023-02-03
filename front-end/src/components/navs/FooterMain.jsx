@@ -1,6 +1,7 @@
 
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 import logoDark from "../../images/dark_logo.png"
 export default function FooterMain() {
     return (
@@ -29,12 +30,12 @@ export default function FooterMain() {
                                 class="flex flex-wrap justify-center gap-6 md:gap-8 lg:justify-end lg:gap-12"
                             >
                                 <li>
-                                    <a
+                                    <Link
                                         class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                                        href="/"
+                                        to={'/about'}
                                     >
                                         About
-                                    </a>
+                                    </Link>
                                 </li>
 
                                 <li>

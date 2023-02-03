@@ -48,7 +48,7 @@ export default function RegisterForm({ children }) {
                         </label>
                         <input
                             className="w-full rounded-lg border-gray-200 text-black  p-2.5 text-sm shadow-sm"
-                            type="email"
+                            type="password"
                             placeholder='********'
                             ref={passwordInputR}
                         />
@@ -63,7 +63,7 @@ export default function RegisterForm({ children }) {
                         </label>
                         <input
                             className="w-full rounded-lg border-gray-200 text-black  p-2.5 text-sm shadow-sm"
-                            type="email"
+                            type="password"
                             placeholder='********'
                             ref={rPasswordInputR}
                         />
