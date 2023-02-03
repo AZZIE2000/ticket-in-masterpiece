@@ -9,6 +9,7 @@ export function AdminProvider({ children }) {
     const [concertData, setConcertData] = useState()
     const [searchTicket, setSearchTicket] = useState("")
     const [ticketInfo, setTicketInfo] = useState()
+    const [graph, setGraph] = useState([])
 
     useEffect(() => {
         axios.get('/api/concerts/list').then(res => {
@@ -39,6 +40,13 @@ export function AdminProvider({ children }) {
 
                 }
             })
+            axios.post('/api/graph', data).then(res => {
+                if (res.data.status === 200) {
+                    setGraph(res.data)
+                    // console.log(res.data);
+
+                }
+            })
 
         }
     }, [activeConcert])
@@ -64,7 +72,7 @@ export function AdminProvider({ children }) {
 
     return (
         <>
-            <AdminContext.Provider value={{ concertsList, activeConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, ticketInfo, setConcertsList, setOptions, setActiveConcert }} >
+            <AdminContext.Provider value={{ concertsList, activeConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, ticketInfo, setConcertsList, setOptions, setActiveConcert, graph }} >
                 {children}
             </AdminContext.Provider>
         </>

@@ -19,6 +19,10 @@ class Ticket extends Model
         'concert_id',
         'user_id',
         'scanned',
+        'note',
+        'invitation',
+        'sold_from',
+        'scanner',
     ];
 
     public function ticketOrders()

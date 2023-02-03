@@ -23,9 +23,7 @@ export default function TicketsCatgs() {
             <div className='flex justify-around flex-wrap gap-5 mt-3'>
 
 
-                {/* <CardHeader color="blue" className="relative h-56">
 
-</CardHeader> */}
                 {
                     concertData?.concert?.categories?.map((category, i) => {
                         return (

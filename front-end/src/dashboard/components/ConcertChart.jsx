@@ -1,53 +1,55 @@
 import React from 'react'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
 import { useContext } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 import { useEffect } from 'react';
 import { useState } from 'react';
-ChartJS.register(ArcElement, Tooltip, Legend);
+import Chart from 'react-apexcharts';
 export default function ConcertChart() {
-    const { concertData } = useContext(AdminContext)
-    const [data, setData] = useState({})
+    const { graph } = useContext(AdminContext)
     useEffect(() => {
-        console.log('concertData');
-        console.log(concertData);
-        if (concertData) {
-            if (concertData.totalTicketsNum > 0) {
-
+        console.log('graph ======', graph);
+    }, [graph])
+    const [options, setOptions] = useState({
+        chart: {
+            id: 'basic-line'
+        },
+        xaxis: {
+            categories: graph?.data[1]
+        },
+        theme: {
+            mode: 'light',
+            palette: 'palette1',
+            monochrome: {
+                enabled: false,
+                color: '#255aee',
+                shadeTo: 'light',
+                shadeIntensity: 0.65
             }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false
+            }
+        },
+        markers: {
+            style: 'inverted',
+            size: 6
+        },
+        tooltip: {
+            theme: 'dark'
         }
-    }, [concertData])
-    const s = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-            {
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
+    });
+    const [series, setSeries] = useState([{
+        name: 'series-1',
+        data: graph?.data[0]
+    }]);
     return (
         <div className='m-9 p-10 rounded-3xl border-t-4 shadow-lg border-candy  dark:bg-slate-800'>
+
+
             <p className='text-2xl'>Sold Tickets</p>
-            <Pie data={s} />
+            <Chart options={options} series={series} type="line" height={350} />
+
         </div>
     )
 }

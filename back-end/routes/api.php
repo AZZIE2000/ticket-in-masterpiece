@@ -34,6 +34,8 @@ Route::post('/edit/concert/img', [AdminController::class, 'editConcertInfoImg'])
 Route::post('/types/list', [AdminController::class, 'typesList']);
 Route::post('/scan', [AdminController::class, 'scanTicket']);
 Route::post('/sendEmail', [AdminController::class, 'sendEmail']);
+Route::post('/graph', [AdminController::class, 'graph']);
+Route::post('/pos', [AdminController::class, 'pos']);
 
 // admin routes
 
