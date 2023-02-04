@@ -4,7 +4,7 @@ export default function RegisterForm({ children }) {
     const { errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun } = useContext(AuthContext)
     return (
         <>
-            <div className='dark:bg-duaa/80 bg-white'>
+            <div className='dark:bg-kohli/80 bg-white'>
                 <div className="grid grid-cols-6 gap-4">
                     <div className="col-span-3">
                         <label className="mb-1 flex gap-x-1 text-sm text-black dark:text-white" >

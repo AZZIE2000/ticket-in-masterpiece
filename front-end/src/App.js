@@ -29,6 +29,7 @@ import ScanTickets from "./dashboard/pages/ScanTickets";
 import SellTickets from "./dashboard/pages/SellTickets";
 import Test from "./Test";
 import About from "./pages/About";
+import AddTypes from "./dashboard/pages/AddTypes";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -94,6 +95,7 @@ function App() {
                         <Route path="/add/concert" element={<AddConcert />} />
                         <Route path="/scan" element={<ScanTickets />} />
                         <Route path="/pos/tickets" element={<SellTickets />} />
+                        <Route path="/add/types" element={<AddTypes />} />
                       </Route>
                     </Routes>
                   </CheckoutProvider>

@@ -31,7 +31,7 @@ export default function SideBar() {
         { title: 'Add New Concert', path: '/add/concert', src: <CgAddR />, gap: 'true' },
         { title: 'Scan Tickets', path: '/scan', src: <MdQrCodeScanner /> },
         { title: 'POS', path: '/pos/tickets', src: <FaCashRegister /> },
-        { title: 'Concert Types', path: '/add/types', src: <CgAddR />, gap: 'true' },
+        { title: 'Manage Types', path: '/add/types', src: <CgAddR />, gap: 'true' },
     ]
     return (
         <>

@@ -335,4 +335,37 @@ class AdminController extends Controller
             'message' => "done",
         ]);
     }
+
+
+
+    public function getTypes()
+    {
+        return response()->json([
+            'status' => 200,
+            'data' => Type::all(),
+        ]);
+    }
+    public function editTypes(Request $request)
+    {
+        Type::find($request->id)->update(['title' => $request->data]);
+        return response()->json([
+            'status' => 200,
+        ]);
+    }
+    public function deleteTypes(Request $request)
+    {
+        Type::find($request->id)->delete();
+        return response()->json([
+            'status' => 200,
+            'data' => Type::all(),
+        ]);
+    }
+    public function addTypes(Request $request)
+    {
+        Type::create(['title' => $request->data]);
+        return response()->json([
+            'status' => 200,
+            'data' => Type::all(),
+        ]);
+    }
 }

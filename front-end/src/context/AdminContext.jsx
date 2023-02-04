@@ -10,7 +10,7 @@ export function AdminProvider({ children }) {
     const [searchTicket, setSearchTicket] = useState("")
     const [ticketInfo, setTicketInfo] = useState()
     const [graph, setGraph] = useState([])
-
+    const [load, setLoad] = useState(true)
     useEffect(() => {
         axios.get('/api/concerts/list').then(res => {
             if (res.data.status === 200) {
@@ -22,11 +22,10 @@ export function AdminProvider({ children }) {
             }
         })
 
-        axios.get('/api/types/list').then(res => {
-            console.log(res);
-        })
+
 
     }, [])
+    const [types, setTypes] = useState([])
     useEffect(() => {
         if (activeConcert) {
             setLoadingT(true)
@@ -43,12 +42,17 @@ export function AdminProvider({ children }) {
             axios.post('/api/graph', data).then(res => {
                 if (res.data.status === 200) {
                     setGraph(res.data)
-                    // console.log(res.data);
+                    setLoad(true)
 
                 }
             })
 
         }
+        axios.get('/api/types').then(res => {
+            if (res.data.status === 200) {
+                setTypes(res.data.data)
+            }
+        })
     }, [activeConcert])
 
     const getTicketInfo = () => {
@@ -69,10 +73,26 @@ export function AdminProvider({ children }) {
             getTicketInfo()
         }
     }, [searchTicket])
-
+    const delType = (id) => {
+        const data = {
+            id: id
+        }
+        axios.post('/api/del/types', data).then(res => {
+            if (res.data.status === 200) {
+                setTypes(res.data.data)
+            }
+        })
+    }
+    const addType = (data) => {
+        axios.post('/api/add/types', data).then(res => {
+            if (res.data.status === 200) {
+                setTypes(res.data.data)
+            }
+        })
+    }
     return (
         <>
-            <AdminContext.Provider value={{ concertsList, activeConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, ticketInfo, setConcertsList, setOptions, setActiveConcert, graph }} >
+            <AdminContext.Provider value={{ types, delType, addType, concertsList, activeConcert, options, concertData, setConcertData, loadingT, setLoadingT, searchTicket, setSearchTicket, setTicketInfo, load, ticketInfo, setConcertsList, setOptions, setActiveConcert, graph }} >
                 {children}
             </AdminContext.Provider>
         </>

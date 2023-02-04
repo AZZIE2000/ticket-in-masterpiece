@@ -149,7 +149,8 @@ export default function Profile() {
                                                     </Accordion.Title>
                                                     <Accordion.Content>
                                                         <div className='w-full'>
-                                                            <button className="block mx-auto mb-3 bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"> Scan All tickets</button>
+                                                            {/* FIXME add the scan all function */}
+                                                            {/* <button className="block mx-auto mb-3 bg-navy px-5 py-3 text-center text-xs font-bold uppercase text-white dark:bg-candy dark:hover:bg-navy transition hover:bg-candy"> Scan All tickets</button> */}
                                                         </div>
                                                         <div className='grid grid-cols-1 sm:grid-cols-2 flex-col gap-3'>
 
@@ -186,7 +187,7 @@ export default function Profile() {
 
                                         </label>
                                         <input
-                                            className="w-full rounded-lg bg-duaa text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
+                                            className="w-full rounded-lg bg-kohli text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
                                             type="text"
                                             placeholder={user?.name}
                                             defaultValue={user?.name}
@@ -201,7 +202,7 @@ export default function Profile() {
 
                                         </label>
                                         <input
-                                            className="w-full rounded-lg  bg-duaa text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
+                                            className="w-full rounded-lg  bg-kohli text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
                                             type="number"
                                             placeholder={user?.phone}
                                             defaultValue={user?.phone}
@@ -216,7 +217,7 @@ export default function Profile() {
 
                                         </label>
                                         <input
-                                            className="w-full rounded-lg  bg-duaa text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
+                                            className="w-full rounded-lg  bg-kohli text-white focus:bg-white border-gray-200 focus:text-black  p-2.5 text-sm shadow-sm"
                                             type="email"
                                             placeholder={user?.email}
                                             value={user?.email}
@@ -301,12 +302,7 @@ export default function Profile() {
                                 </Tabs.Item>
                                 : ""
                         }
-                        <Tabs.Item
-                            title="Support"
-                            icon={BiSupport}
-                        >
-                            yea whatever
-                        </Tabs.Item>
+
                     </Tabs.Group>
 
                 </Card>

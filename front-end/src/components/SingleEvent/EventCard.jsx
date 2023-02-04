@@ -63,10 +63,10 @@ export default function EventCard({ ticket, concertId, crrId }) {
 
                 </div>
 
-                <div className=" border-dashed border-t-2 border-t-slate-500 p-5 relative before:content-[''] before:absolute before:block before:-top-[8%] before:-left-10px before:w-6 before:h-6   before:bg-white before:rounded-full   before:dark:bg-duaa
+                <div className=" border-dashed border-t-2 border-t-slate-500 p-5 relative before:content-[''] before:absolute before:block before:-top-[8%] before:-left-10px before:w-6 before:h-6   before:bg-white before:rounded-full   before:dark:bg-kohli
                 before:dark:shadow-[inset_-3px_0px_2px_rgba(107,114,128,0.3)]
                 after:dark:shadow-[inset_3px_0px_2px_rgba(107,114,128,0.3)]
-                before:shadow-[inset_-3px_0px_2px_rgba(41,54,61,0.15)] after:content-[''] after:dark:bg-duaa after:absolute after:block after:-top-[8%] after:-right-10px after:w-6 after:h-6 after:bg-white after:rounded-full   after:shadow-[inset_3px_0px_2px_rgba(41,54,61,0.15)]">
+                before:shadow-[inset_-3px_0px_2px_rgba(41,54,61,0.15)] after:content-[''] after:dark:bg-kohli after:absolute after:block after:-top-[8%] after:-right-10px after:w-6 after:h-6 after:bg-white after:rounded-full   after:shadow-[inset_3px_0px_2px_rgba(41,54,61,0.15)]">
 
                     <div className='flex justify-around pt-2'>
 

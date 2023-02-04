@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useContext } from 'react'
 import { AdminContext } from '../../context/AdminContext'
 export default function AddConcert() {
-    const { setConcertsList, setOptions, setActiveConcert } = useContext(AdminContext)
+    const { setConcertsList, setOptions, setActiveConcert, types } = useContext(AdminContext)
     const [img, setImg] = useState(null);
     const [err, setErr] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -94,7 +94,7 @@ export default function AddConcert() {
 
     }
     useEffect(() => {
-        console.log(addConcertData);
+        console.log('addConcertData----------******', addConcertData);
     }, [addConcertData])
 
 
@@ -166,8 +166,20 @@ export default function AddConcert() {
                         <input onChange={e => { setAddConcertData({ ...addConcertData, [e.target.name]: e.target.value }) }} name='seats' value={addConcertData?.seats} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of available seats ..." required />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* type_id ** select </label>
-                        <input onChange={e => { setAddConcertData({ ...addConcertData, [e.target.name]: e.target.value }) }} name='type_id' value={addConcertData?.type_id} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of available seats ..." required />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Event type </label>
+                        <select key={Math.random()} onChange={(e) => setAddConcertData({ ...addConcertData, type_id: e.target.value })} value={addConcertData?.type_id} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+
+                            {
+                                types?.length !== 0 ?
+                                    types?.map((type, i) => {
+
+                                        return <option key={i} value={type?.id}>{type?.title}</option>
+                                    })
+                                    :
+                                    <option selected={true} disabled  >No Types</option>
+                            }
+
+                        </select>
                     </div>
                 </div>
                 <div class="grid gap-6 mb-6 md:grid-cols-1 mt-4">
@@ -202,7 +214,7 @@ export default function AddConcert() {
                     </label>
                 </div>
                 <div className='w-full flex justify-end gap-x-5' >
-                    <button onClick={handleSubmit} class="text-white bg-good hover:bg-navy text-sm rounded-lg p-3 text-center dark:bg-good dark:hover:bg-navy flex gap-3 items-center"> <MdOutlineAddToPhotos size={20} />  <span> Add Category </span></button>
+                    <button onClick={handleSubmit} class="text-white bg-good hover:bg-navy text-sm rounded-lg p-3 text-center dark:bg-good dark:hover:bg-navy flex gap-3 items-center"> <MdOutlineAddToPhotos size={20} />  <span> Add Concert </span></button>
 
                 </div>
             </div >

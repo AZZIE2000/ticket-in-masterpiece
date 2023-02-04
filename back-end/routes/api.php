@@ -36,6 +36,10 @@ Route::post('/scan', [AdminController::class, 'scanTicket']);
 Route::post('/sendEmail', [AdminController::class, 'sendEmail']);
 Route::post('/graph', [AdminController::class, 'graph']);
 Route::post('/pos', [AdminController::class, 'pos']);
+Route::get('/types', [AdminController::class, 'getTypes']);
+Route::post('/edit/types', [AdminController::class, 'editTypes']);
+Route::post('/del/types', [AdminController::class, 'deleteTypes']);
+Route::post('/add/types', [AdminController::class, 'addTypes']);
 
 // admin routes
 

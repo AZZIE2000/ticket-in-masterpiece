@@ -16,10 +16,10 @@ export default function RegisterationModal({ show, setShow }) {
                 show={show}
                 onClose={() => setShow(!show)}
             >
-                <Modal.Header className='dark:bg-duaa'>
+                <Modal.Header className='dark:bg-kohli'>
                     {Form ? "Login" : "Sign Up"}
                 </Modal.Header>
-                <Modal.Body className='dark:bg-duaa'>
+                <Modal.Body className='dark:bg-kohli'>
                     {
                         Form ?
                             <>
@@ -37,8 +37,8 @@ export default function RegisterationModal({ show, setShow }) {
                             </>
                     }
                 </Modal.Body>
-                <Modal.Footer className='dark:bg-duaa'>
-                    <div className='dark:bg-duaa  w-full text-center flex justify-center  bg-white'>
+                <Modal.Footer className='dark:bg-kohli'>
+                    <div className='dark:bg-kohli  w-full text-center flex justify-center  bg-white'>
                         <p className='text-center'> {!Form ? "Already have an account ?" : "Don't have an account ?"}  <button onClick={() => { setForm(!Form); setErrors({ name: "", email: "", password: [""] }) }} className='text-navy dark:text-white' >{!Form ? "Login" : "Sign up"}</button> </p>
                     </div>
                 </Modal.Footer>

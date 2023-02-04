@@ -273,7 +273,7 @@ export default function Checkout() {
 
                                     </label>
                                     <input
-                                        className="w-full rounded-lg  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm "
+                                        className="w-full rounded-lg  bg-white text-black focus:bg-slate-700 dark:focus:bg-kohli dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm "
                                         type="text"
                                         name='fName'
                                         defaultValue={user?.name ? user?.name.split(" ")[0] : ""}
@@ -290,7 +290,7 @@ export default function Checkout() {
                                         Last Name<small className='text-red-600 '></small>
                                     </label>
                                     <input
-                                        className="w-full rounded-lg  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm "
+                                        className="w-full rounded-lg  bg-white text-black focus:bg-slate-700 dark:focus:bg-kohli dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm "
                                         type="text"
                                         name='lName'
                                         defaultValue={user?.name ? user?.name.split(" ")[1] : ""}
@@ -306,7 +306,7 @@ export default function Checkout() {
                                         Email<small className='text-red-600 '></small>
                                     </label>
                                     <input
-                                        className="w-full rounded-lg  bg-slate-700 text-white focus:bg-slate-700 dark:focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm"
+                                        className="w-full rounded-lg  bg-slate-700 text-white focus:bg-slate-700 dark:focus:bg-kohli dark:focus:text-white  border-gray-200 focus:text-white  p-2.5 text-sm shadow-sm"
                                         type="email"
                                         defaultValue={user?.email}
                                         disabled
@@ -319,7 +319,7 @@ export default function Checkout() {
                                     </label>
 
                                     <PhoneInput
-                                        inputclassName={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-duaa focus:bg-duaa dark:focus:text-white  border-gray-200 focus:text-black'}
+                                        inputclassName={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-kohli focus:bg-kohli dark:focus:text-white  border-gray-200 focus:text-black'}
                                         country={'jo'}
                                         defaultValue={user?.phone}
                                         onChange={e => setInfo({ ...info, phone: e })}

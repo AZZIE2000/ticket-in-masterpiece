@@ -5,7 +5,7 @@ export default function LoginForm({ children }) {
     const { errors, loginFun, emailInput, passwordInput } = useContext(AuthContext)
     return (
         <>
-            <div className='dark:bg-duaa/80  bg-white'>
+            <div className='dark:bg-kohli/80  bg-white'>
                 <div className="grid grid-cols-6 gap-4 ">
 
                     <div className="col-span-6">

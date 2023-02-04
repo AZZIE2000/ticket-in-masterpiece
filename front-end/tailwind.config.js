@@ -10,7 +10,7 @@ module.exports = {
         navy: "#150050",
         grape: "#3F0071",
         candy: "#FB2576",
-        duaa: "#111828",
+        kohli: "#111828",
         good: "#388e3c",
         bad: "#c62828",
       },
@@ -19,9 +19,6 @@ module.exports = {
         darkLogo: "url('/public/dark_logo.png')",
         lightLogo: "url('/public/Light_logo.png')",
       },
-      // boxShadow: {
-      //   "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
-      // },
     },
   },
   plugins: [

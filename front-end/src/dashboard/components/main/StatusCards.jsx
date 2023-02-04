@@ -65,7 +65,7 @@ export default function StatusCards() {
                                 </svg>
                             </div>
                             <div className="flex flex-col justify-center">
-                                <div className="text-lg">{concertData?.sales} JD</div>
+                                <div className="text-lg">{concertData?.sales ? concertData?.sales : 0} JD</div>
                                 <div className="text-sm text-gray-400">Sales</div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ export default function StatusCards() {
                                 </svg>
                             </div>
                             <div className="flex flex-col justify-center">
-                                <div className="text-lg">{concertData?.customers}</div>
+                                <div className="text-lg">{concertData?.customers ? concertData?.customers : 0}</div>
                                 <div className="text-sm text-gray-400">Customers</div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@ export default function StatusCards() {
                                 </svg>
                             </div>
                             <div className="flex flex-col justify-center">
-                                <div className="text-lg">{concertData?.totalTicketsNum}</div>
+                                <div className="text-lg">{concertData?.totalTicketsNum ? concertData?.totalTicketsNum : 0}</div>
                                 <div className="text-sm text-gray-400">Ticket Sold</div>
                             </div>
                         </div>

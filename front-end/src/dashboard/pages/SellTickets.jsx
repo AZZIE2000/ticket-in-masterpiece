@@ -26,15 +26,31 @@ export default function SellTickets() {
     })
     const sendTicket = () => {
         axios.post('/api/pos', tData).then((res) => {
-            console.log('res=======', res.data);
+
+            setTData({
+                ticket_category_id: "",
+                seat: "aa",
+                note: null,
+                price: 0,
+                cash: true,
+                last_4: "0000",
+                card_type: "visa",
+                number_of_tickets: 1,
+                phone: "",
+                sold_from: 'pos',
+                invitation: true,
+                user_email: "",
+                concert_id: concertData?.concert?.id,
+
+            })
         })
     }
-    const sendEmail = () => {
-        console.log('hi');
-        axios.post('/api/sendEmail').then((res) => {
-            console.log(res);
-        })
-    }
+    // const sendEmail = () => {
+    //     console.log('hi');
+    //     axios.post('/api/sendEmail').then((res) => {
+    //         console.log(res);
+    //     })
+    // }
     useEffect(() => {
         console.log('concertData====', concertData);
         setTData({

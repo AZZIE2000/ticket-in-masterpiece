@@ -8,7 +8,7 @@ import { MdOutlineAddToPhotos } from 'react-icons/md'
 import { AdminContext } from '../../context/AdminContext'
 
 export default function EditConcert() {
-    const { concertData } = useContext(AdminContext)
+    const { concertData, types } = useContext(AdminContext)
     useEffect(() => {
         console.log("concertData");
         console.log(concertData);
@@ -92,8 +92,19 @@ export default function EditConcert() {
                         <input key={Math.random()} onBlur={e => handleEdit(e.target.name, e.target.value)} name='seats' defaultValue={concertData?.concert?.seats} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of available seats ..." required />
                     </div>
                     <div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* type_id ** select </label>
-                        <input key={Math.random()} onBlur={e => handleEdit(e.target.name, e.target.value)} name='type_id' defaultValue={concertData?.concert?.type_id} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Number of available seats ..." required />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">* Event type </label>
+                        <select name='type_id' key={Math.random()} onChange={(e) => handleEdit(e.target.name, e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+
+                            {
+
+                                types?.map((type, i) => {
+
+                                    return <option selected={concertData?.concert?.type_id === type?.id} key={i} value={type?.id}>{type?.title}</option>
+                                })
+
+                            }
+
+                        </select>
                     </div>
                 </div>
                 <div class="grid gap-6 mb-6 md:grid-cols-1 mt-4">
@@ -126,10 +137,10 @@ export default function EditConcert() {
                         }
                     </label>
                 </div>
-                <div className='w-full flex justify-end gap-x-5' >
+                {/* <div className='w-full flex justify-end gap-x-5' >
                     <button class="text-white bg-good hover:bg-navy text-sm rounded-lg p-3 text-center dark:bg-good dark:hover:bg-navy flex gap-3 items-center"> <MdOutlineAddToPhotos size={20} />  <span> Add Category </span></button>
 
-                </div>
+                </div> */}
             </div>
 
         </div>
