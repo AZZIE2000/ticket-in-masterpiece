@@ -13,35 +13,18 @@ export default function ConcertChart() {
             id: 'basic-line'
         },
         xaxis: {
-            categories: ['abc', 'daas', "asda"]
+            categories: []
         },
-        theme: {
-            mode: 'light',
-            palette: 'palette3',
-            monochrome: {
-                enabled: false,
-                // color: '#ffff',
-                shadeTo: 'light',
-                shadeIntensity: 0.65
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false
-            }
-        },
-        markers: {
 
-            size: 6
-        },
+
+
         tooltip: {
             theme: 'dark',
-            mode: 'dark'
         }
     });
     const [series, setSeries] = useState([{
-        name: 'series-1',
-        data: [1, 2, 3,]
+        name: 'Sold Ticket',
+        data: []
     }]);
     useEffect(() => {
         console.log('graph ======', graph);
@@ -51,13 +34,10 @@ export default function ConcertChart() {
                 ...options, xaxis: {
                     categories: graph.data[1]
                 },
-                theme: {
-                    ...options.theme,
-                    textColor: '#000000'
-                }
+
             });
             setSeries([{
-                name: 'series-1',
+                name: 'Sold Ticket',
                 data: graph.data[0]
             }]);
         }

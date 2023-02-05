@@ -30,6 +30,7 @@ import SellTickets from "./dashboard/pages/SellTickets";
 import Test from "./Test";
 import About from "./pages/About";
 import AddTypes from "./dashboard/pages/AddTypes";
+import NotFound from "./pages/NotFound";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post["Content-Type"] = "application/vnd.api+json";
 axios.defaults.headers.post["Accept"] = "application/vnd.api+json";
@@ -69,6 +70,7 @@ function App() {
                   <CheckoutProvider>
                     <Routes>
                       <Route path="/" element={<UserEnd />}>
+                        <Route path="/*" element={<NotFound />} />
                         <Route path="/" element={<Home />} />
                         <Route
                           path="/single-event/:id"

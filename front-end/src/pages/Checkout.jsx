@@ -12,7 +12,7 @@ import 'react-phone-input-2/lib/style.css'
 
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { json, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
+import { json, Link, unstable_HistoryRouter, useNavigate } from 'react-router-dom';
 
 
 // Context
@@ -21,6 +21,7 @@ import IntlTelInput from 'react-intl-tel-input';
 import 'react-intl-tel-input/dist/main.css';
 import { useCookies } from 'react-cookie';
 import { useRef } from 'react';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 
 // Context
 export default function Checkout() {
@@ -176,9 +177,9 @@ export default function Checkout() {
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <div className=" py-12 md:py-24  ">
                         <div className="mx-auto max-w-lg px-4 lg:px-8">
+                            <Link to={`/single-event/${id}`} className='flex items-center gap-2 mb-4 cursor-pointer w-fit hover:text-good'><MdOutlineKeyboardBackspace size={25} /> Back to {checkoutConcert?.name}  </Link>
                             <div className="flex items-center">
                                 <span className="h-5 w-5 rounded-full bg-navy dark:bg-candy"></span>
-
                                 <h2 className="ml-4 font-medium">Welcome: {user?.name}</h2>
                             </div>
 
@@ -319,7 +320,7 @@ export default function Checkout() {
                                     </label>
 
                                     <PhoneInput
-                                        inputclassName={'w-fit  border-white rounded  bg-white text-black focus:bg-slate-700 dark:focus:bg-kohli focus:bg-kohli dark:focus:text-white  border-gray-200 focus:text-black'}
+                                        inputClass={' !py-5 !text-black !w-full '}
                                         country={'jo'}
                                         defaultValue={user?.phone}
                                         onChange={e => setInfo({ ...info, phone: e })}

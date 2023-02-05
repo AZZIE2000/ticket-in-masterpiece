@@ -219,7 +219,16 @@ export function AuthProvider({ children }) {
 
     // }, [])
     // payments in profile section
+    useEffect(() => {
+        console.log('user========', user)
+        if (user?.role === 'admin') {
+            localStorage.setItem("admin", "yes")
+        } else {
+            localStorage.setItem("admin", "no")
 
+        }
+
+    }, [user])
     return (
         <>
             <AuthContext.Provider value={{ payments, logout, show, setShow, token, setErrors, googleLoginFun, setUser, user, FacebookLoginFun, emailInput, passwordInput, loginFun, errors, fNameInputR, LNameInputR, emailInputR, passwordInputR, rPasswordInputR, registerFun }}>

@@ -41,7 +41,7 @@ export default function Header() {
                             <SwiperSlide key={banner?.id} >
                                 <Link to={`single-event/${banner?.id}`}>
                                     <img
-                                        className=' w-full h-full object-scale-down lg:h-[500px] lg:object-cover '
+                                        className=' w-full h-full object-scale-down lg:h-[600px] lg:object-cover '
                                         src={banner?.banner}
                                         alt="..."
                                     />

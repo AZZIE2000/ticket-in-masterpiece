@@ -65,11 +65,7 @@ export default function Ticket({ ticket, concert, user, ShowM, show, mData }) {
                             >
                                 Ticket owner : {' '} {user?.name}
                             </p>
-                            <a
-                                className="mt-2 text-sm leading-relaxed text-gray-700 line-clamp-3 dark:text-gray-200"
-                            >
-                                Directions : <GrMapLocation />
-                            </a>
+
                         </div>
 
 

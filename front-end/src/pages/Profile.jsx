@@ -30,7 +30,7 @@ export default function Profile() {
     }, [token])
 
     // Tickets per concert for user -------
-    const [concerts, setConcerts] = useState()
+    const [concerts, setConcerts] = useState([])
     useEffect(() => {
         if (cookies.Token) {
             axios
@@ -40,8 +40,8 @@ export default function Profile() {
                     },
                 })
                 .then((res) => {
+                    console.log('fuckme ----', res)
                     if (res.data.status === 200) {
-                        console.log(res.data);
                         setConcerts(res.data.tickets)
 
                     } else {
@@ -65,6 +65,9 @@ export default function Profile() {
             return
         }
     }, [])
+    useEffect(() => {
+        console.log('lol fuck', concerts)
+    }, [concerts])
     const updateInfo = (e) => {
 
         if (cookies.Token) {
@@ -101,7 +104,7 @@ export default function Profile() {
         }
     }
     const updateT = () => {
-        console.log("============================");
+
         axios
             .get("/api/ticketswconcerts", {
                 headers: {

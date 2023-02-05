@@ -34,16 +34,18 @@ class UsersController extends Controller
     }
     public function ticketsWConcerts()
     {
+        $userId = Auth::user()->id;
 
-        $concerts = Concert::withWhereHas('tickets.category')->with(['tickets' => function ($query) {
-            $query->where('user_id', Auth::user()->id);
+        $concerts = Concert::whereHas('tickets', function ($query) use ($userId) {
+            $query->where('user_id', $userId)->whereHas('category');
+        })->with(['tickets' => function ($query) use ($userId) {
+            $query->where('user_id', $userId)->with('category');
         }])->get()->reverse()->values();
-
 
         return response()->json([
             'status' => 200,
             'tickets' => $concerts,
-            'id' => Auth::user()->id,
+            'id' => $userId,
         ]);
     }
     // public function sendEmail()
