@@ -76,6 +76,7 @@ class AuthController extends Controller
 
         ]);
     }
+
     public function googleLogin(Request $request)
     {
         $finduser = User::where('google_id', $request->google_id)->first();

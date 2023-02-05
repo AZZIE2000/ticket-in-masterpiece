@@ -38,32 +38,7 @@ export default function FooterMain() {
                                     </Link>
                                 </li>
 
-                                <li>
-                                    <a
-                                        class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                                        href="/"
-                                    >
-                                        Services
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a
-                                        class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                                        href="/"
-                                    >
-                                        Projects
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a
-                                        class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                                        href="/"
-                                    >
-                                        Blog
-                                    </a>
-                                </li>
                             </ul>
                         </nav>
                     </div>

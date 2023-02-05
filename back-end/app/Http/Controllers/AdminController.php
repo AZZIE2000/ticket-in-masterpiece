@@ -190,6 +190,7 @@ class AdminController extends Controller
     }
     public function scanTicket(Request $request)
     {
+
         $scan =   Ticket::where('serial_num', $request->id)->update(['scanned' => true]);
         if ($scan) {
             return response()->json([
